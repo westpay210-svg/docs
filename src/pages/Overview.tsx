@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Shield,
@@ -12,86 +12,89 @@ import {
   ArrowUpRight,
   Wallet,
   Code2,
-  Sparkles
-} from 'lucide-react';
+  Sparkles,
+} from "lucide-react";
 
 export const Overview: React.FC = () => {
   const features = [
     {
       icon: Shield,
-      title: 'Authentication',
-      description: 'Secure API key-based authentication with JWT tokens for protected access',
-      href: '/authentication',
-      gradient: 'from-kiwi-500/20 to-kiwi-600/10',
-      iconBg: 'bg-kiwi-500/20',
-      iconColor: 'text-kiwi-400'
+      title: "Authentication",
+      description:
+        "Secure API key-based authentication with JWT tokens for protected access",
+      href: "/authentication",
+      gradient: "from-kiwi-500/20 to-kiwi-600/10",
+      iconBg: "bg-kiwi-500/20",
+      iconColor: "text-kiwi-400",
     },
     {
       icon: Layers,
-      title: 'Collections',
-      description: 'Virtual accounts for seamless payment collection from your customers',
-      href: '/collections',
-      gradient: 'from-accent-500/20 to-accent-600/10',
-      iconBg: 'bg-accent-500/20',
-      iconColor: 'text-accent-400'
+      title: "Collections",
+      description:
+        "Virtual accounts for seamless payment collection from your customers",
+      href: "/collections",
+      gradient: "from-accent-500/20 to-accent-600/10",
+      iconBg: "bg-accent-500/20",
+      iconColor: "text-accent-400",
     },
     {
       icon: ArrowUpRight,
-      title: 'Payouts',
-      description: "Wide-reaching support across the global financial landscape",
-      href: '/payouts',
-      gradient: 'from-highlight-500/20 to-highlight-600/10',
-      iconBg: 'bg-highlight-500/20',
-      iconColor: 'text-highlight-400'
+      title: "Payouts",
+      description:
+        "Wide-reaching support across the global financial landscape",
+      href: "/payouts",
+      gradient: "from-highlight-500/20 to-highlight-600/10",
+      iconBg: "bg-highlight-500/20",
+      iconColor: "text-highlight-400",
     },
     {
       icon: Wallet,
-      title: 'Account Management',
-      description: 'Monitor balances and manage multiple accounts with ease',
-      href: '/account',
-      gradient: 'from-orange-500/20 to-orange-600/10',
-      iconBg: 'bg-orange-500/20',
-      iconColor: 'text-orange-400'
-    }
+      title: "Account Management",
+      description: "Monitor balances and manage multiple accounts with ease",
+      href: "/account",
+      gradient: "from-orange-500/20 to-orange-600/10",
+      iconBg: "bg-orange-500/20",
+      iconColor: "text-orange-400",
+    },
   ];
 
   const benefits = [
     {
       icon: Lock,
-      title: 'Secure & Compliant',
-      description: 'Bank-grade security with full regulatory compliance',
-      color: 'text-kiwi-400'
+      title: "Secure & Compliant",
+      description: "Bank-grade security with full regulatory compliance",
+      color: "text-kiwi-400",
     },
     {
       icon: Code2,
-      title: 'Developer Friendly',
-      description: 'RESTful APIs with comprehensive documentation',
-      color: 'text-accent-400'
+      title: "Developer Friendly",
+      description: "RESTful APIs with comprehensive documentation",
+      color: "text-accent-400",
     },
     {
       icon: Zap,
-      title: 'Real-time Processing',
-      description: 'Instant transfers and real-time status updates',
-      color: 'text-highlight-400'
+      title: "Real-time Processing",
+      description: "Instant transfers and real-time status updates",
+      color: "text-highlight-400",
     },
     {
       icon: Globe,
-      title: 'Comprehensive Coverage',
-      description: 'Extensive connectivity with global banks',
-      color: 'text-blue-400'
+      title: "Comprehensive Coverage",
+      description: "Extensive connectivity with global banks",
+      color: "text-blue-400",
     },
     {
       icon: Cpu,
-      title: 'Scalable Infrastructure',
-      description: 'Built to handle high-volume transactions',
-      color: 'text-pink-400'
+      title: "Scalable Infrastructure",
+      description: "Built to handle high-volume transactions",
+      color: "text-pink-400",
     },
     {
       icon: HeadphonesIcon,
-      title: '24/7 Support',
-      description: 'Dedicated technical support team',
-      color: 'text-orange-400'
-    }
+      title: "24/7 Support",
+      description: "Dedicated technical support team",
+      color: "text-orange-400",
+    },
   ];
 
   return (
@@ -101,7 +104,9 @@ export const Overview: React.FC = () => {
         {/* Badge */}
         <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-kiwi-500/10 border border-kiwi-500/20">
           <Sparkles className="h-4 w-4 text-kiwi-400" />
-          <span className="text-sm font-medium text-kiwi-400">API v2.0 Now Available</span>
+          <span className="text-sm font-medium text-kiwi-400">
+            API v2.0 Now Available
+          </span>
         </div>
 
         {/* Title with gradient */}
@@ -111,8 +116,8 @@ export const Overview: React.FC = () => {
         </h1>
 
         <p className="text-lg sm:text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Complete financial infrastructure for global businesses.
-          Collect payments, send money, and manage accounts with powerful APIs.
+          Complete financial infrastructure for global businesses. Collect
+          payments, send money, and manage accounts with powerful APIs.
         </p>
 
         {/* CTA Buttons */}
@@ -133,16 +138,20 @@ export const Overview: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4">
           {[
             // { value: '10+', label: 'API Endpoints' },
-            { value: '100+', label: 'Banks Supported' },
-            { value: '<200ms', label: 'Response Time' },
-            { value: '99.9%', label: 'Uptime' }
+            { value: "100+", label: "Banks Supported" },
+            { value: "<200ms", label: "Response Time" },
+            { value: "99.9%", label: "Uptime" },
           ].map((stat, index) => (
             <div key={index} className="glass rounded-xl p-4 text-center">
-              <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-              <div className="text-xs sm:text-sm text-white/50">{stat.label}</div>
+              <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1">
+                {stat.value}
+              </div>
+              <div className="text-xs sm:text-sm text-white/50">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>
@@ -151,20 +160,21 @@ export const Overview: React.FC = () => {
       {/* Features Grid */}
       <div className="mb-20">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Explore Our APIs</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+            Explore Our APIs
+          </h2>
           <p className="text-white/50 max-w-xl mx-auto">
-            Everything you need to build financial products for the global market
+            Everything you need to build financial products for the global
+            market
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {features.map((feature, index) => (
-            <Link
-              key={index}
-              to={feature.href}
-              className="group relative"
-            >
-              <div className={`p-6 rounded-2xl bg-gradient-to-br ${feature.gradient} border border-white/5 hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-card`}>
+            <Link key={index} to={feature.href} className="group relative">
+              <div
+                className={`p-6 rounded-2xl bg-gradient-to-br ${feature.gradient} border border-white/5 hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-card`}
+              >
                 <div className="flex items-start gap-4">
                   <div className={`p-3 rounded-xl ${feature.iconBg}`}>
                     <feature.icon className={`h-6 w-6 ${feature.iconColor}`} />
@@ -174,7 +184,9 @@ export const Overview: React.FC = () => {
                       {feature.title}
                       <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     </h3>
-                    <p className="text-sm text-white/50 leading-relaxed">{feature.description}</p>
+                    <p className="text-sm text-white/50 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -197,12 +209,17 @@ export const Overview: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
+              <div
+                key={index}
+                className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors"
+              >
                 <div className={`p-2 rounded-lg bg-white/5 ${benefit.color}`}>
                   <benefit.icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white mb-1">{benefit.title}</h3>
+                  <h3 className="font-semibold text-white mb-1">
+                    {benefit.title}
+                  </h3>
                   <p className="text-sm text-white/50">{benefit.description}</p>
                 </div>
               </div>
@@ -214,8 +231,12 @@ export const Overview: React.FC = () => {
       {/* Code Preview Section */}
       <div className="mb-20">
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Simple Integration</h2>
-          <p className="text-white/50">Get up and running with just a few lines of code</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+            Simple Integration
+          </h2>
+          <p className="text-white/50">
+            Get up and running with just a few lines of code
+          </p>
         </div>
 
         <div className="glass rounded-2xl overflow-hidden">
@@ -225,18 +246,67 @@ export const Overview: React.FC = () => {
               <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
               <div className="w-3 h-3 rounded-full bg-green-500/80" />
             </div>
-            <span className="text-xs text-white/40 ml-2 font-mono">example.js</span>
+            <span className="text-xs text-white/40 ml-2 font-mono">
+              example.js
+            </span>
           </div>
           <pre className="p-6 overflow-x-auto text-sm">
             <code className="text-white/80">
-              <span className="text-highlight-400">const</span> <span className="text-white">response</span> <span className="text-white/50">=</span> <span className="text-highlight-400">await</span> <span className="text-accent-400">fetch</span><span className="text-white/50">(</span><span className="text-kiwi-400">'https://api.kiwifinance.tech/v2/transfers'</span><span className="text-white/50">,</span> <span className="text-white/50">{'{'}</span>{'\n'}
-              {'  '}<span className="text-white">method</span><span className="text-white/50">:</span> <span className="text-kiwi-400">'POST'</span><span className="text-white/50">,</span>{'\n'}
-              {'  '}<span className="text-white">headers</span><span className="text-white/50">:</span> <span className="text-white/50">{'{'}</span>{'\n'}
-              {'    '}<span className="text-kiwi-400">'Authorization'</span><span className="text-white/50">:</span> <span className="text-kiwi-400">`Bearer ${'${'}token${'}'}`</span><span className="text-white/50">,</span>{'\n'}
-              {'    '}<span className="text-kiwi-400">'Content-Type'</span><span className="text-white/50">:</span> <span className="text-kiwi-400">'application/json'</span>{'\n'}
-              {'  '}<span className="text-white/50">{'}'},</span>{'\n'}
-              {'  '}<span className="text-white">body</span><span className="text-white/50">:</span> <span className="text-accent-400">JSON</span><span className="text-white/50">.</span><span className="text-accent-400">stringify</span><span className="text-white/50">(</span><span className="text-white/50">{'{'}</span> <span className="text-white">amount</span><span className="text-white/50">,</span> <span className="text-white">account</span><span className="text-white/50">,</span> <span className="text-white">bank</span> <span className="text-white/50">{'}'})</span>{'\n'}
-              <span className="text-white/50">{'}'});</span>
+              <span className="text-highlight-400">const</span>{" "}
+              <span className="text-white">response</span>{" "}
+              <span className="text-white/50">=</span>{" "}
+              <span className="text-highlight-400">await</span>{" "}
+              <span className="text-accent-400">fetch</span>
+              <span className="text-white/50">(</span>
+              <span className="text-kiwi-400">
+                'https://api.kiwifinance.tech/v2/transfers'
+              </span>
+              <span className="text-white/50">,</span>{" "}
+              <span className="text-white/50">{"{"}</span>
+              {"\n"}
+              {"  "}
+              <span className="text-white">method</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-kiwi-400">'POST'</span>
+              <span className="text-white/50">,</span>
+              {"\n"}
+              {"  "}
+              <span className="text-white">headers</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-white/50">{"{"}</span>
+              {"\n"}
+              {"    "}
+              <span className="text-kiwi-400">'Authorization'</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-kiwi-400">
+                `Bearer ${"${"}token${"}"}`
+              </span>
+              <span className="text-white/50">,</span>
+              {"\n"}
+              {"    "}
+              <span className="text-kiwi-400">'Content-Type'</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-kiwi-400">'application/json'</span>
+              {"\n"}
+              {"  "}
+              <span className="text-white/50">{"}"},</span>
+              {"\n"}
+              {"  "}
+              <span className="text-white">body</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-accent-400">JSON</span>
+              <span className="text-white/50">.</span>
+              <span className="text-accent-400">stringify</span>
+              <span className="text-white/50">(</span>
+              <span className="text-white/50">{"{"}</span>{" "}
+              <span className="text-white">amount</span>
+              <span className="text-white/50">,</span>{" "}
+              <span className="text-white">account</span>
+              <span className="text-white/50">,</span>{" "}
+              <span className="text-white">bank</span>{" "}
+              <span className="text-white/50">{"}"})</span>
+              {"\n"}
+              <span className="text-white/50">{"}"});</span>
             </code>
           </pre>
         </div>
@@ -248,9 +318,12 @@ export const Overview: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
 
         <div className="relative p-10 sm:p-14 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Ready to Get Started?
+          </h2>
           <p className="text-lg text-white/80 mb-8 max-w-lg mx-auto">
-            Join hundreds of businesses already using Kiwi Finance to power their payments
+            Join hundreds of businesses already using Kiwi Finance to power
+            their payments
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
