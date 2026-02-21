@@ -180,7 +180,7 @@ export const virtualAccountsEndpoints: ApiEndpoint[] = [
 });
 
 const data = await response.json();
-console.warn(data);`,
+console.log(data);`,
       },
     ],
   },
