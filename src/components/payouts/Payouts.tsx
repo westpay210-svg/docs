@@ -158,7 +158,7 @@ export const Payouts: React.FC = () => {
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Payouts</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Send money to bank accounts across Nigeria
+                Send money to bank accounts across the globe
               </p>
             </div>
             <Send className="h-8 w-8 text-nectar-primary" />

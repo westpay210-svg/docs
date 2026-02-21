@@ -38,7 +38,7 @@ export const Overview: React.FC = () => {
     {
       icon: ArrowUpRight,
       title: 'Payouts',
-      description: "Wide-reaching support across Nigeria's financial landscape",
+      description: "Wide-reaching support across the global financial landscape",
       href: '/payouts',
       gradient: 'from-highlight-500/20 to-highlight-600/10',
       iconBg: 'bg-highlight-500/20',
@@ -77,7 +77,7 @@ export const Overview: React.FC = () => {
     {
       icon: Globe,
       title: 'Comprehensive Coverage',
-      description: 'Extensive connectivity with Nigerian banks',
+      description: 'Extensive connectivity with global banks',
       color: 'text-blue-400'
     },
     {
@@ -111,7 +111,7 @@ export const Overview: React.FC = () => {
         </h1>
 
         <p className="text-lg sm:text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Complete financial infrastructure for Nigerian businesses.
+          Complete financial infrastructure for global businesses.
           Collect payments, send money, and manage accounts with powerful APIs.
         </p>
 
@@ -153,7 +153,7 @@ export const Overview: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Explore Our APIs</h2>
           <p className="text-white/50 max-w-xl mx-auto">
-            Everything you need to build financial products for the Nigerian market
+            Everything you need to build financial products for the global market
           </p>
         </div>
 
@@ -191,7 +191,7 @@ export const Overview: React.FC = () => {
               Why Choose <span className="gradient-text">Kiwi Finance</span>?
             </h2>
             <p className="text-white/50 max-w-xl mx-auto">
-              Built for developers, trusted by businesses across Nigeria
+              Built for developers, trusted by businesses across globe
             </p>
           </div>
 
@@ -261,7 +261,7 @@ export const Overview: React.FC = () => {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <a
-              href="https://merchant.akupay.africa"
+              href="https://kiwifinance.tech"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200"

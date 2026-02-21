@@ -6,7 +6,7 @@ A modern React application for managing Kiwi Finance APIs - handle payouts, virt
 
 - **Authentication**: Secure login with API key and Client ID
 - **Virtual Accounts**: Create reserved and temporary virtual accounts for collections
-- **Payouts**: Send money transfers to bank accounts across Nigeria
+- **Payouts**: Send money transfers to bank accounts across the globe
 - **Account Management**: View balances and manage financial information
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Real-time Updates**: Live balance updates and transaction status tracking

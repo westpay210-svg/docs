@@ -82,7 +82,7 @@ curl --request GET \\
       title: 'Get API Credentials',
       description: 'Sign up for a Kiwi Finance account and obtain your API key and client ID from the dashboard.',
       action: 'Get API Keys',
-      href: 'https://merchant.akupay.africa/',
+      href: 'https://kiwifinance.tech/',
       color: 'kiwi'
     },
     {
