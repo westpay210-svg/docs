@@ -251,7 +251,7 @@ export const Sidebar: React.FC = () => {
         </div>
         <div className="space-y-1">
           <a
-            href="https://merchant.akupay.africa/support"
+            href="https://kiwifinance.tech/contact-sales"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-white/60 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"

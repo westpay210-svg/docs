@@ -92,7 +92,7 @@ export const ChargeCard3DS: React.FC = () => {
     "data": {
         "status": 200,
         "authorizationType": "3DS",
-        "acsUrl": "https://test-gateway.akupay.africa/acs/CaW8K1xydcE5v24f_xEt",
+        "acsUrl": "https://test-gateway.kiwifinance.tech/acs/CaW8K1xydcE5v24f_xEt",
         "reference": "CaW8K1xydcE5v24f_xEt",
         "paymentRequestor": "Merchant Limited",
         "version": "3DS2"
