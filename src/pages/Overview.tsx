@@ -135,8 +135,8 @@ export const Overview: React.FC = () => {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { value: '10+', label: 'API Endpoints' },
-            { value: '570+', label: 'Banks Supported' },
+            // { value: '10+', label: 'API Endpoints' },
+            { value: '100+', label: 'Banks Supported' },
             { value: '<200ms', label: 'Response Time' },
             { value: '99.9%', label: 'Uptime' }
           ].map((stat, index) => (

@@ -40,7 +40,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
             </div>
 
             {/* Center - Search (Desktop) */}
-            <div className="hidden lg:flex flex-1 max-w-md mx-8">
+            {/* <div className="hidden lg:flex flex-1 max-w-md mx-8">
               <button
                 onClick={() => setSearchOpen(true)}
                 className="w-full flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:border-white/20 transition-all duration-200"
@@ -51,7 +51,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </button>
-            </div>
+            </div> */}
 
             {/* Right side actions */}
             <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
       </header>
 
       {/* Search Modal */}
-      {searchOpen && (
+      {/* {searchOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm"
@@ -120,7 +120,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-40 lg:hidden ${sidebarOpen ? '' : 'pointer-events-none'}`}>
