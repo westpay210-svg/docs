@@ -164,7 +164,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
           {/* Sidebar footer */}
           <div className="p-4 border-t border-white/5">
             <a
-              href="https://kiwifinance.tech/"
+              href="https://kiwifinance.tech/auth/signup"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-kiwi-500 to-accent-500 text-white font-medium text-sm hover:shadow-glow transition-all duration-300"
