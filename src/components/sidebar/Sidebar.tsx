@@ -6,7 +6,6 @@ import {
   Zap,
   Shield,
   Server,
-  ShoppingBag,
   Sparkles,
   Webhook,
   CreditCard
@@ -42,16 +41,10 @@ const navItems: NavItem[] = [
     icon: Shield,
   },
   {
-    id: 'gateway-checkout',
-    title: 'Gateway Checkout',
-    href: '/gateway-checkout',
+    id: 'gateway-integration',
+    title: 'Gateway Integration',
+    href: '/gateway-integration',
     icon: CreditCard,
-  },
-  {
-    id: 'webhook',
-    title: 'Webhook',
-    href: '/webhook',
-    icon: Webhook,
   },
   {
     id: 'server-to-server',
@@ -69,6 +62,12 @@ const navItems: NavItem[] = [
       { id: 'status-code', title: 'Status Codes', href: '/server-to-server/status-code' },
       { id: 'transaction-history', title: 'Transaction History', href: '/server-to-server/transaction-history' },
     ],
+  },
+  {
+    id: 'webhook',
+    title: 'Webhook',
+    href: '/webhook',
+    icon: Webhook,
   },
 ];
 

@@ -70,7 +70,7 @@ export const Webhook: React.FC = () => {
   "settlementAmount": 1474.50,
   "customerId": "CUS-55667788",
   "transactionDate": "2025-09-29T14:25:30",
-  "currencyCode": "NGN",
+  "currencyCode": "USD",
   "callbackUrl": "https://merchant.example.com/callback",
   "status": 1,
   "paymentRequestor": "WEB",
@@ -339,28 +339,6 @@ export const Webhook: React.FC = () => {
         <div className="mb-8">
           <h3 className="text-lg font-semibold text-white mb-4">Response:</h3>
           <CodeBlock code={responseJson} language="json" />
-        </div>
-
-        {/* What's Next */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-kiwi-500 to-accent-500 opacity-90" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
-          <div className="relative p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Globe className="h-6 w-6 text-white" />
-              <h2 className="text-xl font-bold text-white">What's Next</h2>
-            </div>
-            <p className="text-white/80 mb-6">
-              Continue with 3D Secure card processing implementation
-            </p>
-            <Link
-              to="/server-to-server/charge-card-3ds"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
-            >
-              Charge a Card (3DS)
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
         </div>
       </div>
     </div>

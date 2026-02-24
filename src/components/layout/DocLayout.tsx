@@ -55,12 +55,6 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
 
             {/* Right side actions */}
             <div className="flex items-center gap-2">
-              {/* Version badge */}
-              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-kiwi-500/10 border border-kiwi-500/20">
-                <Sparkles className="h-3.5 w-3.5 text-kiwi-400" />
-                <span className="text-xs font-medium text-kiwi-400">v2.0</span>
-              </div>
-
               {/* API Status */}
               <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
                 <span className="relative flex h-2 w-2">
@@ -164,7 +158,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
           {/* Sidebar footer */}
           <div className="p-4 border-t border-white/5">
             <a
-              href="https://kiwifinance.tech/auth/signup"
+              href="https://kiwifinance.tech/auth/register"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-kiwi-500 to-accent-500 text-white font-medium text-sm hover:shadow-glow transition-all duration-300"

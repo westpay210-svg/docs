@@ -9,9 +9,9 @@ export const GatewayIntegration: React.FC = () => {
   ];
 
   const initializeParams = [
-    { name: 'amount', type: 'integer', required: true, description: 'Amount in lowest currency unit (e.g., Kobo)' },
+    { name: 'amount', type: 'integer', required: true, description: 'Amount in lowest currency unit (e.g., Cents)' },
     { name: 'email', type: 'string', required: true, description: "Customer's email address" },
-    { name: 'currency', type: 'string', required: true, description: 'e.g., NGN, USD' },
+    { name: 'currency', type: 'string', required: true, description: 'e.g., USD, NGN' },
     { name: 'reference', type: 'string', required: true, description: 'Unique transaction reference' },
     { name: 'callbackUrl', type: 'string', required: false, description: 'URL for transaction status notifications' },
     { name: 'channels', type: 'array', required: true, description: 'Payment methods e.g., ["card", "bank"]' },
@@ -64,7 +64,7 @@ export const GatewayIntegration: React.FC = () => {
   const initializeRequestJson = `{
   "amount": 100000,
   "email": "example@gmail.com",
-  "currency": "NGN",
+  "currency": "USD",
   "reference": "{{$randomUUID}}",
   "callbackUrl": "{{$randomUrl}}",
   "channels": ["card", "bank"],
@@ -98,7 +98,7 @@ export const GatewayIntegration: React.FC = () => {
     "transactionFee": 0.75,
     "settlementAmount": 50.00,
     "customerId": "example@gmail.com",
-    "currencyCode": "NGN",
+    "currencyCode": "USD",
     "callbackUrl": "https://test-gateway.kiwifinance.tech/receipt",
     "transactionDate": "2025-03-10T14:04:15.158112",
     "channel": "Card",
@@ -385,7 +385,7 @@ export const GatewayIntegration: React.FC = () => {
               href="/server-to-server"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
             >
-              Server-to-Server API
+              Server to Server API
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>

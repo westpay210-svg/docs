@@ -42,7 +42,7 @@ export const VerifyTransactionStatus: React.FC = () => {
         "transactionFee": 0.75,
         "settlementAmount": 49.25,
         "customerId": "example@gmail.com",
-        "currencyCode": "NGN",
+        "currencyCode": "USD",
         "callbackUrl": "https://merchanturl.com",
         "authorizationType": "OPEN",
         "paymentRequestor": "Merchant Limited",

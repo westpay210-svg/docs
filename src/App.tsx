@@ -19,7 +19,7 @@ function App() {
           <Route path="/getting-started" element={<GettingStarted />} />
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/server-to-server/*" element={<ServerToServer />} />
-          <Route path="/gateway-checkout" element={<GatewayIntegration />} />
+          <Route path="/gateway-integration" element={<GatewayIntegration />} />
           <Route path="/webhook" element={<Webhook />} />
         </Routes>
       </DocLayout>

@@ -3,11 +3,11 @@ import axios, { AxiosInstance } from 'axios';
 export const API_CONFIG = {
   sandbox: {
     authBaseUrl: 'https://staging.api.kiwifinance.tech',
-    baseUrl: 'https://staging.api.kiwifinance.tech/api/paas',
+    baseUrl: 'https://staging.api.kiwifinance.tech',
   },
   production: {
     authBaseUrl: 'https://api.kiwifinance.tech',
-    baseUrl: 'https://api.kiwifinance.tech/api/business',
+    baseUrl: 'https://api.kiwifinance.tech',
   },
 };
 

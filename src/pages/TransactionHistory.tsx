@@ -25,7 +25,7 @@ export const TransactionHistory: React.FC = () => {
     { name: 'transactionFee', type: 'decimal', description: 'Processing/Transaction fee deducted' },
     { name: 'settlementAmount', type: 'decimal', description: 'Net amount after fees' },
     { name: 'customerId', type: 'string', description: 'Unique customer identifier (e.g, email address)' },
-    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., NGN/ USD).' },
+    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., USD/NGN).' },
     { name: 'createdDate', type: 'string', description: 'Timestamp when the transaction was created.' },
     { name: 'status', type: 'integer', description: 'Refund status code (see Status Codes).' },
     { name: 'errorCode', type: 'string', description: 'Error code (0 = success)' }
@@ -44,7 +44,7 @@ export const TransactionHistory: React.FC = () => {
         "transactionFee": 2.25,
         "settlementAmount": 147.75,
         "customerId": "example@email.com",
-        "currencyCode": "NGN",
+        "currencyCode": "USD",
         "createdDate": "2025-03-30T17:01:46.827105",
         "status": 1,
         "errorCode": "0"
@@ -263,10 +263,10 @@ export const TransactionHistory: React.FC = () => {
               You've completed the Server-to-Server API documentation. Explore other sections for additional integration options.
             </p>
             <Link
-              to="/server-to-server"
+              to="/webhook"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
             >
-              Back to Server-to-Server Overview
+              Webhook
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

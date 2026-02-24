@@ -6,17 +6,16 @@ import { Shield, AlertTriangle, Check, Key, Lock } from 'lucide-react';
 export const Authentication: React.FC = () => {
   const authSteps = [
     'Login to your Kiwi Finance dashboard and navigate to the API Keys menu',
-    'Obtain API key and client ID from your Kiwi Finance dashboard',
-    'Call the authentication endpoint with your credentials',
-    'Receive an access token in the response',
-    'Include the access token in all subsequent API requests',
+    'Obtain your public key and private key from your Kiwi Finance dashboard',
+    'Use your public key (x-public-key header) for Gateway Integration',
+    'Use your private key (x-private-key header) for Server-to-Server calls and verifying transactions',
   ];
 
   const importantNotes = [
-    'Keep your API keys secure and never expose them in client-side code',
-    'Access tokens have a limited lifetime and should be refreshed regularly',
-    'Use the refresh token to obtain new access tokens when they expire',
-    'All API requests must include the Authorization header with a valid Bearer token',
+    'Keep your private key secure and never expose it in client-side code',
+    'Public keys can be used in frontend code for Gateway Integration initialization',
+    'Private keys should only be used in server-side code for secure operations',
+    'Always verify transaction status using your private key before fulfilling orders',
     'Remember to switch the base URL from staging to production when going live',
   ];
 
@@ -31,8 +30,8 @@ export const Authentication: React.FC = () => {
           <h1 className="text-3xl font-bold text-white">Authentication</h1>
         </div>
         <p className="text-lg text-white/60 leading-relaxed max-w-3xl">
-          The Kiwi Finance API uses API keys for authentication. You need to generate an access token
-          using your API key and client ID before making any API calls.
+          The Kiwi Finance API uses public and private key authentication. Use your public key for
+          Gateway Integration and your private key for Server-to-Server integration and transaction verification.
         </p>
       </div>
 

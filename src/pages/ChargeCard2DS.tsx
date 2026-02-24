@@ -9,7 +9,7 @@ export const ChargeCard2DS: React.FC = () => {
     { name: 'expiryYear', type: 'string', required: true, description: 'Expiry year of the card.' },
     { name: 'expiryMonth', type: 'string', required: true, description: 'Expiry month of the card.' },
     { name: 'cvv', type: 'string', required: true, description: 'The card\'s CVV security code.' },
-    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in kobo/cents format e.g "1000" is 10 NGN/USD)' },
+    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents/kobo format e.g "1000" is 10 USD/NGN)' },
     { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD, NGN).' },
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
     { name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.' },

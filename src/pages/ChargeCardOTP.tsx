@@ -9,7 +9,7 @@ export const ChargeCardOTP: React.FC = () => {
     { name: 'expiryYear', type: 'string', required: true, description: 'Expiry year of the card.' },
     { name: 'expiryMonth', type: 'string', required: true, description: 'Expiry month of the card.' },
     { name: 'cvv', type: 'string', required: true, description: 'The card\'s CVV security code.' },
-    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in kobo/cents format e.g "1000" is 10 NGN/USD)' },
+    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents/kobo format e.g "1000" is 10 USD/NGN)' },
     { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD, NGN).' },
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
     { name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.' },
@@ -42,9 +42,9 @@ export const ChargeCardOTP: React.FC = () => {
   "expiryYear": 50,
   "expiryMonth": 5,
   "cvv": "123",
-  "amount": 10000,// The amount is formatted in kobo (e.g., 10000 represents 100.00 in the base currency).
+  "amount": 10000,// The amount is formatted in Cent (e.g., 10000 represents 100.00 in the base currency).
   "email": "example@gmail.com",
-  "currency": "NGN",
+  "currency": "USD",
   "reference": "{{Randomstring}}",
   "callbackUrl": "https://merchant.com/callback",
   "webhookURL": "httpss://merchantwebhookurl.com", //If passed, and if webhook notification is enabled for merchant

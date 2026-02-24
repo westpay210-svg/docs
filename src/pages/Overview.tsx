@@ -8,11 +8,10 @@ import {
   Lock,
   Cpu,
   HeadphonesIcon,
-  Layers,
-  ArrowUpRight,
-  Wallet,
   Code2,
-  Sparkles,
+  CreditCard,
+  Webhook,
+  Server,
 } from "lucide-react";
 
 export const Overview: React.FC = () => {
@@ -21,40 +20,41 @@ export const Overview: React.FC = () => {
       icon: Shield,
       title: "Authentication",
       description:
-        "Secure API key-based authentication with JWT tokens for protected access",
+        "Public and private key authentication for gateway and server-to-server access",
       href: "/authentication",
       gradient: "from-kiwi-500/20 to-kiwi-600/10",
       iconBg: "bg-kiwi-500/20",
       iconColor: "text-kiwi-400",
     },
     {
-      icon: Layers,
-      title: "Collections",
+      icon: CreditCard,
+      title: "Gateway Integration",
       description:
-        "Virtual accounts for seamless payment collection from your customers",
+        "Embed a secure payment checkout experience directly into your application",
       href: "/collections",
       gradient: "from-accent-500/20 to-accent-600/10",
       iconBg: "bg-accent-500/20",
       iconColor: "text-accent-400",
     },
     {
-      icon: ArrowUpRight,
-      title: "Payouts",
+      icon: Server,
+      title: "Server to Server",
       description:
-        "Wide-reaching support across the global financial landscape",
-      href: "/payouts",
-      gradient: "from-highlight-500/20 to-highlight-600/10",
-      iconBg: "bg-highlight-500/20",
-      iconColor: "text-highlight-400",
-    },
-    {
-      icon: Wallet,
-      title: "Account Management",
-      description: "Monitor balances and manage multiple accounts with ease",
+        "Direct API integration for secure backend-to-backend transactions",
       href: "/account",
       gradient: "from-orange-500/20 to-orange-600/10",
       iconBg: "bg-orange-500/20",
       iconColor: "text-orange-400",
+    },
+    {
+      icon: Webhook,
+      title: "Webhook",
+      description:
+        "Receive real-time notifications for payment events and transaction updates",
+      href: "/payouts",
+      gradient: "from-highlight-500/20 to-highlight-600/10",
+      iconBg: "bg-highlight-500/20",
+      iconColor: "text-highlight-400",
     },
   ];
 
@@ -102,13 +102,6 @@ export const Overview: React.FC = () => {
       {/* Hero Section */}
       <div className="text-center mb-20 relative">
         {/* Badge */}
-        <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-kiwi-500/10 border border-kiwi-500/20">
-          <Sparkles className="h-4 w-4 text-kiwi-400" />
-          <span className="text-sm font-medium text-kiwi-400">
-            API v2.0 Now Available
-          </span>
-        </div>
-
         {/* Title with gradient */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
           <span className="text-white">Build with </span>
@@ -138,10 +131,10 @@ export const Overview: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-2 gap-4">
           {[
             // { value: '10+', label: 'API Endpoints' },
-            { value: "100+", label: "Banks Supported" },
+            // { value: "100+", label: "Banks Supported" },
             { value: "<200ms", label: "Response Time" },
             { value: "99.9%", label: "Uptime" },
           ].map((stat, index) => (
@@ -203,7 +196,7 @@ export const Overview: React.FC = () => {
               Why Choose <span className="gradient-text">Kiwi Finance</span>?
             </h2>
             <p className="text-white/50 max-w-xl mx-auto">
-              Built for developers, trusted by businesses across globe
+              Built for developers, trusted by businesses across the globe
             </p>
           </div>
 
@@ -259,7 +252,7 @@ export const Overview: React.FC = () => {
               <span className="text-accent-400">fetch</span>
               <span className="text-white/50">(</span>
               <span className="text-kiwi-400">
-                'https://api.kiwifinance.tech/v2/transfers'
+                'https://api.kiwifinance.tech/transaction/initialize'
               </span>
               <span className="text-white/50">,</span>{" "}
               <span className="text-white/50">{"{"}</span>
@@ -276,11 +269,9 @@ export const Overview: React.FC = () => {
               <span className="text-white/50">{"{"}</span>
               {"\n"}
               {"    "}
-              <span className="text-kiwi-400">'Authorization'</span>
+              <span className="text-kiwi-400">'x-public-key'</span>
               <span className="text-white/50">:</span>{" "}
-              <span className="text-kiwi-400">
-                `Bearer ${"${"}token${"}"}`
-              </span>
+              <span className="text-kiwi-400">'your_public_key'</span>
               <span className="text-white/50">,</span>
               {"\n"}
               {"    "}
@@ -297,13 +288,36 @@ export const Overview: React.FC = () => {
               <span className="text-accent-400">JSON</span>
               <span className="text-white/50">.</span>
               <span className="text-accent-400">stringify</span>
-              <span className="text-white/50">(</span>
-              <span className="text-white/50">{"{"}</span>{" "}
+              <span className="text-white/50">({"{"}</span>
+              {"\n"}
+              {"    "}
               <span className="text-white">amount</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-orange-400">100000</span>
+              <span className="text-white/50">,</span>
+              {"\n"}
+              {"    "}
+              <span className="text-white">email</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-kiwi-400">'customer@example.com'</span>
+              <span className="text-white/50">,</span>
+              {"\n"}
+              {"    "}
+              <span className="text-white">currency</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-kiwi-400">'USD'</span>
+              <span className="text-white/50">,</span>
+              {"\n"}
+              {"    "}
+              <span className="text-white">channels</span>
+              <span className="text-white/50">:</span>{" "}
+              <span className="text-white/50">[</span>
+              <span className="text-kiwi-400">'card'</span>
               <span className="text-white/50">,</span>{" "}
-              <span className="text-white">account</span>
-              <span className="text-white/50">,</span>{" "}
-              <span className="text-white">bank</span>{" "}
+              <span className="text-kiwi-400">'bank'</span>
+              <span className="text-white/50">]</span>
+              {"\n"}
+              {"  "}
               <span className="text-white/50">{"}"})</span>
               {"\n"}
               <span className="text-white/50">{"}"});</span>
@@ -334,7 +348,7 @@ export const Overview: React.FC = () => {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <a
-              href="https://kiwifinance.tech"
+              href="https://kiwifinance.tech/auth/register"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200"

@@ -7,88 +7,99 @@ export const GettingStarted: React.FC = () => {
   const quickStartCode = [
     {
       language: 'javascript',
-      code: `// 1. Install axios or use fetch
-npm install axios
+      code: `// Gateway Integration - Initialize payment (uses public key)
+const checkout = await fetch('https://api.kiwifinance.tech/transaction/initialize', {
+  method: 'POST',
+  headers: {
+    'x-public-key': 'your-public-key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    amount: 100000,
+    email: 'customer@example.com',
+    currency: 'USD',
+    channels: ['card', 'bank']
+  })
+});
 
-// 2. Authenticate and get access token
-const auth = await fetch('https://api.kiwifinance.tech/api/uaa/api/auth', {
+const { checkoutUrl, reference } = await checkout.json();
+
+// Server-to-Server - Verify transaction (uses private key)
+const verification = await fetch(\`https://api.kiwifinance.tech/v1/transaction/verify/\${reference}\`, {
   method: 'GET',
   headers: {
-    'x-api-key': 'your-api-key',
-    'x-client-id': 'your-client-id'
+    'x-private-key': 'your-private-key'
   }
 });
 
-const { accessToken } = await auth.json();
-
-// 3. Use the token for API calls
-const response = await fetch('https://api.kiwifinance.tech/api/business/business/account/v2/balance', {
-  method: 'GET',
-  headers: {
-    'Authorization': \`Bearer \${accessToken}\`
-  }
-});
-
-const balance = await response.json();
-console.log('Account Balance:', balance.accountBalance);`
+const transaction = await verification.json();
+console.log('Transaction Status:', transaction.status);`
     },
     {
       language: 'python',
-      code: `# 1. Install requests
-pip install requests
+      code: `import requests
 
-import requests
-
-# 2. Authenticate and get access token
-auth_response = requests.get(
-    'https://api.kiwifinance.tech/api/uaa/api/auth',
+# Gateway Integration - Initialize payment (uses public key)
+checkout_response = requests.post(
+    'https://api.kiwifinance.tech/transaction/initialize',
     headers={
-        'x-api-key': 'your-api-key',
-        'x-client-id': 'your-client-id'
+        'x-public-key': 'your-public-key',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'amount': 100000,
+        'email': 'customer@example.com',
+        'currency': 'USD',
+        'channels': ['card', 'bank']
     }
 )
 
-access_token = auth_response.json()['accessToken']
+checkout_data = checkout_response.json()
+reference = checkout_data['reference']
 
-# 3. Use the token for API calls
-balance_response = requests.get(
-    'https://api.kiwifinance.tech/api/business/business/account/v2/balance',
-    headers={'Authorization': f'Bearer {access_token}'}
+# Server-to-Server - Verify transaction (uses private key)
+verification_response = requests.get(
+    f'https://api.kiwifinance.tech/v1/transaction/verify/{reference}',
+    headers={'x-private-key': 'your-private-key'}
 )
 
-balance = balance_response.json()
-print(f"Account Balance: {balance['accountBalance']}")`
+transaction = verification_response.json()
+print(f"Transaction Status: {transaction['status']}")`
     },
     {
       language: 'curl',
-      code: `# 1. Authenticate and get access token
-curl --request GET \\
-  --url https://api.kiwifinance.tech/api/uaa/api/auth \\
-  --header 'x-api-key: your-api-key' \\
-  --header 'x-client-id: your-client-id'
+      code: `# Gateway Integration - Initialize payment (uses public key)
+curl --request POST \\
+  --url https://api.kiwifinance.tech/transaction/initialize \\
+  --header 'x-public-key: your-public-key' \\
+  --header 'Content-Type: application/json' \\
+  --data '{
+    "amount": 100000,
+    "email": "customer@example.com",
+    "currency": "USD",
+    "channels": ["card", "bank"]
+  }'
 
-# Response: {"accessToken": "eyJhbGciOiJSUzI1NiJ9..."}
-
-# 2. Use the token for API calls
+# Server-to-Server - Verify transaction (uses private key)
 curl --request GET \\
-  --url https://api.kiwifinance.tech/api/business/business/account/v2/balance \\
-  --header 'Authorization: Bearer your-access-token'`
+  --url https://api.kiwifinance.tech/v1/transaction/verify/{reference} \\
+  --header 'x-private-key: your-private-key'`
     }
   ];
 
   const steps = [
     {
       icon: Key,
-      title: 'Get API Credentials',
-      description: 'Sign up for a Kiwi Finance account and obtain your API key and client ID from the dashboard.',
+      title: 'Get API Keys',
+      description: 'Sign up for a Kiwi Finance account and obtain your public and private keys from the dashboard.',
       action: 'Get API Keys',
-      href: 'https://kiwifinance.tech/',
+      href: 'https://kiwifinance.tech/auth/register',
       color: 'kiwi'
     },
     {
       icon: Shield,
       title: 'Authenticate',
-      description: 'Use your credentials to generate an access token via the authentication endpoint.',
+      description: 'Include your public key for Gateway Integration or private key for Server-to-Server in request headers.',
       action: 'View Auth Docs',
       href: '/authentication',
       color: 'accent'
@@ -96,9 +107,9 @@ curl --request GET \\
     {
       icon: Zap,
       title: 'Make API Calls',
-      description: 'Include the Bearer token in your requests to access all Kiwi Finance API endpoints.',
+      description: 'Include the appropriate key in your request headers to access Kiwi Finance API endpoints.',
       action: 'Explore Endpoints',
-      href: '/collections',
+      href: '/gateway-integration',
       color: 'highlight'
     },
     {
@@ -106,17 +117,17 @@ curl --request GET \\
       title: 'Go Live',
       description: 'Test in sandbox, then switch to production when ready to process real transactions.',
       action: 'Production Setup',
-      href: '#',
+      href: '#api-env',
       color: 'orange'
     }
   ];
 
   const securityBestPractices = [
-    { title: 'Never expose API keys', description: 'Keep your API keys secure and never include them in client-side code' },
+    { title: 'Keep private keys secure', description: 'Never expose your private key in client-side code or public repositories' },
     { title: 'Use HTTPS', description: 'Always make API calls over HTTPS to ensure data encryption' },
-    { title: 'Handle tokens securely', description: 'Store access tokens securely and refresh them before expiry' },
+    { title: 'Use the right key', description: 'Use public key for gateway integration and private key for server-to-server calls' },
     { title: 'Implement error handling', description: 'Always handle API errors gracefully in your application' },
-    { title: 'Rate limiting', description: 'Respect API rate limits to ensure reliable service' },
+    { title: 'Verify webhooks', description: 'Always verify webhook signatures using your private key' },
   ];
 
   const getColorClasses = (color: string) => {
@@ -182,17 +193,8 @@ curl --request GET \\
         })}
       </div>
 
-      {/* Code Example */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Quick Start Code Example</h2>
-        <p className="text-white/60 mb-6">
-          Here's a complete example showing how to authenticate and check your account balance:
-        </p>
-        <CodeTabs examples={quickStartCode} />
-      </div>
-
       {/* Environment Information */}
-      <div className="mb-12">
+      <div id="api-env" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-bold text-white mb-6">API Environments</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Sandbox */}
@@ -211,15 +213,9 @@ curl --request GET \\
 
               <div className="space-y-3">
                 <div>
-                  <span className="text-xs font-medium text-yellow-400 uppercase tracking-wider">Auth Base URL</span>
-                  <code className="block mt-1 text-xs bg-yellow-500/10 px-3 py-2 rounded-lg text-yellow-300 font-mono break-all">
-                    https://staging.api.kiwifinance.tech
-                  </code>
-                </div>
-                <div>
                   <span className="text-xs font-medium text-yellow-400 uppercase tracking-wider">Base URL</span>
                   <code className="block mt-1 text-xs bg-yellow-500/10 px-3 py-2 rounded-lg text-yellow-300 font-mono break-all">
-                    https://staging.api.kiwifinance.tech/api/paas
+                    https://staging.api.kiwifinance.tech
                   </code>
                 </div>
               </div>
@@ -242,15 +238,9 @@ curl --request GET \\
 
               <div className="space-y-3">
                 <div>
-                  <span className="text-xs font-medium text-kiwi-400 uppercase tracking-wider">Auth Base URL</span>
-                  <code className="block mt-1 text-xs bg-kiwi-500/10 px-3 py-2 rounded-lg text-kiwi-300 font-mono break-all">
-                    https://api.kiwifinance.tech
-                  </code>
-                </div>
-                <div>
                   <span className="text-xs font-medium text-kiwi-400 uppercase tracking-wider">Base URL</span>
                   <code className="block mt-1 text-xs bg-kiwi-500/10 px-3 py-2 rounded-lg text-kiwi-300 font-mono break-all">
-                    https://api.kiwifinance.tech/api/business
+                    https://api.kiwifinance.tech
                   </code>
                 </div>
               </div>
@@ -298,9 +288,9 @@ curl --request GET \\
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {[
               { label: 'Authentication', href: '/authentication' },
-              { label: 'Collections', href: '/collections' },
-              { label: 'Payouts', href: '/payouts' },
-              { label: 'Account', href: '/account' },
+              { label: 'Gateway Integration', href: '/gateway-integration' },
+              { label: 'Server to Server', href: '/server-to-server' },
+              { label: 'Webhook', href: '/webhook' },
             ].map((link, index) => (
               <Link
                 key={index}

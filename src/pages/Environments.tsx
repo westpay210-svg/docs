@@ -111,7 +111,7 @@ export const Environments: React.FC = () => {
               <div>
                 <span className="text-xs font-medium text-yellow-400 uppercase tracking-wider">Base URL</span>
                 <code className="block mt-1 text-sm bg-yellow-500/10 px-4 py-3 rounded-xl text-yellow-300 font-mono break-all border border-yellow-500/20">
-                  https://sandbox-api.nectargateway.com/
+                  https://sandbox-api.kiwifinance.tech/
                 </code>
               </div>
             </div>
@@ -199,13 +199,13 @@ export const Environments: React.FC = () => {
         <div className="relative p-8 text-center">
           <h2 className="text-xl font-bold text-white mb-3">What's Next</h2>
           <p className="text-white/80 mb-6">
-            Continue with webhook configuration for real-time transaction notifications
+            Learn how to charge a card with 3D Secure authentication for secure payments
           </p>
           <Link
-            to="/webhook"
+            to="/server-to-server/charge-card-3ds"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
           >
-            Webhook
+            Charge a Card (3DS)
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

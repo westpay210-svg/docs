@@ -9,7 +9,7 @@ export const ChargeCard3DS: React.FC = () => {
     { name: 'expiryYear', type: 'string', required: true, description: 'Expiry year of the card.' },
     { name: 'expiryMonth', type: 'string', required: true, description: 'Expiry month of the card.' },
     { name: 'cvv', type: 'string', required: true, description: 'The card\'s CVV security code.' },
-    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in kobo/cents format e.g "1000" is 10 NGN/USD)' },
+    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents/kobo format e.g "1000" is 10 USD/NGN)' },
     { name: 'email', type: 'string', required: true, description: 'The email address of the customer/cardholder' },
     { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD, NGN).' },
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
@@ -336,13 +336,13 @@ export const ChargeCard3DS: React.FC = () => {
               <h2 className="text-xl font-bold text-white">What's Next</h2>
             </div>
             <p className="text-white/80 mb-6">
-              Continue with OTP authentication for card transactions
+              Learn how to charge a card with 2D Secure authentication
             </p>
             <Link
-              to="/server-to-server/charge-card-otp"
+              to="/server-to-server/charge-card-2ds"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
             >
-              Charge a Card (OTP Auth)
+              Charge a Card (2DS)
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

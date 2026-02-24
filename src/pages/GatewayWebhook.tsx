@@ -13,7 +13,7 @@ export const GatewayWebhook: React.FC = () => {
     { name: 'settlementAmount', type: 'decimal', required: true, description: 'Amount to be settled to the merchant after fees.' },
     { name: 'customerId', type: 'string', required: true, description: 'Unique customer identifier.' },
     { name: 'transactionDate', type: 'string', required: true, description: 'Date and time the transaction was completed (ISO 8601).' },
-    { name: 'currencyCode', type: 'string', required: true, description: 'Currency of the transaction (e.g., NGN, USD).' },
+    { name: 'currencyCode', type: 'string', required: true, description: 'Currency of the transaction (e.g., USD, NGN).' },
     { name: 'callbackUrl', type: 'string', required: false, description: 'Merchant\'s callback URL where KiwiFinance sends transaction updates.' },
     { name: 'status', type: 'integer', required: true, description: 'Transaction status code (see Status Codes section).' },
     { name: 'paymentRequestor', type: 'string', required: true, description: 'Source of payment request (e.g., WEB, MOBILE).' },
@@ -47,7 +47,7 @@ export const GatewayWebhook: React.FC = () => {
   "settlementAmount": 1474.50,
   "customerId": "CUS-55667788",
   "transactionDate": "2025-09-29T14:25:30",
-  "currencyCode": "NGN",
+  "currencyCode": "USD",
   "callbackUrl": "https://merchant.example.com/callback",
   "status": 1,
   "paymentRequestor": "WEB",
@@ -348,13 +348,13 @@ export const GatewayWebhook: React.FC = () => {
             <h2 className="text-xl font-bold text-white">What's Next</h2>
           </div>
           <p className="text-white/80 mb-6">
-            Return to Gateway Checkout overview or explore other API sections
+            Return to Gateway Integration overview or explore other API sections
           </p>
           <Link
-            to="/gateway-checkout"
+            to="/gateway-integration"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
           >
-            Back to Gateway Checkout
+            Back to Gateway Integration
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

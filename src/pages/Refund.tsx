@@ -26,7 +26,7 @@ export const Refund: React.FC = () => {
     { name: 'transactionAmount', type: 'decimal', description: 'Original transaction amount.' },
     { name: 'transactionDate', type: 'string', description: 'Timestamp when the transaction was processed.' },
     { name: 'refundedDate', type: 'string', description: 'Timestamp when the refund was processed.' },
-    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., NGN/ USD).' },
+    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., USD/NGN).' },
     { name: 'status', type: 'integer', description: 'Refund status code (see Status Codes).' },
     { name: 'acquirerCode', type: 'string', description: 'Acquirer/bank response code (00 = approved).' },
     { name: 'acquirerMessage', type: 'string', description: 'Acquirer/bank status message (e.g., Approved).' },
