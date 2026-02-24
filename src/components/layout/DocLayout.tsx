@@ -34,8 +34,8 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
                 />
               </div>
               <div className="hidden md:flex items-center">
-                <span className="h-6 w-px bg-white/10 mx-3" />
-                <span className="text-sm font-medium text-white/60">Documentation</span>
+                <span className="h-6 w-px bg-white/10 mr-3" />
+                <span className="text-sm font-medium text-white">Documentation</span>
               </div>
             </div>
 

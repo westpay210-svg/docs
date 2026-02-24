@@ -90,7 +90,7 @@ export const GatewayIntegration: React.FC = () => {
   "status": 200,
   "message": "Request successfully processed",
   "data": {
-    "merchant": "Kiwi Nectarlive",
+    "merchant": "Kiwi Live",
     "reference": "S0h-Jcxbpd_1O_MkUZ-i",
     "merchantRef": "2d059b6a-4626-47e2-8f35-f903ce7a5f22",
     "grossAmount": 50.75,

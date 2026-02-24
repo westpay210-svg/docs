@@ -35,7 +35,7 @@ export const ChargeCard2DS: React.FC = () => {
 
   const requestBodyJson = `{
     "amount": 10000,
-    "email": "john.wick@aku.africa",
+    "email": "john.wick@kiwi",
     "currency": "USD",
     "reference": "000045mG7mTL022NzzQ1",
     "callbackUrl": "https://example.com/",
@@ -79,12 +79,12 @@ export const ChargeCard2DS: React.FC = () => {
         "status": 2,
         "authorizationType": "2DS",
         "callbackUrl": "https://merchant.com/callback",
-        "akuRef": "pajgYkkiAtfAYc4dg2QC",
+        "ref": "pajgYkkiAtfAYc4dg2QC",
         "grossAmount": 100.00,
         "reference": "0f7f209a-8134-437e-a62d-6f38187ad1d6",
         "errorMessage": "Approved",
         "errorCode": "00",
-        "paymentRequestor": "Aku Pay Service Ltd",
+        "paymentRequestor": "KiwiFinance Service Ltd",
         "version": "2DS"
     },
     "errors": []

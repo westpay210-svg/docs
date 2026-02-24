@@ -49,7 +49,7 @@ export const ChargeCard3DS: React.FC = () => {
 
   const requestBodyJson = `{
     "amount": 10000,
-    "email": "john.wick@aku.africa",
+    "email": "john.wick@kiwi",
     "currency": "USD",
     "reference": "000045mG7mTL022NzzQ1",
     "callbackUrl": "https://example.com/",
