@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   ChevronRight,
   Home,
@@ -45,6 +45,10 @@ const navItems: NavItem[] = [
     title: 'Gateway Integration',
     href: '/gateway-integration',
     icon: CreditCard,
+    children: [
+      { id: 'payment-channel', title: 'Payment Channel', href: '/gateway-integration/payment-channel' },
+      { id: 'end-to-end-test', title: 'End-to-End Test', href: '/gateway-integration/end-to-end-test' },
+    ],
   },
   {
     id: 'server-to-server',
@@ -73,12 +77,15 @@ const navItems: NavItem[] = [
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   // Only one item can be expanded at a time (accordion behavior)
   const [expandedItem, setExpandedItem] = React.useState<string | null>(null);
 
-  const toggleExpanded = (itemId: string) => {
-    // If clicking the same item, collapse it. Otherwise, expand the new one (closing any other)
-    setExpandedItem(prev => prev === itemId ? null : itemId);
+  const handleParentClick = (item: NavItem) => {
+    // Navigate to the parent route
+    navigate(item.href);
+    // Also expand to show children
+    setExpandedItem(prev => prev === item.id ? prev : item.id);
   };
 
   const isActive = (href: string) => {
@@ -192,10 +199,10 @@ export const Sidebar: React.FC = () => {
     return (
       <div key={item.id} className="relative">
         {isParentWithChildren ? (
-          // Parent items with children: button that toggles expand
+          // Parent items with children: navigate AND expand
           <button
             type="button"
-            onClick={() => toggleExpanded(item.id)}
+            onClick={() => handleParentClick(item)}
             className={`${itemClasses} w-full group`}
           >
             {iconContent}
