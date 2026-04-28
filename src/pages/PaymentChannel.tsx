@@ -36,9 +36,6 @@ export const PaymentChannel: React.FC = () => {
           </div>
           <h1 className="text-3xl font-bold text-white">Payment Channel</h1>
         </div>
-        <p className="text-lg text-white/60 leading-relaxed max-w-3xl">
-          Learn about the available payment channels and methods supported by the Kiwi Finance payment gateway.
-        </p>
       </div>
 
       {/* Overview */}
