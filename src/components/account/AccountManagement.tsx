@@ -65,40 +65,40 @@ export const AccountManagement: React.FC = () => {
       title: 'Account Balance',
       value: balance?.accountBalance || 0,
       icon: DollarSign,
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
+      color: 'text-kiwi-600',
+      bgColor: 'bg-kiwi-100',
       description: 'Available funds in your account'
     },
     {
       title: 'Total Balance',
       value: balance?.totalAccountBalance || 0,
       icon: Wallet,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-100',
+      color: 'text-kiwi-600',
+      bgColor: 'bg-kiwi-100',
       description: 'Total account balance including overdraft'
     },
     {
       title: 'Overdraft Limit',
       value: balance?.overdraftLimit || 0,
       icon: CreditCard,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-100',
+      color: 'text-accent-600',
+      bgColor: 'bg-kiwi-100',
       description: 'Available overdraft facility'
     },
     {
       title: 'Commission',
       value: balance?.commission || 0,
       icon: TrendingUp,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-100',
+      color: 'text-kiwi-600',
+      bgColor: 'bg-kiwi-50',
       description: 'Commission earned'
     },
     {
       title: 'Rebate Points',
       value: balance?.rebatePoints || 0,
       icon: Activity,
-      color: 'text-pink-600',
-      bgColor: 'bg-pink-100',
+      color: 'text-accent-600',
+      bgColor: 'bg-kiwi-100',
       description: 'Loyalty points earned',
       isPoints: true
     }
@@ -106,7 +106,7 @@ export const AccountManagement: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white shadow rounded">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -122,7 +122,7 @@ export const AccountManagement: React.FC = () => {
               <button
                 onClick={fetchBalance}
                 disabled={isLoadingBalance}
-                className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-nectar-primary hover:bg-nectar-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nectar-primary disabled:opacity-50"
+                className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-slate-900 bg-kiwi-700 hover:bg-kiwi-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kiwi-700 disabled:opacity-50"
               >
                 <RefreshCw className={`h-4 w-4 ${isLoadingBalance ? 'animate-spin' : ''}`} />
               </button>
@@ -132,10 +132,10 @@ export const AccountManagement: React.FC = () => {
           {/* Balance Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
             {balanceCards.map((card, index) => (
-              <div key={card.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <div key={card.title} className="bg-white border border-gray-200 rounded p-6 shadow-sm">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <div className={`inline-flex items-center justify-center p-3 ${card.bgColor} rounded-lg`}>
+                    <div className={`inline-flex items-center justify-center p-3 ${card.bgColor} rounded`}>
                       <card.icon className={`h-6 w-6 ${card.color}`} />
                     </div>
                   </div>
@@ -166,32 +166,32 @@ export const AccountManagement: React.FC = () => {
           </div>
 
           {/* Account Summary */}
-          <div className="bg-gradient-to-r from-nectar-primary to-nectar-secondary rounded-lg p-6 text-white">
+          <div className="bg-gradient-to-r from-kiwi-700 to-kiwi-600 rounded p-6 text-slate-900">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-medium">Account Summary</h3>
-                <p className="mt-1 text-sm text-white text-opacity-90">
+                <p className="mt-1 text-sm text-slate-900 text-opacity-90">
                   Complete overview of your financial status
                 </p>
               </div>
-              <Building2 className="h-8 w-8 text-white text-opacity-80" />
+              <Building2 className="h-8 w-8 text-slate-900 text-opacity-80" />
             </div>
             
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <p className="text-sm text-white text-opacity-80">Available Balance</p>
+                <p className="text-sm text-slate-900 text-opacity-80">Available Balance</p>
                 <p className="text-2xl font-bold">
                   {balance ? `₦${balance.accountBalance.toLocaleString()}` : '₦0'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-white text-opacity-80">Total Resources</p>
+                <p className="text-sm text-slate-900 text-opacity-80">Total Resources</p>
                 <p className="text-2xl font-bold">
                   {balance ? `₦${(balance.accountBalance + balance.overdraftLimit).toLocaleString()}` : '₦0'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-white text-opacity-80">Earnings</p>
+                <p className="text-sm text-slate-900 text-opacity-80">Earnings</p>
                 <p className="text-2xl font-bold">
                   {balance ? `₦${balance.commission.toLocaleString()}` : '₦0'}
                 </p>
@@ -202,7 +202,7 @@ export const AccountManagement: React.FC = () => {
       </div>
 
       {/* Single Account Lookup */}
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white shadow rounded">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -223,7 +223,7 @@ export const AccountManagement: React.FC = () => {
                 <input
                   type="text"
                   {...singleAccountForm.register('accountNumber')}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-nectar-primary focus:border-nectar-primary"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-kiwi-700 focus:border-kiwi-700"
                   placeholder="Enter account number"
                   maxLength={10}
                   required
@@ -234,7 +234,7 @@ export const AccountManagement: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isLoadingSingle}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-nectar-primary hover:bg-nectar-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nectar-primary disabled:opacity-50"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-slate-900 bg-kiwi-700 hover:bg-kiwi-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kiwi-700 disabled:opacity-50"
                 >
                   {isLoadingSingle ? (
                     <>
@@ -254,7 +254,7 @@ export const AccountManagement: React.FC = () => {
 
           {/* Single Account Result */}
           {singleBalance && (
-            <div className="mt-6 bg-gray-50 rounded-lg p-4">
+            <div className="mt-6 bg-gray-50 rounded p-4">
               <h3 className="text-sm font-medium text-gray-900 mb-3">Account Balance Result</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -276,14 +276,14 @@ export const AccountManagement: React.FC = () => {
       </div>
 
       {/* Additional Information */}
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white shadow rounded">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Account Information</h2>
           <div className="space-y-4">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100">
-                  <DollarSign className="h-5 w-5 text-blue-600" />
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-kiwi-100">
+                  <DollarSign className="h-5 w-5 text-kiwi-600" />
                 </div>
               </div>
               <div className="ml-4">
@@ -296,8 +296,8 @@ export const AccountManagement: React.FC = () => {
             
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-100">
-                  <TrendingUp className="h-5 w-5 text-green-600" />
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-kiwi-100">
+                  <TrendingUp className="h-5 w-5 text-kiwi-600" />
                 </div>
               </div>
               <div className="ml-4">
@@ -310,8 +310,8 @@ export const AccountManagement: React.FC = () => {
             
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-100">
-                  <Activity className="h-5 w-5 text-purple-600" />
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-kiwi-100">
+                  <Activity className="h-5 w-5 text-accent-600" />
                 </div>
               </div>
               <div className="ml-4">

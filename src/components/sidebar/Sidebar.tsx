@@ -1,60 +1,25 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {
-  ChevronRight,
-  Home,
-  Zap,
-  Shield,
-  Server,
-  Sparkles,
-  Webhook,
-  CreditCard
-} from 'lucide-react';
+import { ChevronRight, Home, Zap, Shield, Server, Webhook, CreditCard } from 'lucide-react';
 
 interface NavItem {
-  id: string;
-  title: string;
-  href: string;
-  icon?: React.ComponentType<any>;
-  badge?: string;
-  children?: NavItem[];
+  id: string; title: string; href: string;
+  icon?: React.ComponentType<any>; badge?: string; children?: NavItem[];
 }
 
 const navItems: NavItem[] = [
+  { id: 'overview', title: 'Overview', href: '/', icon: Home },
+  { id: 'getting-started', title: 'Getting Started', href: '/getting-started', icon: Zap, badge: 'Start here' },
+  { id: 'authentication', title: 'Authentication', href: '/authentication', icon: Shield },
   {
-    id: 'overview',
-    title: 'Overview',
-    href: '/',
-    icon: Home,
-  },
-  {
-    id: 'getting-started',
-    title: 'Getting Started',
-    href: '/getting-started',
-    icon: Zap,
-    badge: 'Start here'
-  },
-  {
-    id: 'authentication',
-    title: 'Authentication',
-    href: '/authentication',
-    icon: Shield,
-  },
-  {
-    id: 'gateway-integration',
-    title: 'Gateway Integration',
-    href: '/gateway-integration',
-    icon: CreditCard,
+    id: 'gateway-integration', title: 'Gateway Integration', href: '/gateway-integration', icon: CreditCard,
     children: [
       { id: 'payment-channel', title: 'Payment Channel', href: '/gateway-integration/payment-channel' },
       { id: 'end-to-end-test', title: 'End-to-End Test', href: '/gateway-integration/end-to-end-test' },
     ],
   },
   {
-    id: 'server-to-server',
-    title: 'Server to Server',
-    href: '/server-to-server',
-    icon: Server,
+    id: 'server-to-server', title: 'Server to Server', href: '/server-to-server', icon: Server,
     children: [
       { id: 'environments', title: 'Environments', href: '/server-to-server/environments' },
       { id: 'charge-card-3ds', title: 'Charge Card (3DS)', href: '/server-to-server/charge-card-3ds' },
@@ -67,166 +32,83 @@ const navItems: NavItem[] = [
       { id: 'transaction-history', title: 'Transaction History', href: '/server-to-server/transaction-history' },
     ],
   },
-  {
-    id: 'webhook',
-    title: 'Webhook',
-    href: '/webhook',
-    icon: Webhook,
-  },
+  { id: 'webhook', title: 'Webhook', href: '/webhook', icon: Webhook },
 ];
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // Only one item can be expanded at a time (accordion behavior)
   const [expandedItem, setExpandedItem] = React.useState<string | null>(null);
 
+  const isActive = (href: string) => href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
+
   const handleParentClick = (item: NavItem) => {
-    // Navigate to the parent route
     navigate(item.href);
-    // Also expand to show children
     setExpandedItem(prev => prev === item.id ? prev : item.id);
   };
 
-  const isActive = (href: string) => {
-    if (href === '/') return location.pathname === '/';
-    return location.pathname.startsWith(href);
+  const handleSubItemClick = (item: NavItem) => {
+    if (!item.href.includes('/')) return;
+    const parts = item.href.split('/');
+    const path = parts[parts.length - 1];
+    const parent = parts[parts.length - 2];
+    const map: Record<string, Record<string, string>> = {
+      'server-to-server': {
+        environments: 'environments', 'charge-card-3ds': 'charge-card-3ds',
+        'charge-card-2ds': 'charge-card-2ds', 'charge-card-otp': 'charge-card-otp',
+        'authorize-card-transaction': 'authorize-card-transaction',
+        'verify-transaction-status': 'verify-transaction-status',
+        refund: 'refund', 'status-code': 'status-code', 'transaction-history': 'transaction-history',
+      },
+    };
+    const id = map[parent]?.[path] || path;
+    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   };
 
-  const handleSubItemClick = (item: NavItem, _event: React.MouseEvent) => {
-    if (item.href.includes('/')) {
-      const pathParts = item.href.split('/');
-      const sidebarPath = pathParts[pathParts.length - 1];
-      const parentPath = pathParts[pathParts.length - 2];
-
-      const getEndpointId = (parent: string, path: string): string => {
-        const mappings: Record<string, Record<string, string>> = {
-          'server-to-server': {
-            'environments': 'environments',
-            'charge-card-3ds': 'charge-card-3ds',
-            'charge-card-2ds': 'charge-card-2ds',
-            'charge-card-otp': 'charge-card-otp',
-            'authorize-card-transaction': 'authorize-card-transaction',
-            'verify-transaction-status': 'verify-transaction-status',
-            'refund': 'refund',
-            'status-code': 'status-code',
-            'transaction-history': 'transaction-history',
-          },
-        };
-
-        return mappings[parent]?.[path] || path;
-      };
-
-      const endpointId = getEndpointId(parentPath, sidebarPath);
-
-      setTimeout(() => {
-        const element = document.getElementById(endpointId);
-        if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'nearest'
-          });
-        }
-      }, 100);
-    }
-  };
-
-  const renderNavItem = (item: NavItem, level: number = 0) => {
-    const hasChildren = item.children && item.children.length > 0;
-    const isExpanded = expandedItem === item.id;
+  const renderItem = (item: NavItem, level = 0) => {
+    const hasChildren = !!item.children?.length;
     const active = isActive(item.href);
-
-    // For items WITH children at top level: clicking toggles expand
-    // For items WITHOUT children or child items: clicking navigates
-    const isParentWithChildren = hasChildren && level === 0;
-
-    const itemClasses = `flex items-center gap-3 px-3 py-2 text-[13px] font-medium rounded-lg transition-all duration-200 cursor-pointer ${
+    const cls = [
+      'flex items-center gap-2.5 px-2.5 py-1.5 text-[13px] rounded transition-colors duration-150 cursor-pointer w-full',
       active
-        ? level > 0
-          ? 'text-kiwi-400 bg-kiwi-500/10'
-          : 'text-white bg-gradient-to-r from-kiwi-500/20 to-accent-500/10 shadow-sm border border-kiwi-500/20'
-        : 'text-white/60 hover:text-white hover:bg-white/5'
-    } ${level > 0 ? 'ml-3 pl-6 relative before:absolute before:left-3 before:top-0 before:bottom-0 before:w-px before:bg-white/10' : ''}`;
+        ? level > 0 ? 'text-kiwi-700 font-medium' : 'text-kiwi-700 font-semibold bg-kiwi-50'
+        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50',
+      level > 0 ? 'ml-5 pl-3 border-l-2 border-slate-100' : '',
+    ].join(' ');
 
-    const iconContent = (
+    const inner = (
       <>
-        {/* Left side: Icon + Text grouped together */}
-        <div className="flex items-center gap-3 flex-1 min-w-0">
-          {/* Icon for top-level items */}
+        <span className="flex items-center gap-2 flex-1 min-w-0">
           {item.icon && level === 0 && (
-            <div className={`flex items-center justify-center w-7 h-7 rounded-lg flex-shrink-0 ${
-              active
-                ? 'bg-kiwi-500/20 text-kiwi-400'
-                : 'bg-white/5 text-white/50 group-hover:text-white/70'
-            } transition-colors`}>
-              <item.icon className="h-4 w-4" />
-            </div>
+            <item.icon className={`h-3.5 w-3.5 flex-shrink-0 ${active ? 'text-kiwi-600' : 'text-slate-400'}`} />
           )}
-
-          {/* Dot indicator for nested items */}
-          {level > 0 && (
-            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-200 ${
-              active
-                ? 'bg-kiwi-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'
-                : 'bg-white/20 group-hover:bg-white/40'
-            }`} />
-          )}
-
+          {level > 0 && <span className={`w-1 h-1 rounded-full flex-shrink-0 ${active ? 'bg-kiwi-500' : 'bg-slate-300'}`} />}
           <span className="truncate">{item.title}</span>
-        </div>
-
-        {/* Right side: Badge and/or Chevron */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Badge */}
+        </span>
+        <span className="flex items-center gap-1 flex-shrink-0">
           {item.badge && (
-            <span className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold text-kiwi-400 bg-kiwi-500/10 rounded-full border border-kiwi-500/20">
-              <Sparkles className="h-2.5 w-2.5" />
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold text-kiwi-600 bg-kiwi-50 rounded border border-kiwi-100">
               {item.badge}
             </span>
           )}
-
-          {/* Chevron for expandable items - at the far right */}
           {hasChildren && (
-            <ChevronRight className={`h-4 w-4 transition-transform duration-200 ${
-              isExpanded ? 'rotate-90' : ''
-            } ${active ? 'text-kiwi-400' : 'text-white/40'}`} />
+            <ChevronRight className={`h-3 w-3 text-slate-400 transition-transform duration-150 ${expandedItem === item.id ? 'rotate-90' : ''}`} />
           )}
-        </div>
+        </span>
       </>
     );
 
     return (
-      <div key={item.id} className="relative">
-        {isParentWithChildren ? (
-          // Parent items with children: navigate AND expand
-          <button
-            type="button"
-            onClick={() => handleParentClick(item)}
-            className={`${itemClasses} w-full group`}
-          >
-            {iconContent}
-          </button>
+      <div key={item.id}>
+        {hasChildren && level === 0 ? (
+          <button type="button" onClick={() => handleParentClick(item)} className={cls}>{inner}</button>
         ) : (
-          // Items without children or child items: Link that navigates
-          <Link
-            to={item.href}
-            onClick={(e) => level > 0 && handleSubItemClick(item, e)}
-            className={`${itemClasses} group`}
-          >
-            {iconContent}
-          </Link>
+          <Link to={item.href} onClick={() => level > 0 && handleSubItemClick(item)} className={cls}>{inner}</Link>
         )}
-
-        {/* Children items */}
         {hasChildren && (
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isExpanded ? 'max-h-[1000px] opacity-100 mt-1' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <div className="space-y-0.5 pb-2">
-              {item.children!.map(child => renderNavItem(child, level + 1))}
+          <div className={`overflow-hidden transition-all duration-200 ${expandedItem === item.id ? 'max-h-[1000px] opacity-100 mt-0.5' : 'max-h-0 opacity-0'}`}>
+            <div className="space-y-0.5 pb-1">
+              {item.children!.map(child => renderItem(child, level + 1))}
             </div>
           </div>
         )}
@@ -235,41 +117,18 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <nav className="p-4 space-y-6 relative z-10">
-      {/* Section header */}
-      <div className="px-3 py-2">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-white/30">
-          API Reference
-        </p>
-      </div>
-
-      {/* Navigation items */}
-      <div className="space-y-1">
-        {navItems.map(item => renderNavItem(item))}
-      </div>
-
-      {/* Quick links section */}
-      <div className="pt-4 border-t border-white/5">
-        <div className="px-3 py-2 mb-2">
-          <p className="text-[10px] font-bold tracking-widest uppercase text-white/30">
-            Resources
-          </p>
-        </div>
-        <div className="space-y-1">
-          <a
-            href="https://kiwifinance.tech/contact-sales"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-white/60 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
-          >
-            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-white/5 text-white/50">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span>Help & Support</span>
-          </a>
-        </div>
+    <nav className="px-3 py-4 space-y-5">
+      <p className="px-2.5 text-[10px] font-bold tracking-widest uppercase text-slate-400">API Reference</p>
+      <div className="space-y-0.5">{navItems.map(item => renderItem(item))}</div>
+      <div className="pt-3 border-t border-slate-100 space-y-1">
+        <p className="px-2.5 text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">Resources</p>
+        <a href="https://westrapay.com/contact-sales" target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 text-[13px] text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded transition-colors">
+          <svg className="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Help & Support
+        </a>
       </div>
     </nav>
   );

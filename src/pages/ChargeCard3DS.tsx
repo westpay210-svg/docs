@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CreditCard, Shield, Globe, AlertTriangle, CheckCircle, XCircle, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
+import { PropertyTable } from '../components/docs/PropertyTable';
+import { StepList } from '../components/docs/StepList';
 import { CodeBlock } from '../components/code/CodeBlock';
 
 export const ChargeCard3DS: React.FC = () => {
@@ -92,7 +96,7 @@ export const ChargeCard3DS: React.FC = () => {
     "data": {
         "status": 200,
         "authorizationType": "3DS",
-        "acsUrl": "https://test-gateway.kiwifinance.tech/acs/CaW8K1xydcE5v24f_xEt",
+        "acsUrl": "https://sandbox-checkout.westrapay.com/acs/CaW8K1xydcE5v24f_xEt",
         "reference": "CaW8K1xydcE5v24f_xEt",
         "paymentRequestor": "Merchant Limited",
         "version": "3DS2"
@@ -100,253 +104,108 @@ export const ChargeCard3DS: React.FC = () => {
     "errors": []
 }`;
 
-  const webhookErrorJson = `{  
-  "status": 400,  
-  "message": "Invalid webhook URL. The URL must start with 'http' or 'https'."  
+  const webhookErrorJson = `{
+  "status": 400,
+  "message": "Invalid webhook URL. The URL must start with 'http' or 'https'."
 }`;
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold text-white mb-4">Charge a Card (3DS)</h1>
-        
-        {/* Introduction */}
-        <div className="mb-8">
-          <p className="text-white-muted mb-4 leading-relaxed">
-            This process initializes a 3D Secure (3DS) transaction, requiring user authentication via redirection and it involves two main steps:
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-green-500/20 mb-4">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Initialize the Payment</h3>
-                <p className="text-sm text-white/70">
-                  Start the payment process and redirect the customer to the ACS (Access Control Server) for 3DS authentication.
-                </p>
-              </div>
-            </div>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Server to Server"
+        title="Charge a Card (3DS)"
+        description="Initialize a 3D Secure card transaction. The customer is redirected to the ACS for authentication, then returns to your callback URL."
+      />
 
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/20 mb-4">
-                  <Shield className="h-6 w-6 text-blue-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Verify the Payment</h3>
-                <p className="text-sm text-white/70">
-                  Confirm the payment status after the customer completes the 3DS authentication.
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">How It Works</h2>
+        <StepList steps={[
+          { title: 'Initialize the Payment', description: 'Start the payment process and redirect the customer to the ACS (Access Control Server) for 3DS authentication.' },
+          { title: 'Verify the Payment', description: 'Confirm the payment status after the customer completes the 3DS authentication.' },
+        ]} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Endpoint</h2>
+        <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 rounded font-mono text-[13px] mb-4">
+          <span className="px-2 py-0.5 text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200 rounded">POST</span>
+          <code className="text-slate-700">/transaction/charge</code>
         </div>
+      </div>
 
-        {/* Endpoint */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Endpoint</h2>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-            <div className="flex items-center">
-              <span className="bg-green-600 text-white px-3 py-1 rounded text-sm font-mono mr-3">POST</span>
-              <code className="text-lime font-mono">/transaction/charge</code>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Parameters</h2>
+        <PropertyTable properties={requestParameters} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Headers</h2>
+        <CodeBlock code="Content-Type: application/json" language="bash" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
+        <CodeBlock code={requestBodyJson} language="json" />
+      </div>
+
+      <Callout type="warning" title="3DS Redirect Required">
+        Merchant must redirect the user to <code>acsUrl</code> for 3DS authentication. Upon completion, the user is redirected to the callback URL with the following parameters:
+        <ul className="mt-2 space-y-1">
+          {callbackParameters.map((param, i) => (
+            <li key={i}><code>{param.name}</code> — {param.description}</li>
+          ))}
+        </ul>
+      </Callout>
+
+      <div className="mb-8 mt-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Response Fields</h2>
+        <PropertyTable properties={responseFields} showRequired={false} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response</h2>
+        <CodeBlock code={successResponseJson} language="json" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Webhook URL Validation</h2>
+        <Callout type="danger" title="Invalid Webhook URL">
+          If the webhookUrl does not start with <code>http</code> or <code>https</code>, the system will reject the request with a 400 error.
+        </Callout>
+        <div className="mt-4">
+          <CodeBlock code={webhookErrorJson} language="json" />
         </div>
+      </div>
 
-        {/* Request Parameters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Request Parameters</h2>
-          <p className="text-white-muted mb-4">Body (JSON):</p>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Parameter</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Required</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {requestParameters.map((param, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{param.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{param.type}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          param.required 
-                            ? 'bg-red-100 text-red-800' 
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {param.required ? 'Required' : 'Optional'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{param.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Headers */}
-          <h3 className="text-lg font-semibold text-white mb-4">Headers:</h3>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-6">
-            <code className="text-lime">Content-Type: application/json</code>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Error Responses</h2>
+        <div className="border border-slate-200 rounded overflow-hidden my-4">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Code</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Message</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {errorCodes.map((e, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 font-mono text-[13px] text-red-600">{e.code}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-700">{e.message}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">{e.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        {/* Request Body Example */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-white mb-4">Request Body:</h3>
-          <CodeBlock code={requestBodyJson} language="json" />
-        </div>
-
-        {/* Responses */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Responses</h2>
-          
-          {/* 200 OK Response */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-white mb-4">200 OK:</h3>
-            
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-4">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Field</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {responseFields.map((field, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{field.name}</td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{field.type}</td>
-                        <td className="px-4 py-4 text-sm text-white-muted">{field.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <h4 className="text-md font-semibold text-white mb-4">Response (Success):</h4>
-            <CodeBlock code={successResponseJson} language="json" />
-          </div>
-
-          {/* 400 Bad Request */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent border border-red-500/20 p-6 mb-6 hover:border-red-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-white mb-2">400 Bad Request:</h3>
-              <p className="text-sm text-white/70">
-                Returned when request parameters are invalid.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Example Error Responses */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Example Error Responses</h2>
-          
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Webhook URL</h3>
-            <p className="text-white-muted mb-4">
-              If the webhookUrl is invalid (e.g., does not start with http or https), the system will reject the request with an error message:
-            </p>
-            <CodeBlock code={webhookErrorJson} language="json" />
-          </div>
-        </div>
-
-        {/* Important Note */}
-        <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-500/10 via-yellow-500/5 to-transparent border border-yellow-500/20 p-6 mb-8 hover:border-yellow-500/40 transition-all duration-300">
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-yellow-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative flex items-start gap-4">
-            <div className="p-2 rounded-xl bg-yellow-500/20 flex-shrink-0">
-              <AlertTriangle className="h-5 w-5 text-yellow-400" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-3">Note:</h3>
-              <p className="text-sm text-white/70 mb-2">
-                Merchant must redirect the user to <code className="bg-yellow-500/20 px-2 py-1 rounded text-yellow-400">acsUrl</code> for 3DS authentication.
-                Upon completion, the user is redirected to the callback URL with the following parameters:
-              </p>
-
-              <div className="mt-4">
-                <h4 className="text-md font-semibold text-white mb-2">Callback Parameters:</h4>
-                <div className="space-y-2">
-                  {callbackParameters.map((param, index) => (
-                    <div key={index} className="flex">
-                      <code className="bg-yellow-500/20 px-2 py-1 rounded text-yellow-400 text-xs mr-2 flex-shrink-0">
-                        {param.name}
-                      </code>
-                      <span className="text-xs text-white/60">{param.description}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Error Responses Table */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Error Responses</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Status Code</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Message</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {errorCodes.map((error, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-red-400">{error.code}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.message}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        {/* What's Next */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-kiwi-500 to-accent-500 opacity-90" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
-          <div className="relative p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Globe className="h-6 w-6 text-white" />
-              <h2 className="text-xl font-bold text-white">What's Next</h2>
-            </div>
-            <p className="text-white/80 mb-6">
-              Learn how to charge a card with 2D Secure authentication
-            </p>
-            <Link
-              to="/server-to-server/charge-card-2ds"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
-            >
-              Charge a Card (2DS)
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+      <div className="flex items-center justify-between pt-6 border-t border-slate-200 mt-10">
+        <span className="text-[13px] text-slate-500">Next in Server to Server</span>
+        <Link to="/server-to-server/charge-card-2ds" className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-kiwi-700 bg-kiwi-50 border border-kiwi-200 rounded hover:bg-kiwi-100 transition-colors">
+          Charge Card (2DS) <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
     </div>
   );

@@ -10,11 +10,11 @@ interface CodeBlockProps {
   showLineNumbers?: boolean;
 }
 
-export const CodeBlock: React.FC<CodeBlockProps> = ({ 
-  code, 
-  language, 
+export const CodeBlock: React.FC<CodeBlockProps> = ({
+  code,
+  language,
   title,
-  showLineNumbers = false 
+  showLineNumbers = false,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -24,15 +24,15 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy code:', err);
+      console.error('Failed to copy:', err);
     }
   };
 
   return (
-    <div className="relative group">
+    <div className="relative group border border-slate-200 rounded overflow-hidden">
       {title && (
-        <div className="bg-gray-800 text-white px-4 py-2 text-sm font-medium border-b border-gray-700 rounded-t-lg">
-          {title}
+        <div className="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
+          <span className="text-[11px] font-medium text-slate-400 font-mono">{title}</span>
         </div>
       )}
       <div className="relative">
@@ -42,20 +42,21 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
           showLineNumbers,
           customStyle: {
             margin: 0,
-            borderRadius: title ? '0 0 0.5rem 0.5rem' : '0.5rem',
-            fontSize: '0.875rem',
+            borderRadius: 0,
+            fontSize: '0.8125rem',
+            lineHeight: '1.6',
           },
           children: code,
         })}
         <button
           onClick={copyToClipboard}
-          className="absolute top-3 right-3 p-2 rounded-md bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
-          title="Copy code"
+          className="absolute top-2.5 right-2.5 p-1.5 rounded bg-slate-700/80 hover:bg-slate-600 text-slate-400 hover:text-slate-200 transition-all opacity-0 group-hover:opacity-100"
+          title="Copy"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-green-400" />
+            <Check className="h-3.5 w-3.5 text-kiwi-400" />
           ) : (
-            <Copy className="h-4 w-4" />
+            <Copy className="h-3.5 w-3.5" />
           )}
         </button>
       </div>

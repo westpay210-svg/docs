@@ -2,12 +2,12 @@ import axios, { AxiosInstance } from 'axios';
 
 export const API_CONFIG = {
   sandbox: {
-    authBaseUrl: 'https://staging.api.kiwifinance.tech',
-    baseUrl: 'https://staging.api.kiwifinance.tech',
+    authBaseUrl: 'https://sandbox-api.westrapay.com',
+    baseUrl: 'https://sandbox-api.westrapay.com',
   },
   production: {
-    authBaseUrl: 'https://api.kiwifinance.tech',
-    baseUrl: 'https://api.kiwifinance.tech',
+    authBaseUrl: 'https://api.westrapay.com',
+    baseUrl: 'https://api.westrapay.com',
   },
 };
 

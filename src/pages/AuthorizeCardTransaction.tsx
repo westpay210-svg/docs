@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Key, Globe, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
+import { PropertyTable } from '../components/docs/PropertyTable';
+import { StepList } from '../components/docs/StepList';
 import { CodeBlock } from '../components/code/CodeBlock';
 
 export const AuthorizeCardTransaction: React.FC = () => {
@@ -54,268 +58,104 @@ export const AuthorizeCardTransaction: React.FC = () => {
 }`;
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold text-white mb-4">Authorize a Card Transaction</h1>
-        
-        {/* Introduction */}
-        <div className="mb-8">
-          <p className="text-white-muted mb-6 leading-relaxed">
-            Authorizes a transaction using an OTP (One-Time Password). This endpoint is used to complete the transaction 
-            authorization process after the customer has received and entered their OTP.
-          </p>
-          
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-green-500/20 mb-4">
-                <CheckCircle className="h-6 w-6 text-green-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Authorization Process</h3>
-              <ul className="text-sm text-white/70 space-y-2">
-                <li>• Complete transaction authorization with OTP verification</li>
-                <li>• Final step in the OTP authentication flow</li>
-                <li>• Confirms customer consent and identity</li>
-                <li>• Processes payment upon successful verification</li>
-              </ul>
-            </div>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Server to Server"
+        title="Authorize a Card Transaction"
+        description="Complete OTP authorization for a pending card transaction. Use the transactionReference from the Charge a Card response."
+      />
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Authorization Flow</h2>
+        <StepList steps={[
+          { title: 'Charge Card', description: 'Initiate a charge using the OTP flow — the system sends an OTP to the customer\'s registered phone.' },
+          { title: 'Customer Receives OTP', description: 'Customer receives the one-time password via SMS and enters it in your application.' },
+          { title: 'Authorize Transaction', description: 'Submit the OTP and transactionReference to this endpoint to complete the payment.' },
+        ]} />
+      </div>
+
+      <Callout type="info" title="Use the right reference">
+        The transactionReference in this request must match the one returned from the Charge a Card (OTP) response.
+      </Callout>
+
+      <div className="mb-8 mt-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Endpoint</h2>
+        <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 rounded font-mono text-[13px] mb-4">
+          <span className="px-2 py-0.5 text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200 rounded">POST</span>
+          <code className="text-slate-700">/transaction/charge/authorize</code>
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Parameters</h2>
+        <PropertyTable properties={requestParameters} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Headers</h2>
+        <CodeBlock code="Content-Type: application/json" language="bash" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
+        <CodeBlock code={requestBodyJson} language="json" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Response Fields</h2>
+        <PropertyTable properties={responseFields} showRequired={false} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response</h2>
+        <CodeBlock code={successResponseJson} language="json" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Transaction Status</h2>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3 px-4 py-3 border border-slate-200 rounded bg-white">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-[11px] font-bold">2</span>
+            <span className="text-[13px] font-medium text-green-700">AUTHORIZED</span>
+            <span className="text-[13px] text-slate-500">— Transaction successfully authorized</span>
+          </div>
+          <div className="flex items-center gap-3 px-4 py-3 border border-slate-200 rounded bg-white">
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-[11px] font-bold">✕</span>
+            <span className="text-[13px] font-medium text-red-700">FAILED</span>
+            <span className="text-[13px] text-slate-500">— Authorization failed or declined</span>
           </div>
         </div>
+      </div>
 
-        {/* Authorization Flow */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Authorization Flow</h2>
-
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative space-y-4">
-              <div className="flex items-center">
-                <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">1</div>
-                <div className="flex items-center flex-1">
-                  <span className="text-white font-medium">Charge Card Request</span>
-                  <ArrowRight className="h-4 w-4 mx-3 text-white/40" />
-                  <span className="text-white/70">OTP Sent to Customer</span>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">2</div>
-                <div className="flex items-center flex-1">
-                  <span className="text-white font-medium">Customer Receives OTP</span>
-                  <ArrowRight className="h-4 w-4 mx-3 text-white/40" />
-                  <span className="text-white/70">Enters OTP in Application</span>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">3</div>
-                <div className="flex items-center flex-1">
-                  <span className="text-white font-medium">Authorize Transaction</span>
-                  <ArrowRight className="h-4 w-4 mx-3 text-white/40" />
-                  <span className="text-white/70">Payment Processed</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Error Responses</h2>
+        <div className="border border-slate-200 rounded overflow-hidden my-4">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Code</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Message</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {errorCodes.map((e, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 font-mono text-[13px] text-red-600">{e.code}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-700">{e.message}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">{e.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        {/* Endpoint */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Endpoint</h2>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-            <div className="flex items-center">
-              <span className="bg-green-600 text-white px-3 py-1 rounded text-sm font-mono mr-3">POST</span>
-              <code className="text-lime font-mono">/transaction/charge/authorize</code>
-            </div>
-          </div>
-        </div>
-
-        {/* Request Parameters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Request Parameters</h2>
-          <p className="text-white-muted mb-4">Body (JSON):</p>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Parameter</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Required</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {requestParameters.map((param, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{param.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{param.type}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                          Required
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{param.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Headers */}
-          <h3 className="text-lg font-semibold text-white mb-4">Headers:</h3>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-6">
-            <code className="text-lime">Content-Type: application/json</code>
-          </div>
-        </div>
-
-        {/* Request Body Example */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-white mb-4">Request Body:</h3>
-          <CodeBlock code={requestBodyJson} language="json" />
-        </div>
-
-        {/* Important Note */}
-        <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-500/10 via-yellow-500/5 to-transparent border border-yellow-500/20 p-6 mb-8 hover:border-yellow-500/40 transition-all duration-300">
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-yellow-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative flex items-start gap-4">
-            <div className="p-2 rounded-xl bg-yellow-500/20 flex-shrink-0">
-              <Key className="h-5 w-5 text-yellow-400" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-2">Important</h3>
-              <p className="text-sm text-white/70">
-                Use the <code className="bg-yellow-500/20 px-2 py-1 rounded text-yellow-400">transactionReference</code> returned from the
-                initial "Charge a Card" request. This reference links the authorization to the original transaction.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Responses */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Responses</h2>
-          
-          {/* 200 OK Response */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-white mb-4">200 OK:</h3>
-            <p className="text-white-muted mb-4">Body: JSON object containing the card transaction authorization response.</p>
-            
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-4">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Field</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {responseFields.map((field, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{field.name}</td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{field.type}</td>
-                        <td className="px-4 py-4 text-sm text-white-muted">{field.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <h4 className="text-md font-semibold text-white mb-4">Response (Success):</h4>
-            <CodeBlock code={successResponseJson} language="json" />
-          </div>
-
-          {/* 400 Bad Request */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent border border-red-500/20 p-6 mb-6 hover:border-red-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-white mb-2">400 Bad Request:</h3>
-              <p className="text-sm text-white/70">
-                Returned when the OTP or transactionReference is missing or invalid.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Transaction Status Codes */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Transaction Status Codes</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center">
-                <div className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</div>
-                <div>
-                  <span className="text-green-400 font-medium">AUTHORIZED</span>
-                  <p className="text-sm text-green-500/80">Transaction successfully authorized</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center">
-                <div className="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">X</div>
-                <div>
-                  <span className="text-red-400 font-medium">FAILED</span>
-                  <p className="text-sm text-red-500/80">Authorization failed or declined</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Error Responses Table */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Error Responses</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Status Code</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Message</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {errorCodes.map((error, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-red-400">{error.code}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.message}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        {/* What's Next */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-kiwi-500 to-accent-500 opacity-90" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
-          <div className="relative p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Globe className="h-6 w-6 text-white" />
-              <h2 className="text-xl font-bold text-white">What's Next</h2>
-            </div>
-            <p className="text-white/80 mb-6">
-              Continue with transaction status verification and monitoring
-            </p>
-            <Link
-              to="/server-to-server/verify-transaction-status"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
-            >
-              Verify Transaction Status
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+      <div className="flex items-center justify-between pt-6 border-t border-slate-200 mt-10">
+        <span className="text-[13px] text-slate-500">Next in Server to Server</span>
+        <Link to="/server-to-server/verify-transaction-status" className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-kiwi-700 bg-kiwi-50 border border-kiwi-200 rounded hover:bg-kiwi-100 transition-colors">
+          Verify Transaction Status <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CreditCard, Server, Globe, AlertTriangle, XCircle, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
+import { PropertyTable } from '../components/docs/PropertyTable';
 import { CodeBlock } from '../components/code/CodeBlock';
 
 export const ChargeCard2DS: React.FC = () => {
@@ -39,7 +42,7 @@ export const ChargeCard2DS: React.FC = () => {
     "currency": "USD",
     "reference": "000045mG7mTL022NzzQ1",
     "callbackUrl": "https://example.com/",
-    "webhookUrl": "https://example.com/",    
+    "webhookUrl": "https://example.com/",
     "sourceUrl": "https//sourceexample.com",
     "cardNumber": "5555555555554444",
     "tid": "TT9GMG",
@@ -91,216 +94,107 @@ export const ChargeCard2DS: React.FC = () => {
 }`;
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold text-white mb-4">Charge a Card (2DS)</h1>
-        
-        {/* Introduction */}
-        <div className="mb-8">
-          <p className="text-white-muted mb-6 leading-relaxed">
-            This endpoint captures a 2D Secure (2DS) card transaction using server-to-server communication. 
-          </p>
-          
-          {/* Important Restriction */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent border border-red-500/20 p-6 mb-6 hover:border-red-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex items-start gap-4">
-              <div className="p-2 rounded-xl bg-red-500/20 flex-shrink-0">
-                <XCircle className="h-5 w-5 text-red-400" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-2">Important Restriction</h3>
-                <p className="text-sm text-white/70">
-                  For <strong className="text-red-400">Verve cards</strong>, this operation is <strong className="text-red-400">disallowed</strong> as per business rules.
-                </p>
-              </div>
-            </div>
-          </div>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Server to Server"
+        title="Charge a Card (2DS)"
+        description="Capture a 2D Secure card transaction directly from your server without customer redirection."
+      />
 
-          {/* 2DS Features */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/20 mb-4">
-                <Server className="h-6 w-6 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">2D Secure Features</h3>
-              <ul className="text-sm text-white/70 space-y-2">
-                <li>• Direct server-to-server communication</li>
-                <li>• No customer redirection required</li>
-                <li>• Streamlined payment flow</li>
-                <li>• Faster transaction processing</li>
-              </ul>
-            </div>
+      <Callout type="danger" title="Verve cards not supported">
+        The 2DS flow is disallowed for Verve cards as per business rules.
+      </Callout>
+
+      <div className="mb-8 mt-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">About 2DS</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="border border-slate-200 rounded p-4">
+            <h3 className="text-[13px] font-semibold text-slate-900 mb-2">2DS Features</h3>
+            <ul className="text-[13px] text-slate-600 space-y-1">
+              <li>• Direct server-to-server communication</li>
+              <li>• No customer redirection required</li>
+              <li>• Streamlined payment flow</li>
+              <li>• Faster transaction processing</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 rounded p-4">
+            <h3 className="text-[13px] font-semibold text-slate-900 mb-2">Security Considerations</h3>
+            <ul className="text-[13px] text-slate-600 space-y-1">
+              <li>• Lower authentication level than 3DS</li>
+              <li>• Verve cards not supported</li>
+              <li>• Higher risk assessment</li>
+              <li>• Merchant liability considerations</li>
+            </ul>
           </div>
         </div>
+      </div>
 
-        {/* Endpoint */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Endpoint</h2>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-            <div className="flex items-center">
-              <span className="bg-green-600 text-white px-3 py-1 rounded text-sm font-mono mr-3">POST</span>
-              <code className="text-lime font-mono">/transaction/charge</code>
-            </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Endpoint</h2>
+        <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 rounded font-mono text-[13px] mb-4">
+          <span className="px-2 py-0.5 text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200 rounded">POST</span>
+          <code className="text-slate-700">/transaction/charge</code>
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Parameters</h2>
+        <PropertyTable properties={requestParameters} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Headers</h2>
+        <CodeBlock code="Content-Type: application/json" language="bash" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
+        <CodeBlock code={requestBodyJson} language="json" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Response Fields</h2>
+        <PropertyTable properties={responseFields} showRequired={false} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response</h2>
+        <CodeBlock code={successResponseJson} language="json" />
+      </div>
+
+      <Callout type="danger" title="400 Bad Request">
+        Returned when request parameters are invalid. Body contains a JSON object with the card transaction response.
+      </Callout>
+
+      <div className="mb-8 mt-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">2DS vs 3DS Comparison</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="border border-slate-200 rounded p-4">
+            <h3 className="text-[13px] font-semibold text-slate-900 mb-2">2DS Advantages</h3>
+            <ul className="text-[13px] text-slate-600 space-y-1">
+              <li>• No customer redirection needed</li>
+              <li>• Faster transaction completion</li>
+              <li>• Simplified integration</li>
+              <li>• Direct server communication</li>
+            </ul>
+          </div>
+          <div className="border border-slate-200 rounded p-4">
+            <h3 className="text-[13px] font-semibold text-slate-900 mb-2">Security Considerations</h3>
+            <ul className="text-[13px] text-slate-600 space-y-1">
+              <li>• Lower authentication level than 3DS</li>
+              <li>• Verve cards not supported</li>
+              <li>• Higher risk assessment</li>
+              <li>• Merchant liability considerations</li>
+            </ul>
           </div>
         </div>
+      </div>
 
-        {/* Request Parameters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Request Parameters</h2>
-          <p className="text-white-muted mb-4">Body (JSON):</p>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Parameter</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Required</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {requestParameters.map((param, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{param.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{param.type}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          param.required 
-                            ? 'bg-red-100 text-red-800' 
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {param.required ? 'Required' : 'Optional'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{param.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Headers */}
-          <h3 className="text-lg font-semibold text-white mb-4">Headers:</h3>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-6">
-            <code className="text-lime">Content-Type: application/json</code>
-          </div>
-        </div>
-
-        {/* Request Body Example */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-white mb-4">Request Body:</h3>
-          <CodeBlock code={requestBodyJson} language="json" />
-        </div>
-
-        {/* Responses */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Responses</h2>
-          
-          {/* 200 OK Response */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-white mb-4">200 OK:</h3>
-            
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-4">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Field</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {responseFields.map((field, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{field.name}</td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{field.type}</td>
-                        <td className="px-4 py-4 text-sm text-white-muted">{field.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <h4 className="text-md font-semibold text-white mb-4">Response (Success):</h4>
-            <CodeBlock code={successResponseJson} language="json" />
-          </div>
-
-          {/* 400 Bad Request */}
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent border border-red-500/20 p-6 mb-6 hover:border-red-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-white mb-2">400 Bad Request:</h3>
-              <p className="text-sm text-white/70">
-                Returned when request parameters are invalid.
-              </p>
-              <p className="text-sm text-white/70 mt-2">
-                Body: JSON object containing the card transaction response.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Key Differences from 3DS */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Key Differences from 3DS</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <h3 className="text-xl font-semibold text-white mb-3">2DS Advantages</h3>
-                <ul className="text-sm text-white/70 space-y-2">
-                  <li>• No customer redirection needed</li>
-                  <li>• Faster transaction completion</li>
-                  <li>• Simplified integration</li>
-                  <li>• Direct server communication</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500/10 via-orange-500/5 to-transparent border border-orange-500/20 p-6 hover:border-orange-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-orange-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <h3 className="text-xl font-semibold text-white mb-3">Security Considerations</h3>
-                <ul className="text-sm text-white/70 space-y-2">
-                  <li>• Lower authentication level than 3DS</li>
-                  <li>• Verve cards not supported</li>
-                  <li>• Higher risk assessment</li>
-                  <li>• Merchant liability considerations</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* What's Next */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-kiwi-500 to-accent-500 opacity-90" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
-          <div className="relative p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Globe className="h-6 w-6 text-white" />
-              <h2 className="text-xl font-bold text-white">What's Next</h2>
-            </div>
-            <p className="text-white/80 mb-6">
-              Continue with OTP authentication for enhanced security
-            </p>
-            <Link
-              to="/server-to-server/charge-card-otp"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
-            >
-              Charge a Card (OTP Auth)
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+      <div className="flex items-center justify-between pt-6 border-t border-slate-200 mt-10">
+        <span className="text-[13px] text-slate-500">Next in Server to Server</span>
+        <Link to="/server-to-server/charge-card-otp" className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-kiwi-700 bg-kiwi-50 border border-kiwi-200 rounded hover:bg-kiwi-100 transition-colors">
+          Charge Card (OTP) <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
     </div>
   );

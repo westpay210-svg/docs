@@ -5,7 +5,7 @@ interface IconProps {
 }
 
 export const AuthenticationIcon: React.FC<IconProps> = ({
-  className = "h-8 w-8 text-green-600",
+  className = "h-8 w-8 text-kiwi-600",
 }) => (
   <svg
     className={className}
@@ -25,7 +25,7 @@ export const AuthenticationIcon: React.FC<IconProps> = ({
 );
 
 export const CollectionsIcon: React.FC<IconProps> = ({
-  className = "h-8 w-8 text-blue-60",
+  className = "h-8 w-8 text-kiwi-600",
 }) => (
   <svg
     className={className}
@@ -49,7 +49,7 @@ export const CollectionsIcon: React.FC<IconProps> = ({
 );
 
 export const PayoutsIcon: React.FC<IconProps> = ({
-  className = "h-8 w-8 text-purple-600",
+  className = "h-8 w-8 text-accent-600",
 }) => (
   <svg
     width="22"
@@ -67,7 +67,7 @@ export const PayoutsIcon: React.FC<IconProps> = ({
 );
 
 export const AccountManagementIcon: React.FC<IconProps> = ({
-  className = "h-8 w-8 text-orange-600",
+  className = "h-8 w-8 text-kiwi-600",
 }) => (
   <svg
     className={className}

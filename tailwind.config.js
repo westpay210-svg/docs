@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Modern dark theme
+        // Page background palette
         dark: {
           DEFAULT: '#0a0a0f',
           50: '#18181b',
@@ -17,93 +17,93 @@ module.exports = {
           500: '#3d3d4a',
         },
 
-        // Primary brand color - Emerald/Teal
+        // Primary brand color - Westrapay Teal
         kiwi: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
+          50: '#F0FDFA',
+          100: '#CCFBF1',
+          200: '#99F6E4',
+          300: '#5EEAD4',
+          400: '#2DD4BF',
+          500: '#14B8A6',
+          600: '#0D9488',
+          700: '#0F766E',
+          800: '#115E59',
+          900: '#134E4A',
         },
 
-        // Accent - Cyan/Electric blue
+        // Accent - Deep teal
         accent: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
+          50: '#F0FDFA',
+          100: '#CCFBF1',
+          200: '#99F6E4',
+          300: '#5EEAD4',
+          400: '#14B8A6',
+          500: '#0D9488',
+          600: '#0F766E',
+          700: '#115E59',
+          800: '#134E4A',
+          900: '#0D3B38',
         },
 
-        // Highlight - Violet/Purple
+        // Highlight - Light teal
         highlight: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
+          50: '#F0FDFA',
+          100: '#CCFBF1',
+          200: '#99F6E4',
+          300: '#5EEAD4',
+          400: '#2DD4BF',
+          500: '#14B8A6',
+          600: '#0D9488',
+          700: '#0F766E',
+          800: '#115E59',
+          900: '#134E4A',
         },
 
-        // Glass/Surface colors
+        // Glass/Surface colors (light mode)
         glass: {
-          light: 'rgba(255, 255, 255, 0.05)',
-          DEFAULT: 'rgba(255, 255, 255, 0.08)',
-          medium: 'rgba(255, 255, 255, 0.12)',
-          strong: 'rgba(255, 255, 255, 0.18)',
+          light: 'rgba(255, 255, 255, 0.7)',
+          DEFAULT: 'rgba(255, 255, 255, 1)',
+          medium: 'rgba(248, 250, 252, 1)',
+          strong: 'rgba(241, 245, 249, 1)',
         },
 
-        // Text colors
+        // Text colors (light mode)
         white: '#FFFFFF',
-        'white-muted': 'rgba(255, 255, 255, 0.7)',
-        'white-subtle': 'rgba(255, 255, 255, 0.5)',
+        'white-muted': 'rgba(15, 23, 42, 0.6)',
+        'white-subtle': 'rgba(15, 23, 42, 0.45)',
 
         // Legacy support
-        lime: '#10b981',
+        lime: '#14B8A6',
 
-        // Sidebar
+        // Sidebar (light mode)
         sidebar: {
-          bg: '#0d0d12',
-          text: 'rgba(255, 255, 255, 0.7)',
-          hover: '#10b981',
-          border: 'rgba(255, 255, 255, 0.08)',
-          active: '#10b981'
+          bg: '#ffffff',
+          text: 'rgba(15, 23, 42, 0.7)',
+          hover: '#14B8A6',
+          border: 'rgba(15, 23, 42, 0.08)',
+          active: '#14B8A6'
         },
 
         // Status colors
-        success: '#10b981',
+        success: '#14B8A6',
         warning: '#f59e0b',
         error: '#ef4444',
-        info: '#06b6d4',
+        info: '#14B8A6',
       },
 
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'mesh-gradient': 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 50%, rgba(6, 182, 212, 0.1) 100%)',
-        'glow-gradient': 'linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #8b5cf6 100%)',
+        'mesh-gradient': 'linear-gradient(135deg, rgba(20, 184, 166, 0.06) 0%, transparent 50%, rgba(13, 148, 136, 0.04) 100%)',
+        'glow-gradient': 'linear-gradient(135deg, #14B8A6 0%, #0D9488 50%, #0F766E 100%)',
       },
 
       boxShadow: {
-        'glow': '0 0 20px rgba(16, 185, 129, 0.3)',
-        'glow-lg': '0 0 40px rgba(16, 185, 129, 0.4)',
-        'glow-accent': '0 0 20px rgba(6, 182, 212, 0.3)',
-        'card': '0 4px 30px rgba(0, 0, 0, 0.3)',
-        'card-hover': '0 8px 40px rgba(0, 0, 0, 0.4)',
+        'glow': '0 0 20px rgba(20, 184, 166, 0.15)',
+        'glow-lg': '0 0 40px rgba(20, 184, 166, 0.2)',
+        'glow-accent': '0 0 20px rgba(13, 148, 136, 0.12)',
+        'card': '0 4px 24px rgba(0, 0, 0, 0.06)',
+        'card-hover': '0 8px 32px rgba(0, 0, 0, 0.1)',
       },
 
       animation: {
@@ -136,25 +136,25 @@ module.exports = {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: 'rgba(255, 255, 255, 0.8)',
+            color: '#334155',
             a: {
-              color: '#10b981',
+              color: '#0D9488',
               '&:hover': {
-                color: '#34d399',
+                color: '#14B8A6',
               },
             },
             h1: {
-              color: '#ffffff',
+              color: '#0F172A',
             },
             h2: {
-              color: '#ffffff',
+              color: '#0F172A',
             },
             h3: {
-              color: 'rgba(255, 255, 255, 0.9)',
+              color: '#1E293B',
             },
             code: {
-              color: '#06b6d4',
-              backgroundColor: 'rgba(6, 182, 212, 0.1)',
+              color: '#0D9488',
+              backgroundColor: 'rgba(20, 184, 166, 0.08)',
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',

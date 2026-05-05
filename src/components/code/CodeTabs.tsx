@@ -6,21 +6,21 @@ interface CodeTabsProps {
   examples: CodeExample[];
 }
 
+const languageNames: Record<string, string> = {
+  javascript: 'JavaScript',
+  typescript: 'TypeScript',
+  curl: 'cURL',
+  python: 'Python',
+  php: 'PHP',
+  java: 'Java',
+  csharp: 'C#',
+  go: 'Go',
+  ruby: 'Ruby',
+  json: 'JSON',
+};
+
 export const CodeTabs: React.FC<CodeTabsProps> = ({ examples }) => {
   const [activeTab, setActiveTab] = useState(0);
-
-  const languageNames: Record<string, string> = {
-    javascript: 'JavaScript',
-    typescript: 'TypeScript',
-    curl: 'cURL',
-    python: 'Python',
-    php: 'PHP',
-    java: 'Java',
-    csharp: 'C#',
-    go: 'Go',
-    ruby: 'Ruby',
-    json: 'JSON',
-  };
 
   if (examples.length === 0) return null;
 
@@ -35,25 +35,26 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({ examples }) => {
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-      <div className="bg-white border-b border-gray-200">
-        <nav className="flex space-x-1 p-1" aria-label="Tabs">
-          {examples.map((example, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveTab(index)}
-              className={`px-4 py-2 font-medium text-sm whitespace-nowrap rounded-md transition-all duration-200 ${
-                activeTab === index
-                  ? 'bg-lime text-dark border border-lime'
-                  : 'text-dark hover:text-lime hover:bg-white/10'
-              }`}
-            >
-              {example.title || languageNames[example.language] || example.language}
-            </button>
-          ))}
-        </nav>
+    <div className="border border-slate-200 rounded overflow-hidden">
+      {/* Tab bar */}
+      <div className="flex bg-slate-800 border-b border-slate-700 overflow-x-auto">
+        {examples.map((example, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveTab(index)}
+            className={`px-4 py-2 text-[12px] font-medium whitespace-nowrap transition-colors ${
+              activeTab === index
+                ? 'text-kiwi-400 border-b-2 border-kiwi-400 bg-slate-900/40'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            {example.title || languageNames[example.language] || example.language}
+          </button>
+        ))}
       </div>
-      <div className="p-0 bg-gray-900">
+
+      {/* Code */}
+      <div className="bg-slate-900">
         <CodeBlock
           code={examples[activeTab].code}
           language={examples[activeTab].language}

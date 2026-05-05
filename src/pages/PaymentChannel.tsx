@@ -1,5 +1,6 @@
 import React from 'react';
-import { Wallet } from 'lucide-react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
 import { CodeBlock } from '../components/code/CodeBlock';
 
 export const PaymentChannel: React.FC = () => {
@@ -27,85 +28,57 @@ export const PaymentChannel: React.FC = () => {
 }`;
 
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
-            <Wallet className="h-6 w-6 text-purple-400" />
-          </div>
-          <h1 className="text-3xl font-bold text-white">Payment Channel</h1>
-        </div>
-      </div>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Gateway Integration"
+        title="Payment Channel"
+        description="Westrapay supports multiple payment channels. Use the channels array in your initialize request to control which methods are shown to your customers."
+      />
 
-      {/* Overview */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white mb-4">Overview</h2>
-        <p className="text-white-muted mb-6 leading-relaxed">
-          Kiwi Finance payment gateway enables merchants to accept payments seamlessly through multiple channels.
-          The system provides reliable APIs for initializing, processing, and verifying payments securely.
-        </p>
-      </div>
-
-      {/* Supported Payment Methods & Channels */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white mb-4">Supported Payment Methods & Channels</h2>
-
-        <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-white/5">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Payment Method</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                {paymentMethods.map((method, index) => (
-                  <tr key={index} className="hover:bg-white/5">
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-white">{method.method}</td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        method.available
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {method.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      {/* Supported Channels */}
+      <h2 className="text-base font-semibold text-slate-900 mb-4">Supported Channels</h2>
+      <div className="border border-slate-200 rounded overflow-hidden my-4">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50">
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Payment Method</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 bg-white">
+            {paymentMethods.map((m, i) => (
+              <tr key={i}>
+                <td className="px-4 py-2.5 text-slate-700 font-medium">{m.method}</td>
+                <td className="px-4 py-2.5">
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded border ${
+                      m.available
+                        ? 'bg-kiwi-50 text-kiwi-700 border-kiwi-200'
+                        : 'bg-amber-50 text-amber-700 border-amber-200'
+                    }`}
+                  >
+                    {m.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Channel Selection */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white mb-4">Channel Selection</h2>
-
-        <p className="text-white-muted mb-4 leading-relaxed">
-          When initializing a transaction, you can specify which payment channels to display to your customers using the <code className="text-kiwi-400 bg-white/5 px-2 py-0.5 rounded">channels</code> array.
-        </p>
-
-        <div className="mb-4">
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-            <div className="flex items-center">
-              <span className="bg-green-600 text-white px-3 py-1 rounded text-sm font-mono mr-3">POST</span>
-              <code className="text-lime font-mono">/transaction/initialize</code>
-            </div>
-          </div>
-        </div>
-
-        <h3 className="text-lg font-semibold text-white mb-4">Sample Request</h3>
-        <CodeBlock code={sampleRequest} language="json" />
-        <div className="bg-blue-500/10 mt-8 border border-blue-500/30 rounded-lg p-4 mb-6">
-          <p className="text-blue-400 text-sm">
-            <strong>Note:</strong> If you pass an empty array <code className="bg-blue-500/20 px-1.5 py-0.5 rounded">[]</code>, all available payment channels will be displayed to the customer. If you specify particular channels (e.g., <code className="bg-blue-500/20 px-1.5 py-0.5 rounded">["card", "bank"]</code>), only those specific payment methods will be shown.
-          </p>
-        </div>
+      <h2 className="text-base font-semibold text-slate-900 mb-4 mt-8">Channel Selection</h2>
+      <p className="text-[13px] text-slate-600 mb-4 leading-relaxed">
+        Specify payment channels using the <code className="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">channels</code> array in your initialize request. Pass an empty array <code className="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">[]</code> to show all available channels.
+      </p>
+      <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 rounded font-mono text-[13px] mb-4">
+        <span className="px-2 py-0.5 text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200 rounded">POST</span>
+        <code className="text-slate-700">/transaction/initialize</code>
       </div>
+      <CodeBlock code={sampleRequest} language="json" title="Example Request" />
+      <Callout type="info">
+        Passing an empty channels array displays all available payment methods. Specify particular channels (e.g., ["card", "bank"]) to restrict the options shown.
+      </Callout>
     </div>
   );
 };

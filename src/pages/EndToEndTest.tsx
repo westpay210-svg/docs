@@ -1,15 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  TestTube,
-  Globe,
-  CreditCard,
-  AlertCircle,
-  CheckCircle,
-  XCircle,
-  Landmark,
-  Wallet,
-} from "lucide-react";
+import React from 'react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
 
 export const EndToEndTest: React.FC = () => {
   const testCards = [
@@ -107,258 +98,134 @@ export const EndToEndTest: React.FC = () => {
     },
   ];
 
-  const getStatusIcon = (type: string) => {
-    switch (type) {
-      case "success":
-        return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case "failed":
-        return <XCircle className="h-4 w-4 text-red-500" />;
-      case "frictionless":
-        return <AlertCircle className="h-4 w-4 text-blue-500" />;
-      default:
-        return null;
+  const getResultBadge = (type: string) => {
+    if (type === 'success') {
+      return (
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold bg-kiwi-50 text-kiwi-700 border border-kiwi-200 rounded">
+          ✓ Success
+        </span>
+      );
     }
+    if (type === 'failed') {
+      return (
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold bg-red-50 text-red-600 border border-red-200 rounded">
+          ✗ Failure
+        </span>
+      );
+    }
+    if (type === 'frictionless') {
+      return (
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200 rounded">
+          2DS
+        </span>
+      );
+    }
+    return null;
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold text-white mb-4">End-to-end Test</h1>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Gateway Integration"
+        title="End-to-End Test"
+        description="Use the sandbox environment to test your integration end-to-end before going live. Test cards, bank accounts, and wallet numbers are provided below."
+      />
 
-        {/* Sandbox Environment */}
-        <div className="mb-8">
-          <div className="flex items-center mb-4">
-            <TestTube className="h-6 w-6 text-yellow-500 mr-3" />
-            <h2 className="text-xl font-semibold text-white">
-              Sandbox Environment
-            </h2>
-          </div>
-          <p className="text-white-muted mb-6 leading-relaxed">
-            The Sandbox environment is used for testing and development. It
-            simulates transactions without processing actual payments, allowing
-            you to refine your integration before going live.
-          </p>
-          <p className="text-white-muted mb-6">
-            Here you can use a variety of test cards to simulate different
-            payment scenarios and ensure your integration handles them
-            effectively.
-          </p>
+      <Callout type="note" title="Sandbox Base URL">
+        https://sandbox-api.westrapay.com
+      </Callout>
 
-          {/* Sandbox URL */}
-          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-semibold text-yellow-500 mb-3">
-              Sandbox URL
-            </h3>
-            <div className="bg-dark/50 rounded-lg p-4 border border-yellow-500/20">
-              <code className="text-yellow-400 font-mono text-sm break-all">
-                https://sandbox-api.kiwifinance.tech/
-              </code>
-            </div>
-          </div>
+      {/* Test Cards */}
+      <h2 className="text-base font-semibold text-slate-900 mb-4 mt-8">Test Cards</h2>
+      <div className="border border-slate-200 rounded overflow-hidden my-4">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50">
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Card Number</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Expiry</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">CVV</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">PIN</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">OTP</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Result</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 bg-white">
+            {testCards.map((card, i) => (
+              <tr key={i}>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-800 whitespace-nowrap">{card.number}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500 font-mono">{card.expiry}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500 font-mono">{card.cvv}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500 font-mono">{card.pin}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500 font-mono">{card.otp}</td>
+                <td className="px-4 py-2.5">{getResultBadge(card.type)}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500">{card.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-          {/* Test Cards Section */}
-          <div className="mb-8">
-            <div className="flex items-center mb-4">
-              <CreditCard className="h-5 w-5 text-lime mr-2" />
-              <h3 className="text-lg font-semibold text-white">Test Cards</h3>
-            </div>
+      <Callout type="note">
+        Use any valid future date for expiry. PIN and OTP are only required for Verve cards.
+      </Callout>
 
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Card Number
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Expiry Date
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        CVV
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        PIN
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        OTP
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {testCards.map((card, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">
-                          {card.number}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {card.expiry}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {card.cvv}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {card.pin}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {card.otp}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-white-muted">
-                          <div className="flex items-center">
-                            {getStatusIcon(card.type)}
-                            <span className="ml-2">{card.description}</span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+      {/* OPay Bank Account */}
+      <h2 className="text-base font-semibold text-slate-900 mb-4 mt-8">OPay Bank Account</h2>
+      <div className="border border-slate-200 rounded overflow-hidden my-4">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50">
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Bank Code</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Account Number</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Phone</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">DOB</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">BVN</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">OTP</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Test Case</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 bg-white">
+            {bankAccounts.map((account, i) => (
+              <tr key={i}>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-800">{account.bankCode}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{account.accountNumber}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{account.phoneNumber}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{account.dob}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{account.bvn}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{account.otp}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500">{account.testCase}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500">{account.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-          {/* OPay Bank Account Section */}
-          <div className="mb-8">
-            <div className="flex items-center mb-4">
-              <Landmark className="h-5 w-5 text-lime mr-2" />
-              <h3 className="text-lg font-semibold text-white">OPay Bank Account</h3>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Bank Code
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Account Number
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Phone Number
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        DOB
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        BVN
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        OTP
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Test Case
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {bankAccounts.map((account, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">
-                          {account?.bankCode}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {account?.accountNumber}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {account?.phoneNumber}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {account?.dob}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {account?.bvn}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-white-muted">
-                          {account?.otp}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-white-muted">
-                          {account?.testCase}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-white-muted">
-                          {account?.description}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          {/* OPay Wallet Section */}
-          <div className="mb-8">
-            <div className="flex items-center mb-4">
-              <Wallet className="h-5 w-5 text-lime mr-2" />
-              <h3 className="text-lg font-semibold text-white">OPay Wallet</h3>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Phone Number
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Pin
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        OTP
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">
-                        Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/10">
-                    {opayWallet.map((wallet, index) => (
-                      <tr key={index} className="hover:bg-white/5">
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">
-                          {wallet?.phoneNumber}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {wallet?.pin}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {wallet?.otp}
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">
-                          {wallet?.description}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* What's Next */}
-        <div className="bg-lime text-dark rounded-lg p-6 text-center">
-          <div className="flex items-center justify-center mb-3">
-            <Globe className="h-6 w-6 mr-2" />
-            <h2 className="text-xl font-bold">What's Next</h2>
-          </div>
-          <p className="text-dark/90 mb-4">
-            Learn about webhook notifications for real-time payment updates
-          </p>
-          <Link
-            to="/webhook"
-            className="inline-flex items-center px-6 py-2 bg-dark text-white font-medium rounded-lg hover:bg-dark/90 transition-colors"
-          >
-            Webhook
-          </Link>
-        </div>
+      {/* OPay Wallet */}
+      <h2 className="text-base font-semibold text-slate-900 mb-4 mt-8">OPay Wallet</h2>
+      <div className="border border-slate-200 rounded overflow-hidden my-4">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50">
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Phone Number</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">PIN</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">OTP</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 bg-white">
+            {opayWallet.map((wallet, i) => (
+              <tr key={i}>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-800">{wallet.phoneNumber}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{wallet.pin}</td>
+                <td className="px-4 py-2.5 font-mono text-[12px] text-slate-500">{wallet.otp}</td>
+                <td className="px-4 py-2.5 text-[12px] text-slate-500">{wallet.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

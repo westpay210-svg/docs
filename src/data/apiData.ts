@@ -6,7 +6,7 @@ export const authenticationEndpoint: ApiEndpoint = {
   method: "POST",
   url: "{baseUrl}/transaction/initialize",
   description:
-    "Kiwi Finance uses public and private key authentication. Use your public key (x-public-key) for Gateway Integration and your private key (x-private-key) for Server-to-Server calls and transaction verification.",
+    "Westrapay uses public and private key authentication. Use your public key (x-public-key) for Gateway Integration and your private key (x-private-key) for Server-to-Server calls and transaction verification.",
   parameters: [
     {
       name: "x-public-key",
@@ -34,7 +34,7 @@ export const authenticationEndpoint: ApiEndpoint = {
         message: "Checkout initialized",
         data: {
           reference: "kf_ref_xxxxxxxxxxxxx",
-          checkoutUrl: "https://checkout.kiwifinance.tech/pay/xxxxx",
+          checkoutUrl: "https://checkout.westrapay.com/pay/xxxxx",
         },
       },
     },
@@ -52,7 +52,7 @@ export const authenticationEndpoint: ApiEndpoint = {
       language: "curl",
       code: `# Gateway Integration - Use public key
 curl --request POST \\
-  --url https://api.kiwifinance.tech/transaction/initialize \\
+  --url https://api.westrapay.com/transaction/initialize \\
   --header 'x-public-key: pk_test_xxxxxxxxxxxx' \\
   --header 'Content-Type: application/json' \\
   --data '{
@@ -64,13 +64,13 @@ curl --request POST \\
 
 # Server-to-Server - Use private key
 curl --request GET \\
-  --url https://api.kiwifinance.tech/v1/transaction/verify/{reference} \\
+  --url https://api.westrapay.com/v1/transaction/verify/{reference} \\
   --header 'x-private-key: sk_test_xxxxxxxxxxxx'`,
     },
     {
       language: "javascript",
       code: `// Gateway Integration - Use public key (can be in frontend)
-const checkout = await fetch('https://api.kiwifinance.tech/transaction/initialize', {
+const checkout = await fetch('https://api.westrapay.com/transaction/initialize', {
   method: 'POST',
   headers: {
     'x-public-key': 'pk_test_xxxxxxxxxxxx',
@@ -88,7 +88,7 @@ const { data } = await checkout.json();
 console.log(data.checkoutUrl);
 
 // Server-to-Server - Use private key (backend only)
-const verification = await fetch(\`https://api.kiwifinance.tech/v1/transaction/verify/\${reference}\`, {
+const verification = await fetch(\`https://api.westrapay.com/v1/transaction/verify/\${reference}\`, {
   method: 'GET',
   headers: {
     'x-private-key': 'sk_test_xxxxxxxxxxxx'
@@ -104,7 +104,7 @@ console.log(transaction.status);`,
 
 # Gateway Integration - Use public key
 checkout_response = requests.post(
-    "https://api.kiwifinance.tech/transaction/initialize",
+    "https://api.westrapay.com/transaction/initialize",
     headers={
         "x-public-key": "pk_test_xxxxxxxxxxxx",
         "Content-Type": "application/json"
@@ -122,7 +122,7 @@ print(checkout_data['data']['checkoutUrl'])
 
 # Server-to-Server - Use private key (backend only)
 verification_response = requests.get(
-    f"https://api.kiwifinance.tech/v1/transaction/verify/{reference}",
+    f"https://api.westrapay.com/v1/transaction/verify/{reference}",
     headers={"x-private-key": "sk_test_xxxxxxxxxxxx"}
 )
 
@@ -181,7 +181,7 @@ export const virtualAccountsEndpoints: ApiEndpoint[] = [
       {
         language: "curl",
         code: `curl --request POST \\
-  --url https://staging.api.kiwifinance.tech/business/account/v2/reserve-account/requests \\
+  --url https://sandbox-api.westrapay.com/business/account/v2/reserve-account/requests \\
   --header 'Authorization: Bearer your-access-token' \\
   --header 'Content-Type: application/json' \\
   --data '{
@@ -196,7 +196,7 @@ export const virtualAccountsEndpoints: ApiEndpoint[] = [
       },
       {
         language: "javascript",
-        code: `const response = await fetch('https://staging.api.kiwifinance.tech/business/account/v2/reserve-account/requests', {
+        code: `const response = await fetch('https://sandbox-api.westrapay.com/business/account/v2/reserve-account/requests', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer your-access-token',
@@ -262,7 +262,7 @@ console.log(data);`,
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/business/account/v2/reserve-account/requests/company' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/business/account/v2/reserve-account/requests/company' \\
   --header 'accept: */*' \\
   --header 'Authorization: Bearer your-access-token' \\
   --form 'file=@"/path/to/your/document.pdf"' \\
@@ -320,7 +320,7 @@ console.log(data);`,
       {
         language: "curl",
         code: `curl --request POST \\
-  --url https://staging.api.kiwifinance.tech/business/account/v2/virtual-account/requests \\
+  --url https://sandbox-api.westrapay.com/business/account/v2/virtual-account/requests \\
   --header 'Authorization: Bearer your-access-token' \\
   --header 'Content-Type: application/json' \\
   --data '{
@@ -330,7 +330,7 @@ console.log(data);`,
       },
       {
         language: "javascript",
-        code: `const response = await fetch('https://staging.api.kiwifinance.tech/business/account/v2/virtual-account/requests', {
+        code: `const response = await fetch('https://sandbox-api.westrapay.com/business/account/v2/virtual-account/requests', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer your-access-token',
@@ -360,7 +360,7 @@ console.log(data);`,
         type: "string",
         required: true,
         location: "header",
-        description: "Your API key provided by Kiwi Finance",
+        description: "Your API key provided by Westrapay",
         example: "$apr1$0xpiuy83$80wyJVeTrN/UhcZuPA7pX.",
       },
     ],
@@ -406,7 +406,7 @@ console.log(data);`,
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/banking/test?name=fundTransferSingleCredit' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/banking/test?name=fundTransferSingleCredit' \\
   --header 'x-api-key: your-api-key-here' \\
   --header 'Content-Type: application/json' \\
   --data '{
@@ -425,7 +425,7 @@ console.log(data);`,
       },
       {
         language: "javascript",
-        code: `const response = await fetch('https://staging.api.kiwifinance.tech/banking/test?name=fundTransferSingleCredit', {
+        code: `const response = await fetch('https://sandbox-api.westrapay.com/banking/test?name=fundTransferSingleCredit', {
   method: 'POST',
   headers: {
     'x-api-key': 'your-api-key-here',
@@ -453,7 +453,7 @@ console.log(data);`,
         language: "python",
         code: `import requests
 
-url = "https://staging.api.kiwifinance.tech/banking/test?name=fundTransferSingleCredit"
+url = "https://sandbox-api.westrapay.com/banking/test?name=fundTransferSingleCredit"
 headers = {
     "x-api-key": "your-api-key-here",
     "Content-Type": "application/json"
@@ -524,7 +524,7 @@ print(data)`,
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/bank/transfer/v1/transfer-funds/status/reference/dc6c010c-8069-4cf3-8af4-65e3b4b06914' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/bank/transfer/v1/transfer-funds/status/reference/dc6c010c-8069-4cf3-8af4-65e3b4b06914' \\
   --header 'Authorization: Bearer your-access-token'`,
       },
     ],
@@ -576,7 +576,7 @@ print(data)`,
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/business/account/v2/virtual-account/requests/dynamic' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/business/account/v2/virtual-account/requests/dynamic' \\
   --header 'Content-Type: application/json' \\
   --header 'Authorization: Bearer your-access-token' \\
   --data '{
@@ -634,7 +634,7 @@ print(data)`,
       {
         language: "curl",
         code: `curl --request GET \\
-  --url https://staging.api.kiwifinance.tech/business/account/v2/virtual-account/payment-status?requestId=DVA238493224099 \\
+  --url https://sandbox-api.westrapay.com/business/account/v2/virtual-account/payment-status?requestId=DVA238493224099 \\
   --header 'Authorization: Bearer your-access-token'`,
       },
     ],
@@ -709,7 +709,7 @@ print(data)`,
       {
         language: "curl",
         code: `curl --request GET \\
-  --url https://staging.api.kiwifinance.tech/business/account/v2/virtual-account/payment-status/dynamic?requestId=23884289428942424242 \\
+  --url https://sandbox-api.westrapay.com/business/account/v2/virtual-account/payment-status/dynamic?requestId=23884289428942424242 \\
   --header 'Authorization: Bearer your-access-token'`,
       },
     ],
@@ -769,12 +769,12 @@ export const payoutsEndpoints: ApiEndpoint[] = [
       {
         language: "curl",
         code: `curl --request GET \\
-  --url https://staging.api.kiwifinance.tech/bank/transfer/v1/banks \\
+  --url https://sandbox-api.westrapay.com/bank/transfer/v1/banks \\
   --header 'Authorization: Bearer your-access-token'`,
       },
       {
         language: "javascript",
-        code: `const response = await fetch('https://staging.api.kiwifinance.tech/bank/transfer/v1/banks', {
+        code: `const response = await fetch('https://sandbox-api.westrapay.com/bank/transfer/v1/banks', {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-access-token'
@@ -842,7 +842,7 @@ console.log(data.content); // Array of banks`,
       {
         language: "curl",
         code: `curl --request GET \\
-  --url https://staging.api.kiwifinance.tech/bank/transfer/v1/banks/code/000023/accounts/account-number/0164524367/name \\
+  --url https://sandbox-api.westrapay.com/bank/transfer/v1/banks/code/000023/accounts/account-number/0164524367/name \\
   --header 'Authorization: Bearer your-access-token'`,
       },
       {
@@ -850,7 +850,7 @@ console.log(data.content); // Array of banks`,
         code: `const bankCode = '000023';
 const accountNumber = '0164524367';
 
-const response = await fetch(\`https://staging.api.kiwifinance.tech/bank/transfer/v1/banks/code/\${bankCode}/accounts/account-number/\${accountNumber}/name\`, {
+const response = await fetch(\`https://sandbox-api.westrapay.com/bank/transfer/v1/banks/code/\${bankCode}/accounts/account-number/\${accountNumber}/name\`, {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-access-token'
@@ -919,7 +919,7 @@ console.log(data.name); // Account holder name`,
       {
         language: "curl",
         code: `curl --request POST \\
-  --url https://staging.api.kiwifinance.tech/bank/transfer/v1/transfer-funds \\
+  --url https://sandbox-api.westrapay.com/bank/transfer/v1/transfer-funds \\
   --header 'Authorization: Bearer your-access-token' \\
   --header 'Content-Type: application/json' \\
   --data '{
@@ -932,7 +932,7 @@ console.log(data.name); // Account holder name`,
       },
       {
         language: "javascript",
-        code: `const response = await fetch('https://staging.api.kiwifinance.tech/bank/transfer/v1/transfer-funds', {
+        code: `const response = await fetch('https://sandbox-api.westrapay.com/bank/transfer/v1/transfer-funds', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer your-access-token',
@@ -1005,14 +1005,14 @@ console.log(data.reference); // Transfer reference`,
       {
         language: "curl",
         code: `curl --request GET \\
-  --url https://staging.api.kiwifinance.tech/bank/transfer/v1/transfer-status/reference/292191290091209222329230 \\
+  --url https://sandbox-api.westrapay.com/bank/transfer/v1/transfer-status/reference/292191290091209222329230 \\
   --header 'Authorization: Bearer your-access-token'`,
       },
       {
         language: "javascript",
         code: `const reference = '2ad3a94f-d51a-4bd1-ab2a-e0b80c62e095';
 
-const response = await fetch(\`https://staging.api.kiwifinance.tech/bank/transfer/v1/transfer-status/reference\${requestId}\`, {
+const response = await fetch(\`https://sandbox-api.westrapay.com/bank/transfer/v1/transfer-status/reference\${requestId}\`, {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-access-token'
@@ -1066,14 +1066,14 @@ export const accountEndpoints: ApiEndpoint[] = [
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/business/account/v2/reserve-account?accountNumber=9057169759' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/business/account/v2/reserve-account?accountNumber=9057169759' \\
   --header 'Authorization: Bearer your-access-token'`,
       },
       {
         language: "javascript",
         code: `const accountNumber = '9057169759';
 
-const response = await fetch(\`https://staging.api.kiwifinance.tech/business/account/v2/reserve-account?accountNumber=\${accountNumber}\`, {
+const response = await fetch(\`https://sandbox-api.westrapay.com/business/account/v2/reserve-account?accountNumber=\${accountNumber}\`, {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-access-token'
@@ -1131,14 +1131,14 @@ console.log(\`Account details:\`, data);`,
     codeExamples: [
       {
         language: "curl",
-        code: `curl --location 'https://staging.api.kiwifinance.tech/business/account/v2/single?accountNumber=9057169759' \\
+        code: `curl --location 'https://sandbox-api.westrapay.com/business/account/v2/single?accountNumber=9057169759' \\
   --header 'Authorization: Bearer your-access-token'`,
       },
       {
         language: "javascript",
         code: `const accountNumber = '9057169759';
 
-const response = await fetch(\`https://staging.api.kiwifinance.tech/business/account/v2/single?accountNumber=\${accountNumber}\`, {
+const response = await fetch(\`https://sandbox-api.westrapay.com/business/account/v2/single?accountNumber=\${accountNumber}\`, {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-access-token'

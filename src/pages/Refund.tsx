@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RotateCcw, DollarSign, Globe, AlertTriangle, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageHeader } from '../components/docs/PageHeader';
+import { Callout } from '../components/docs/Callout';
+import { PropertyTable } from '../components/docs/PropertyTable';
 import { CodeBlock } from '../components/code/CodeBlock';
 
 export const Refund: React.FC = () => {
@@ -77,273 +80,125 @@ export const Refund: React.FC = () => {
 }`;
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold text-white mb-4">Refund Transaction</h1>
-        
-        {/* Introduction */}
-        <div className="mb-8">
-          <p className="text-white-muted mb-6 leading-relaxed">
-            The refund endpoint enables merchants to initiate refunds (Full and Partial) for previously processed transactions via a PUT request. 
-            It requires the original transaction reference and processes the specified refund amount using either the Kiwi Finance-generated or merchant reference.
-          </p>
-          
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 p-6 mb-6 hover:border-blue-500/40 transition-all duration-300">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/20 mb-4">
-                <AlertTriangle className="h-6 w-6 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Refund Results</h3>
-              <p className="text-sm text-white/70 mb-2">
-                When initiating a refund for a transaction, there are two possible results:
-              </p>
-              <ul className="text-sm text-white/70 space-y-1">
-                <li>• <strong className="text-white">Refunded</strong> – The refund is successfully processed and approved.</li>
-                <li>• <strong className="text-white">Declined</strong> – The refund request is rejected due to insufficient funds, invalid transaction reference, expired authorization, or other restrictions.</li>
-              </ul>
-            </div>
-          </div>
+    <div className="max-w-4xl">
+      <PageHeader
+        label="Server to Server"
+        title="Refund Transaction"
+        description="Initiate full or partial refunds for previously processed transactions. Requires the original transaction reference."
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-green-500/20 mb-4">
-                  <RotateCcw className="h-6 w-6 text-green-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Refund Processing</h3>
-                <ul className="text-sm text-white/70 space-y-2">
-                  <li>• Full and partial refunds supported</li>
-                  <li>• Automatic validation of refund eligibility</li>
-                  <li>• Real-time status tracking</li>
-                  <li>• Multiple refunds per transaction allowed</li>
-                </ul>
-              </div>
-            </div>
+      <Callout type="info" title="Two possible outcomes">
+        <ul className="mt-1 space-y-1">
+          <li><strong>Refunded</strong> — The refund is successfully processed and approved.</li>
+          <li><strong>Declined</strong> — The refund request is rejected due to insufficient funds, invalid transaction reference, expired authorization, or other restrictions.</li>
+        </ul>
+      </Callout>
 
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/20 mb-4">
-                  <DollarSign className="h-6 w-6 text-blue-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Financial Control</h3>
-                <ul className="text-sm text-white/70 space-y-2">
-                  <li>• Amount validation against original transaction</li>
-                  <li>• Automatic fee calculations</li>
-                  <li>• Currency conversion handling</li>
-                  <li>• Settlement timeline management</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div className="mb-8 mt-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Endpoint</h2>
+        <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 rounded font-mono text-[13px] mb-4">
+          <span className="px-2 py-0.5 text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200 rounded">PUT</span>
+          <code className="text-slate-700">/transaction/refund/{'{transactionReference}'}</code>
         </div>
+      </div>
 
-        {/* Endpoint */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Endpoint</h2>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-            <div className="flex items-center">
-              <span className="bg-purple-600 text-white px-3 py-1 rounded text-sm font-mono mr-3">PUT</span>
-              <code className="text-lime font-mono">/transaction/refund/{'{transactionReference}'}</code>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Path Parameter</h2>
+        <div className="border border-slate-200 rounded overflow-hidden my-4">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Parameter</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Type</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Required</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {pathParameters.map((p, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 font-mono text-[13px] text-slate-700">{p.name}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">{p.type}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">required</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        {/* Path Parameters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Path Parameter</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Parameter</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {pathParameters.map((param, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{param.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{param.type}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{param.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Headers</h2>
+        <div className="border border-slate-200 rounded overflow-hidden my-4">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Key</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Value</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {headers.map((h, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 font-mono text-[13px] text-slate-700">{h.key}</td>
+                  <td className="px-4 py-3 font-mono text-[13px] text-slate-500">{h.value}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">{h.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        {/* Headers */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Headers</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Key</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Value</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Required</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {headers.map((header, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{header.key}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{header.value}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          Yes
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{header.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Parameters</h2>
+        <PropertyTable properties={requestParameters} />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
+        <CodeBlock code={requestBodyJson} language="json" />
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Error Responses</h2>
+        <div className="border border-slate-200 rounded overflow-hidden my-4">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Code</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Message</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {errorCodes.map((e, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 font-mono text-[13px] text-red-600">{e.code}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-700">{e.message}</td>
+                  <td className="px-4 py-3 text-[13px] text-slate-500">{e.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        {/* Request Parameters */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Request Parameters</h2>
-          <p className="text-white-muted mb-4">Body (JSON):</p>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Parameter</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Required</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {requestParameters.map((param, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{param.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{param.type}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          param.required 
-                            ? 'bg-red-100 text-red-800' 
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {param.required ? 'Required' : 'Optional'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{param.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Response Fields</h2>
+        <PropertyTable properties={responseFields} showRequired={false} />
+      </div>
 
-        {/* Request Body Example */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-white mb-4">Request Body:</h3>
-          <CodeBlock code={requestBodyJson} language="json" />
-        </div>
+      <div className="mb-8">
+        <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response</h2>
+        <CodeBlock code={successResponseJson} language="json" />
+      </div>
 
-        {/* Error Handling */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Error Handling</h2>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Status Code</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Message</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {errorCodes.map((error, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-red-400">{error.code}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.message}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{error.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        {/* Response Fields */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">Response</h2>
-          <p className="text-white-muted mb-4">
-            A JSON response containing details of the refund operation and processing status.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-white mb-4">Fields in the refund response:</h3>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Field</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Type</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-white-muted uppercase tracking-wider">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {responseFields.map((field, index) => (
-                    <tr key={index} className="hover:bg-white/5">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-lime">{field.name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-mono text-white-muted">{field.type}</td>
-                      <td className="px-4 py-4 text-sm text-white-muted">{field.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <h4 className="text-md font-semibold text-white mb-4">Response (Success):</h4>
-          <CodeBlock code={successResponseJson} language="json" />
-        </div>
-
-
-        {/* What's Next */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-kiwi-500 to-accent-500 opacity-90" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
-          <div className="relative p-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Globe className="h-6 w-6 text-white" />
-              <h2 className="text-xl font-bold text-white">What's Next</h2>
-            </div>
-            <p className="text-white/80 mb-6">
-              Continue with transaction status codes and error handling
-            </p>
-            <Link
-              to="/server-to-server/status-code"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-dark font-semibold rounded-xl hover:bg-white/90 transition-colors"
-            >
-              Status Code
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+      <div className="flex items-center justify-between pt-6 border-t border-slate-200 mt-10">
+        <span className="text-[13px] text-slate-500">Next in Server to Server</span>
+        <Link to="/server-to-server/status-code" className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-kiwi-700 bg-kiwi-50 border border-kiwi-200 rounded hover:bg-kiwi-100 transition-colors">
+          Status Codes <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
     </div>
   );
