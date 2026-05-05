@@ -1,25 +1,24 @@
-# Kiwi Finance API Dashboard
+# Westrapay API Documentation
 
-A modern React application for managing Kiwi Finance APIs - handle payouts, virtual accounts, and account management with ease.
+A React-based documentation site for the Westrapay payment API — covering Gateway Integration, Server-to-Server payments, Webhooks, and more.
 
 ## Features
 
-- **Authentication**: Secure login with API key and Client ID
-- **Virtual Accounts**: Create reserved and temporary virtual accounts for collections
-- **Payouts**: Send money transfers to bank accounts across the globe
-- **Account Management**: View balances and manage financial information
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Real-time Updates**: Live balance updates and transaction status tracking
+- **Gateway Integration**: Initialize and verify payments via a hosted checkout
+- **Server to Server**: Charge cards directly (3DS, 2DS, OTP), authorize transactions, verify status, and issue refunds
+- **Webhooks**: Real-time event notifications for payment lifecycle events
+- **Authentication**: Public and private key authentication guide
+- **Interactive API Reference**: Expandable endpoint cards with request/response examples and code samples
+- **Responsive Design**: Works on desktop and mobile
 
 ## Technology Stack
 
 - **Frontend**: React 18 with TypeScript
 - **Styling**: Tailwind CSS
 - **Routing**: React Router v6
-- **HTTP Client**: Axios
-- **Forms**: React Hook Form
-- **Notifications**: React Hot Toast
+- **Syntax Highlighting**: react-syntax-highlighter
 - **Icons**: Lucide React
+- **Notifications**: React Hot Toast
 
 ## Getting Started
 
@@ -27,14 +26,13 @@ A modern React application for managing Kiwi Finance APIs - handle payouts, virt
 
 - Node.js (v16 or higher)
 - npm or yarn
-- Kiwi Finance API credentials (API Key and Client ID)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd kiwi-finance-api
+   cd westra-docs
    ```
 
 2. Install dependencies:
@@ -42,95 +40,59 @@ A modern React application for managing Kiwi Finance APIs - handle payouts, virt
    npm install
    ```
 
-3. Create environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Configure your environment variables in `.env`:
-   ```
-   REACT_APP_ENV=sandbox
-   REACT_APP_API_KEY=your_api_key_here
-   REACT_APP_CLIENT_ID=your_client_id_here
-   ```
-
-5. Start the development server:
+3. Start the development server:
    ```bash
    npm start
    ```
 
-6. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## API Environments
 
-The application supports both sandbox and production environments:
+| Environment | Base URL |
+|-------------|----------|
+| Sandbox | `https://sandbox-api.westrapay.com` |
+| Production | `https://api.westrapay.com` |
 
-- **Sandbox**: `https://staging.api.kiwifinance.tech`
-- **Production**: `https://api.kiwifinance.tech`
-
-Set `REACT_APP_ENV=production` to use the production environment.
+Set `REACT_APP_ENV=production` in your `.env` file to switch to the production environment.
 
 ## Available Scripts
 
-- `npm start` - Runs the app in development mode
-- `npm build` - Builds the app for production
-- `npm test` - Launches the test runner
-- `npm eject` - Ejects from Create React App (not recommended)
+- `npm start` — Runs the app in development mode
+- `npm run build` — Builds the app for production
+- `npm test` — Launches the test runner
 
 ## Project Structure
 
 ```
 src/
-├── components/           # React components
-│   ├── account/         # Account management components
-│   ├── auth/            # Authentication components
-│   ├── dashboard/       # Dashboard components
-│   ├── layout/          # Layout components
-│   ├── payouts/         # Payout components
-│   └── virtual-accounts/ # Virtual account components
-├── contexts/            # React contexts
+├── components/
+│   ├── api/             # ApiEndpoint — expandable endpoint cards
+│   ├── auth/            # Login form
+│   ├── code/            # CodeBlock and CodeTabs
+│   ├── dashboard/       # Dashboard layout and widgets
+│   ├── docs/            # Reusable doc components (PageHeader, Callout, StepList, PropertyTable)
+│   ├── layout/          # DocLayout and DashboardLayout
+│   └── sidebar/         # Navigation sidebar
+├── data/                # API endpoint data (parameters, examples, responses)
+├── pages/               # One file per documentation page
 ├── services/            # API service layer
 ├── types/               # TypeScript type definitions
-├── App.tsx              # Main App component
-└── index.tsx            # Application entry point
+├── App.tsx
+└── index.tsx
 ```
 
-## API Features Implemented
+## Documentation Pages
 
-### Authentication
-- Generate access token using API Key and Client ID
-- Automatic token refresh and session management
-
-### Collections - Virtual Accounts
-- Create Reserved Virtual Account (Individual)
-- Create Reserved Virtual Account (Corporate)
-- Create Temporary Static Virtual Account
-- Create Temporary Dynamic Virtual Account
-- Check virtual account transaction status
-
-### Payouts
-- Get list of supported banks
-- Name enquiry for account validation
-- Initiate bank transfers
-- Check transfer status
-
-### Account Management
-- Get account balance
-- Get single account balance by account number
-- View commission and rebate points
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+- **Overview** — API home with quick start, base URLs, and example request
+- **Getting Started** — Step-by-step integration guide
+- **Authentication** — Public and private key usage
+- **Gateway Integration** — Initialize and verify transactions
+- **Payment Channel** — Supported payment methods
+- **End-to-End Test** — Test cards, bank accounts, and wallet numbers
+- **Server to Server** — Charge Card (3DS / 2DS / OTP), Authorize, Verify, Refund, Status Codes, Transaction History
+- **Webhook** — Event types, payload schema, and best practices
 
 ## Support
 
-For support and questions about the Kiwi Finance API, please refer to the official documentation or contact the Kiwi Finance support team.
+For support and questions about the Westrapay API, visit [westrapay.com](https://westrapay.com) or contact the Westrapay support team.
