@@ -35,7 +35,7 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({ examples }) => {
   }
 
   return (
-    <div className="border border-slate-200 rounded overflow-hidden">
+    <div className="border border-slate-200 overflow-hidden">
       {/* Tab bar */}
       <div className="flex bg-slate-800 border-b border-slate-700 overflow-x-auto">
         {examples.map((example, index) => (

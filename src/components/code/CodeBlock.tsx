@@ -29,7 +29,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   };
 
   return (
-    <div className="relative group border border-slate-200 rounded overflow-hidden">
+    <div className="relative group border border-slate-200 overflow-hidden">
       {title && (
         <div className="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
           <span className="text-[11px] font-medium text-slate-400 font-mono">{title}</span>
