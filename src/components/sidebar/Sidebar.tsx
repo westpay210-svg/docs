@@ -120,16 +120,16 @@ export const Sidebar: React.FC = () => {
     <nav className="px-3 py-4 space-y-5">
       <p className="px-2.5 text-[10px] font-bold tracking-widest uppercase text-slate-400">API Reference</p>
       <div className="space-y-0.5">{navItems.map(item => renderItem(item))}</div>
-      <div className="pt-3 border-t border-slate-100 space-y-1">
-        <p className="px-2.5 text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">Resources</p>
-        <a href="https://westrapay.com/contact-sales" target="_blank" rel="noopener noreferrer"
-          className="flex items-center gap-2.5 px-2.5 py-1.5 text-[13px] text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded transition-colors">
-          <svg className="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Help & Support
-        </a>
-      </div>
+      {/*<div className="pt-3 border-t border-slate-100 space-y-1">*/}
+      {/*  <p className="px-2.5 text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">Resources</p>*/}
+      {/*  <a href="https://westrapay.com/contact-sales" target="_blank" rel="noopener noreferrer"*/}
+      {/*    className="flex items-center gap-2.5 px-2.5 py-1.5 text-[13px] text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded transition-colors">*/}
+      {/*    <svg className="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">*/}
+      {/*      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />*/}
+      {/*    </svg>*/}
+      {/*    Help & Support*/}
+      {/*  </a>*/}
+      {/*</div>*/}
     </nav>
   );
 };

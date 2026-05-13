@@ -49,7 +49,7 @@ const quickStart = [
     step: '01',
     title: 'Get your API keys',
     description: 'Create an account and copy your public and private keys from the dashboard.',
-    href: 'https://westrapay.com/auth/register',
+    href: 'https://app.westrapay.com/auth/register',
     external: true,
   },
   {

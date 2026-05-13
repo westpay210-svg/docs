@@ -72,7 +72,7 @@ curl --request GET \\
 ];
 
 const steps = [
-  { title: 'Create an account', description: 'Sign up at westrapay.com and log in to your dashboard.' },
+  { title: 'Create an account', description: 'Sign up at app.westrapay.com/auth/register or log in to the sandbox at sandbox-app.westrapay.com/auth/login.' },
   { title: 'Get your API keys', description: 'Navigate to API Keys in your dashboard. Copy your public key (for frontend) and private key (for backend).' },
   { title: 'Make your first call', description: 'Use your public key to initialize a payment via the Gateway Integration endpoint.' },
   { title: 'Verify the transaction', description: 'After payment, use your private key server-side to verify the transaction status before fulfilling orders.' },
@@ -121,9 +121,17 @@ export const GettingStarted: React.FC = () => (
             <span className="ml-auto px-2 py-0.5 text-[10px] font-semibold text-amber-600 bg-amber-50 rounded border border-amber-200">Testing</span>
           </div>
           <p className="text-[13px] text-slate-500 mb-3">For development and testing. No real money is processed.</p>
-          <code className="block text-[12px] font-mono text-slate-700 bg-slate-50 px-3 py-2 rounded border border-slate-200 break-all">
+          <code className="block text-[12px] font-mono text-slate-700 bg-slate-50 px-3 py-2 rounded border border-slate-200 break-all mb-2">
             https://sandbox-api.westrapay.com
           </code>
+          <a
+            href="https://sandbox-app.westrapay.com/auth/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[12px] text-kiwi-600 hover:text-kiwi-700 font-medium"
+          >
+            Log in to sandbox dashboard →
+          </a>
         </div>
         <div className="border border-kiwi-200 rounded bg-kiwi-50/30 p-5">
           <div className="flex items-center gap-2.5 mb-3">
@@ -134,9 +142,17 @@ export const GettingStarted: React.FC = () => (
             <span className="ml-auto px-2 py-0.5 text-[10px] font-semibold text-kiwi-700 bg-kiwi-50 rounded border border-kiwi-200">Live</span>
           </div>
           <p className="text-[13px] text-slate-500 mb-3">For live transactions. Real money is processed here.</p>
-          <code className="block text-[12px] font-mono text-slate-700 bg-slate-50 px-3 py-2 rounded border border-slate-200 break-all">
+          <code className="block text-[12px] font-mono text-slate-700 bg-slate-50 px-3 py-2 rounded border border-slate-200 break-all mb-2">
             https://api.westrapay.com
           </code>
+          <a
+            href="https://app.westrapay.com/auth/register"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[12px] text-kiwi-600 hover:text-kiwi-700 font-medium"
+          >
+            Create a production account →
+          </a>
         </div>
       </div>
     </section>

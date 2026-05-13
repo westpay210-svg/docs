@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Search, ExternalLink, Sparkles } from 'lucide-react';
+import { Menu, X, Search, ExternalLink } from 'lucide-react';
 import { Sidebar } from '../sidebar/Sidebar';
 import logoImage from '../../assets/westrapayLogo.png';
 
@@ -9,7 +9,7 @@ interface DocLayoutProps {
 
 export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [, setSearchOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-50 mesh-bg">
@@ -158,7 +158,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
           {/* Sidebar footer */}
           <div className="p-4 border-t border-slate-100">
             <a
-              href="https://westrapay.com/auth/register"
+              href="https://app.westrapay.com/auth/register"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-md bg-gradient-to-r from-kiwi-500 to-accent-500 text-white font-medium text-sm hover:shadow-glow transition-all duration-300"
