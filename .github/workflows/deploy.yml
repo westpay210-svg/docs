@@ -1,32 +1,82 @@
-name: Deploy
+name: Build, Push, and Deploy web-documentation (SSM)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
-permissions:
-  id-token: write
-  contents: read
+env:
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  ECR_REPOSITORY: web-documentation
+  IMAGE_URI: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/web-documentation
 
 jobs:
-  deploy:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node (npm cache enabled)
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install deps
+        run: npm install --legacy-peer-deps
+
+      - name: Extract branch info
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH_NAME="${GITHUB_REF##*/}"
+          SAFE_BRANCH="$(echo "$BRANCH_NAME" | tr '/' '-')"
+          SHORT_SHA="$(echo "${GITHUB_SHA}" | cut -c1-7)"
+          echo "branch=$SAFE_BRANCH" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Map branch to environment config
+        id: cfg
+        shell: bash
+        run: |
+          set -euo pipefail
+          BR="${{ steps.branch.outputs.branch }}"
+
+          if [ "$BR" = "main" ]; then
+            echo "profile=prod"                                            >> "$GITHUB_OUTPUT"
+            echo "api_url=https://api.westrapay.com.com/"                      >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation"                           >> "$GITHUB_OUTPUT"
+            echo "host_port=4004"                                          >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/prod/runtime-config"          >> "$GITHUB_OUTPUT"
+          elif [ "$BR" = "dev" ]; then
+            echo "profile=dev"                                             >> "$GITHUB_OUTPUT"
+            echo "api_url=https://sandbox-api.westrapay.com.com/"              >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation-dev"                      >> "$GITHUB_OUTPUT"
+            echo "host_port=4004"                                          >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/dev/runtime-config"           >> "$GITHUB_OUTPUT"
+          else
+            echo "profile=dev"                                             >> "$GITHUB_OUTPUT"
+            echo "api_url=https://sandbox-api.westrapay.com.com/"              >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation-$BR"                      >> "$GITHUB_OUTPUT"
+            echo "host_port=4400"                                          >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/dev/runtime-config"           >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Next.js
+        env:
+          NEXT_PUBLIC_API_URL: ${{ steps.cfg.outputs.api_url }}
+          NEXT_PUBLIC_APP_VERSION: ${{ github.run_number }}
+          GENERATE_SOURCEMAP: "false"
+        run: |
+          echo "Building with API: $NEXT_PUBLIC_API_URL"
+          npm run build
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
@@ -34,12 +84,63 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Upload to S3
-        run: aws s3 sync build s3://$S3_BUCKET --delete
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Invalidate CloudFront (if configured)
-        if: env.CLOUDFRONT_DISTRIBUTION_ID != ''
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image (arm64 + cache)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_URI }}:${{ steps.branch.outputs.branch }}
+            ${{ env.IMAGE_URI }}:${{ steps.branch.outputs.branch }}-${{ steps.branch.outputs.short_sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # No build-args needed: NEXT_PUBLIC_* vars are baked in during the
+          # "Build Next.js" step above and shipped via .next/standalone in context.
+
+      - name: Deploy via SSM (targets Project=westrapay, Env=<profile>)
+        shell: bash
         run: |
-          aws cloudfront create-invalidation \
-            --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
-            --paths "/*"
+          set -euo pipefail
+
+          BR="${{ steps.branch.outputs.branch }}"
+          PROFILE="${{ steps.cfg.outputs.profile }}"
+          CONTAINER="${{ steps.cfg.outputs.container_name }}"
+          HOST_PORT="${{ steps.cfg.outputs.host_port }}"
+          IMAGE="${IMAGE_URI}:${BR}"
+
+          echo "Deploying branch=$BR -> profile=$PROFILE"
+          echo "Image: $IMAGE  Container: $CONTAINER"
+
+          COMMAND_ID=$(
+            aws ssm send-command \
+              --region "${AWS_REGION}" \
+              --document-name "AWS-RunShellScript" \
+              --comment "Deploy web-documentation ($PROFILE)" \
+              --targets "Key=tag:Project,Values=westrapay" "Key=tag:Env,Values=$PROFILE" \
+              --parameters "commands=[
+                \"set -euxo pipefail\",
+                \"aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\",
+                \"docker pull ${IMAGE}\",
+                \"docker rm -f ${CONTAINER} || true\",
+                \"docker run --name ${CONTAINER} -p ${HOST_PORT}:3000 --restart unless-stopped -d -e TZ=Africa/Lagos -e AWS_REGION=${AWS_REGION} -e SECRET_ID=${{ steps.cfg.outputs.secret_id }} ${IMAGE}\",
+                \"docker image prune -f || true\"
+              ]" \
+              --query "Command.CommandId" \
+              --output text
+          )
+
+          echo "SSM Command ID: $COMMAND_ID"
+          sleep 8
+
+          aws ssm list-command-invocations \
+            --region "${AWS_REGION}" \
+            --command-id "$COMMAND_ID" \
+            --details
