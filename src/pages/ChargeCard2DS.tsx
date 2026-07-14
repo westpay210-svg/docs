@@ -12,15 +12,15 @@ export const ChargeCard2DS: React.FC = () => {
     { name: 'expiryYear', type: 'string', required: true, description: 'Expiry year of the card.' },
     { name: 'expiryMonth', type: 'string', required: true, description: 'Expiry month of the card.' },
     { name: 'cvv', type: 'string', required: true, description: 'The card\'s CVV security code.' },
-    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents/kobo format e.g "1000" is 10 USD/NGN)' },
-    { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD, NGN).' },
+    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents format e.g "1000" is 10 USD)' },
+    { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD).' },
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
     { name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.' },
     { name: 'sourceUrl', type: 'string', required: false, description: 'The originating URL.' },
     { name: 'webhookURL', type: 'string', required: true, description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.' },
-    { name: 'browserDetails', type: 'object', required: false, description: 'Detailed information about the payer\'s browser. When provided, increase the transaction success rate.' },
+    { name: 'browserDetails', type: 'object', required: true, description: 'Detailed information about the payer\'s browser. When provided, increase the transaction success rate.' },
     { name: 'customer', type: 'object', required: true, description: 'Detailed information on the customer making the payment. When provided, it increases the transaction success rate' },
-    { name: 'Terminal ID (TID)', type: 'string', required: false, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' }
+    { name: 'Terminal ID (TID)', type: 'string', required: true, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' }
   ];
 
   const responseFields = [
@@ -38,7 +38,7 @@ export const ChargeCard2DS: React.FC = () => {
 
   const requestBodyJson = `{
     "amount": 10000,
-    "email": "john.wick@kiwi",
+    "email": "john.wick@westrapay",
     "currency": "USD",
     "reference": "000045mG7mTL022NzzQ1",
     "callbackUrl": "https://example.com/",
@@ -65,6 +65,7 @@ export const ChargeCard2DS: React.FC = () => {
     "customer": {
         "firstName": "John",
         "lastName": "Doe",
+        "phoneNumber": "+2347064332071",
         "address": {
             "city": "Rome",
             "postcodeZip": "00184",
@@ -87,7 +88,7 @@ export const ChargeCard2DS: React.FC = () => {
         "reference": "0f7f209a-8134-437e-a62d-6f38187ad1d6",
         "errorMessage": "Approved",
         "errorCode": "00",
-        "paymentRequestor": "KiwiFinance Service Ltd",
+        "paymentRequestor": "Westrapay Ltd",
         "version": "2DS"
     },
     "errors": []
@@ -100,10 +101,6 @@ export const ChargeCard2DS: React.FC = () => {
         title="Charge a Card (2DS)"
         description="Capture a 2D Secure card transaction directly from your server without customer redirection."
       />
-
-      <Callout type="danger" title="Verve cards not supported">
-        The 2DS flow is disallowed for Verve cards as per business rules.
-      </Callout>
 
       <div className="mb-8 mt-8">
         <h2 className="text-base font-semibold text-slate-900 mb-4">About 2DS</h2>

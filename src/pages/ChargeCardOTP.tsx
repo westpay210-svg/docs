@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { PageHeader } from '../components/docs/PageHeader';
-import { Callout } from '../components/docs/Callout';
 import { PropertyTable } from '../components/docs/PropertyTable';
 import { StepList } from '../components/docs/StepList';
 import { CodeBlock } from '../components/code/CodeBlock';
@@ -13,8 +12,8 @@ export const ChargeCardOTP: React.FC = () => {
     { name: 'expiryYear', type: 'string', required: true, description: 'Expiry year of the card.' },
     { name: 'expiryMonth', type: 'string', required: true, description: 'Expiry month of the card.' },
     { name: 'cvv', type: 'string', required: true, description: 'The card\'s CVV security code.' },
-    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents/kobo format e.g "1000" is 10 USD/NGN)' },
-    { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD, NGN).' },
+    { name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents format e.g "1000" is 10 USD)' },
+    { name: 'currency', type: 'string', required: true, description: 'The currency of the transaction (e.g., USD).' },
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
     { name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.' },
     { name: 'webhookURL', type: 'string', required: true, description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.' },

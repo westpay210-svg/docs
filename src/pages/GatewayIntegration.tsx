@@ -15,10 +15,10 @@ export const GatewayIntegration: React.FC = () => {
   const initializeParams = [
     { name: 'amount', type: 'integer', required: true, description: 'Amount in lowest currency unit (e.g., Cents)' },
     { name: 'email', type: 'string', required: true, description: "Customer's email address" },
-    { name: 'currency', type: 'string', required: true, description: 'e.g., USD, NGN' },
+    { name: 'currency', type: 'string', required: true, description: 'e.g., USD' },
     { name: 'reference', type: 'string', required: true, description: 'Unique transaction reference' },
     { name: 'callbackUrl', type: 'string', required: false, description: 'URL for transaction status notifications' },
-    { name: 'channels', type: 'array', required: true, description: 'Payment methods e.g., ["card", "bank"]' },
+    { name: 'channels', type: 'array', required: false, description: 'Payment methods e.g., ["card", "bank"]' },
     { name: 'bearer', type: 'integer', required: true, description: '1 = Merchant bears fee, 2 = Customer' },
     { name: 'metadata', type: 'object', required: false, description: 'Custom metadata' },
   ];
@@ -39,7 +39,7 @@ export const GatewayIntegration: React.FC = () => {
     { name: 'settlementAmount', type: 'float', description: 'Net amount received' },
     { name: 'customerId', type: 'string', description: 'Customer identifier (email)' },
     { name: 'status', type: 'integer', description: 'Transaction status code' },
-    { name: 'authorizationType', type: 'string', description: 'e.g., ISW_OTP' },
+    { name: 'authorizationType', type: 'string', description: 'e.g., MPGS_3DS' },
     { name: 'channel', type: 'string', description: 'e.g., Card' },
     { name: 'transactionDate', type: 'datetime', description: 'ISO timestamp' },
   ];
@@ -56,13 +56,12 @@ export const GatewayIntegration: React.FC = () => {
     { code: 8, status: 'IN_PROGRESS', description: 'Still processing', color: 'blue' },
     { code: 9, status: 'VOIDED', description: 'Voided by merchant or system', color: 'gray' },
     { code: 10, status: 'PENDING_REVIEW', description: 'Under manual review', color: 'yellow' },
-    { code: 11, status: 'PARTIALLY_REFUNDED', description: 'Partially refunded', color: 'purple' },
+    // { code: 11, status: 'PARTIALLY_REFUNDED', description: 'Partially refunded', color: 'purple' },
     { code: 12, status: 'UNDER_INVESTIGATION', description: 'Under investigation', color: 'orange' },
     { code: 13, status: 'FAILED_TO_CAPTURE', description: 'Failed capture post-authorization', color: 'red' },
     { code: 14, status: 'EXPIRED', description: 'Authorization expired', color: 'orange' },
-    { code: 15, status: 'SUSPENDED', description: 'Temporarily paused', color: 'yellow' },
-    { code: 16, status: 'TRANSFERRED', description: 'Settled/finalized elsewhere', color: 'green' },
-    { code: 17, status: 'SCHEDULED', description: 'Future-dated transaction', color: 'blue' },
+    // { code: 15, status: 'SUSPENDED', description: 'Temporarily paused', color: 'yellow' },
+    // { code: 16, status: 'TRANSFERRED', description: 'Settled/finalized elsewhere', color: 'green' },
   ];
 
   const initializeRequestJson = `{
@@ -71,7 +70,6 @@ export const GatewayIntegration: React.FC = () => {
   "currency": "USD",
   "reference": "{{$randomUUID}}",
   "callbackUrl": "{{$randomUrl}}",
-  "channels": ["card", "bank"],
   "bearer": 1,
   "metadata": {
     "customerId": "CUST12345",
@@ -94,7 +92,7 @@ export const GatewayIntegration: React.FC = () => {
   "status": 200,
   "message": "Request successfully processed",
   "data": {
-    "merchant": "Kiwi Live",
+    "merchant": "Westrapay Live",
     "reference": "S0h-Jcxbpd_1O_MkUZ-i",
     "merchantRef": "2d059b6a-4626-47e2-8f35-f903ce7a5f22",
     "grossAmount": 50.75,
@@ -156,7 +154,7 @@ export const GatewayIntegration: React.FC = () => {
       {/* Authentication */}
       <h2 className="text-base font-semibold text-slate-900 mb-4">Authentication</h2>
       <Callout type="info" title="Authentication">
-        Use your public key (x-public-key header) to initialize transactions. Use your private key (x-private-key header) to verify transactions.
+        Use your public key (Authorization header) to initialize transactions. Use your private key (Authorization header) to verify transactions.
       </Callout>
 
       {/* Initialize Transaction */}

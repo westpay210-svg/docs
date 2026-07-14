@@ -198,7 +198,7 @@ export const Overview: React.FC = () => (
             {'\n'}
             {'  '}<span className="text-kiwi-300">"currency"</span>
             <span className="text-slate-500">: </span>
-            <span className="text-kiwi-400">"NGN"</span>
+            <span className="text-kiwi-400">"USD"</span>
             <span className="text-slate-500">,</span>
             {'\n'}
             {'  '}<span className="text-kiwi-300">"channels"</span>
@@ -222,8 +222,8 @@ export const Overview: React.FC = () => (
 
     {/* ── Auth callout ─────────────────────────────────────── */}
     <Callout type="info" title="Two keys, two purposes">
-      Use your <strong>public key</strong> (<code>x-public-key</code>) for Gateway Integration.
-      Use your <strong>private key</strong> (<code>x-private-key</code>) for Server-to-Server calls and
+      Use your <strong>public key</strong> for Gateway Integration.
+      Use your <strong>private key</strong> for Server-to-Server calls and
       all transaction verification. Never expose the private key in frontend code.
     </Callout>
 

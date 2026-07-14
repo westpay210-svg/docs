@@ -6,10 +6,10 @@ export const authenticationEndpoint: ApiEndpoint = {
   method: "POST",
   url: "{baseUrl}/transaction/initialize",
   description:
-    "Westrapay uses public and private key authentication. Use your public key (x-public-key) for Gateway Integration and your private key (x-private-key) for Server-to-Server calls and transaction verification.",
+    "Westrapay uses public and private key authentication. Use your public key for Gateway Integration and your private key for Server-to-Server calls and transaction verification.",
   parameters: [
     {
-      name: "x-public-key",
+      name: "Authorization",
       type: "string",
       required: true,
       location: "header",
@@ -17,7 +17,7 @@ export const authenticationEndpoint: ApiEndpoint = {
       example: "pk_test_xxxxxxxxxxxx",
     },
     {
-      name: "x-private-key",
+      name: "Authorization",
       type: "string",
       required: true,
       location: "header",
@@ -33,7 +33,7 @@ export const authenticationEndpoint: ApiEndpoint = {
         status: true,
         message: "Checkout initialized",
         data: {
-          reference: "kf_ref_xxxxxxxxxxxxx",
+          reference: "xxxxxxxxxxxxx",
           checkoutUrl: "https://checkout.westrapay.com/pay/xxxxx",
         },
       },
@@ -53,7 +53,7 @@ export const authenticationEndpoint: ApiEndpoint = {
       code: `# Gateway Integration - Use public key
 curl --request POST \\
   --url https://api.westrapay.com/transaction/initialize \\
-  --header 'x-public-key: pk_test_xxxxxxxxxxxx' \\
+  --header 'Authorization': pk_test_xxxxxxxxxxxx' \\
   --header 'Content-Type: application/json' \\
   --data '{
     "amount": 100000,
@@ -65,7 +65,7 @@ curl --request POST \\
 # Server-to-Server - Use private key
 curl --request GET \\
   --url https://api.westrapay.com/v1/transaction/verify/{reference} \\
-  --header 'x-private-key: sk_test_xxxxxxxxxxxx'`,
+  --header 'Authorization: sk_test_xxxxxxxxxxxx'`,
     },
     {
       language: "javascript",
@@ -73,7 +73,7 @@ curl --request GET \\
 const checkout = await fetch('https://api.westrapay.com/transaction/initialize', {
   method: 'POST',
   headers: {
-    'x-public-key': 'pk_test_xxxxxxxxxxxx',
+    'Authorization': 'pk_test_xxxxxxxxxxxx',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
@@ -91,7 +91,7 @@ console.log(data.checkoutUrl);
 const verification = await fetch(\`https://api.westrapay.com/v1/transaction/verify/\${reference}\`, {
   method: 'GET',
   headers: {
-    'x-private-key': 'sk_test_xxxxxxxxxxxx'
+    'Authorization': 'sk_test_xxxxxxxxxxxx'
   }
 });
 
@@ -106,7 +106,7 @@ console.log(transaction.status);`,
 checkout_response = requests.post(
     "https://api.westrapay.com/transaction/initialize",
     headers={
-        "x-public-key": "pk_test_xxxxxxxxxxxx",
+        "Authorization": "pk_test_xxxxxxxxxxxx",
         "Content-Type": "application/json"
     },
     json={
@@ -123,7 +123,7 @@ print(checkout_data['data']['checkoutUrl'])
 # Server-to-Server - Use private key (backend only)
 verification_response = requests.get(
     f"https://api.westrapay.com/v1/transaction/verify/{reference}",
-    headers={"x-private-key": "sk_test_xxxxxxxxxxxx"}
+    headers={"Authorization": "sk_test_xxxxxxxxxxxx"}
 )
 
 transaction = verification_response.json()
@@ -303,7 +303,7 @@ console.log(data);`,
         status: 200,
         description: "Temporary account created successfully",
         example: {
-          accountName: "Tony Soprano - KiwiFinance",
+          accountName: "Tony Soprano - Westrapay",
           amount: 500,
           description: "",
           paymentRequestId: "a335309f-a814-47de-b0d6-cd273ca56f1e",
@@ -311,7 +311,7 @@ console.log(data);`,
           status: "PENDING",
           accountNumberExpiry: "2025-08-06T16:04:00.052953974",
           requestId: "VEGS328H939003193298",
-          institutionName: "KiwiFinance",
+          institutionName: "Westrapay",
           institutionCode: "090531",
         },
       },
@@ -560,7 +560,7 @@ print(data)`,
         status: 200,
         description: "Dynamic account created successfully",
         example: {
-          accountName: "John Doe - KiwiFinance",
+          accountName: "John Doe - Westrapay",
           amount: 100,
           description: "",
           paymentRequestId: "0b2fdfb2-3761-42db-a658-f4130e182420",
@@ -568,7 +568,7 @@ print(data)`,
           status: "PENDING",
           accountNumberExpiry: "2024-12-26T14:29:14.170820251",
           requestId: "DVA2384932240968778782",
-          institutionName: "KiwiFinance",
+          institutionName: "Westrapay",
           institutionCode: "090531",
         },
       },
@@ -696,7 +696,7 @@ print(data)`,
                 SENDER_ACCOUNT_NUMBER: "5099196595",
                 AMOUNT: "750.00",
                 EXTERNAL_REF: "edd54c96-3d75-4c0e-a406-26c9911dca11",
-                INSTITUTION_NAME: "KiwiFinance",
+                INSTITUTION_NAME: "Westrapay",
                 STATUS: "COMPLETED",
                 AMOUNT_REQUESTED: "1500.00",
               },

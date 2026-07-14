@@ -22,14 +22,14 @@ export const VerifyTransactionStatus: React.FC = () => {
     { name: 'status', type: 'string', description: 'The current status of the transaction. Refer to Transaction Status table.' },
     { name: 'statusCode', type: 'integer', description: 'The numerical code representing the transaction status. Refer to Transaction Status table.' },
     { name: 'grossAmount', type: 'decimal', description: 'The total transaction amount, including fees (e.g., 100.00).' },
-    { name: 'currencyCode', type: 'string', description: 'The currency used in the transaction (e.g., "USD", "NGN").' },
+    { name: 'currencyCode', type: 'string', description: 'The currency used in the transaction (e.g., "USD").' },
     { name: 'date', type: 'string', description: 'The date and time the transaction was initiated, formatted in ISO 8601 (YYYY-MM-DDTHH:MM:SSZ).' },
     { name: 'customerId', type: 'string', description: 'The unique identifier of the customer, which may include name and email.' }
   ];
 
   const errorCodes = [
     { code: '401', message: 'Unauthorized', description: 'Invalid merchant private key.' },
-    { code: '403', message: 'Forbidden', description: 'IP address not whitelisted.' },
+    { code: '403', message: 'Forbidden', description: 'Access denied. You do not have permission to perform this action.' },
     { code: '404', message: 'Not Found', description: 'Transaction reference not found.' }
   ];
 
@@ -79,7 +79,7 @@ export const VerifyTransactionStatus: React.FC = () => {
       />
 
       <Callout type="danger" title="Private key required">
-        This endpoint uses your private key (x-private-key header). Never expose it in client-side code.
+        This endpoint uses your private key (Authorization header). Never expose it in client-side code.
       </Callout>
 
       <div className="mb-8 mt-8">
@@ -169,10 +169,6 @@ export const VerifyTransactionStatus: React.FC = () => {
         <h3 className="text-[13px] font-semibold text-slate-700 mb-2 mt-4">HTTP 404: Not Found</h3>
         <CodeBlock code={error404Json} language="json" />
       </div>
-
-      <Callout type="warning" title="IP Whitelisting">
-        The merchant IP must be whitelisted for private key usage. Contact support to configure.
-      </Callout>
 
       <div className="mt-6">
         <Callout type="note">

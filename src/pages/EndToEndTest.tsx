@@ -5,15 +5,6 @@ import { Callout } from '../components/docs/Callout';
 export const EndToEndTest: React.FC = () => {
   const testCards = [
     {
-      number: "5060990580000217499",
-      expiry: "03/50",
-      cvv: "111",
-      pin: "1111",
-      otp: "123456",
-      description: "Verve card for successful transactions.",
-      type: "success",
-    },
-    {
       number: "4012000033330026",
       expiry: "03/50",
       cvv: "111",
@@ -39,15 +30,6 @@ export const EndToEndTest: React.FC = () => {
       otp: "NA",
       description: "Mastercard for successful transactions.",
       type: "success",
-    },
-    {
-      number: "5060990580000000390",
-      expiry: "10/40",
-      cvv: "111",
-      pin: "1111",
-      otp: "123456",
-      description: "Verve card for failed transactions (insufficient funds).",
-      type: "failed",
     },
     {
       number: "2223000000000023",
@@ -165,10 +147,6 @@ export const EndToEndTest: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      <Callout type="note">
-        Use any valid future date for expiry. PIN and OTP are only required for Verve cards.
-      </Callout>
 
       {/* OPay Bank Account */}
       <h2 className="text-base font-semibold text-slate-900 mb-4 mt-8">OPay Bank Account</h2>

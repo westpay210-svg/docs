@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import { Shield, Lock, Globe, AlertTriangle, Server, Check, ArrowRight, Key } from 'lucide-react';
+import { Shield, Lock, Globe, AlertTriangle, Server, Check, ArrowRight } from 'lucide-react';
 import { Environments } from './Environments';
 import { ChargeCard3DS } from './ChargeCard3DS';
 import { ChargeCard2DS } from './ChargeCard2DS';
-import { ChargeCardOTP } from './ChargeCardOTP';
 import { AuthorizeCardTransaction } from './AuthorizeCardTransaction';
 import { VerifyTransactionStatus } from './VerifyTransactionStatus';
 import { Refund } from './Refund';
@@ -14,7 +13,6 @@ import { TransactionHistory } from './TransactionHistory';
 const ServerToServerHome: React.FC = () => {
   const features = [
     { icon: Shield, text: '3D Secure (3DS) transactions for authentication and authorization' },
-    { icon: Key, text: 'Transaction authorization via OTP verification' },
     { icon: Check, text: 'Transaction status verification to track payments' },
     { icon: Lock, text: 'Industry-standard security protocols for safe transaction processing' },
   ];
@@ -198,7 +196,6 @@ export const ServerToServer: React.FC = () => {
       <Route path="environments" element={<Environments />} />
       <Route path="charge-card-3ds" element={<ChargeCard3DS />} />
       <Route path="charge-card-2ds" element={<ChargeCard2DS />} />
-      <Route path="charge-card-otp" element={<ChargeCardOTP />} />
       <Route path="authorize-card-transaction" element={<AuthorizeCardTransaction />} />
       <Route path="verify-transaction-status" element={<VerifyTransactionStatus />} />
       <Route path="refund" element={<Refund />} />

@@ -13,7 +13,7 @@ const quickStartCode = [
 const checkout = await fetch('https://api.westrapay.com/transaction/initialize', {
   method: 'POST',
   headers: {
-    'x-public-key': 'your-public-key',
+    'Authorization': 'your-public-key',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
@@ -29,7 +29,7 @@ const { checkoutUrl, reference } = await checkout.json();
 // Server-to-Server - Verify transaction (uses private key)
 const verification = await fetch(\`https://api.westrapay.com/v1/transaction/verify/\${reference}\`, {
   method: 'GET',
-  headers: { 'x-private-key': 'your-private-key' }
+  headers: { 'Authorization': 'your-private-key' }
 });
 
 const transaction = await verification.json();
@@ -42,7 +42,7 @@ console.log('Transaction Status:', transaction.status);`,
 # Gateway Integration - Initialize payment
 checkout_response = requests.post(
     'https://api.westrapay.com/transaction/initialize',
-    headers={'x-public-key': 'your-public-key', 'Content-Type': 'application/json'},
+    headers={'Authorization': 'your-public-key', 'Content-Type': 'application/json'},
     json={'amount': 100000, 'email': 'customer@example.com', 'currency': 'USD', 'channels': ['card', 'bank']}
 )
 
@@ -51,7 +51,7 @@ reference = checkout_response.json()['reference']
 # Verify transaction
 verification = requests.get(
     f'https://api.westrapay.com/v1/transaction/verify/{reference}',
-    headers={'x-private-key': 'your-private-key'}
+    headers={'Authorization': 'your-private-key'}
 )
 print(f"Status: {verification.json()['status']}")`,
   },
@@ -60,14 +60,14 @@ print(f"Status: {verification.json()['status']}")`,
     code: `# Initialize payment
 curl --request POST \\
   --url https://api.westrapay.com/transaction/initialize \\
-  --header 'x-public-key: your-public-key' \\
+  --header 'Authorization: your-public-key' \\
   --header 'Content-Type: application/json' \\
   --data '{"amount":100000,"email":"customer@example.com","currency":"USD","channels":["card","bank"]}'
 
 # Verify transaction
 curl --request GET \\
   --url https://api.westrapay.com/v1/transaction/verify/{reference} \\
-  --header 'x-private-key: your-private-key'`,
+  --header 'Authorization: your-private-key'`,
   },
 ];
 

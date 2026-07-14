@@ -5,11 +5,9 @@ import { PageHeader } from '../components/docs/PageHeader';
 import { Callout } from '../components/docs/Callout';
 
 const testCards = [
-  { number: '5060990580000217499', expiry: '03/50', cvv: '111', pin: '1111',  otp: '123456', description: 'Verve — successful transaction',           type: 'success'     },
   { number: '4012000033330026',    expiry: '03/50', cvv: '111', pin: 'NA',    otp: 'NA',     description: 'Visa — successful transaction',            type: 'success'     },
   { number: '4000000000002503',    expiry: '03/50', cvv: '111', pin: 'NA',    otp: 'NA',     description: 'Visa — failed transaction',                type: 'failed'      },
   { number: '5555555555554444',    expiry: '09/25', cvv: '111', pin: 'NA',    otp: 'NA',     description: 'Mastercard — successful transaction',      type: 'success'     },
-  { number: '5060990580000000390', expiry: '10/40', cvv: '111', pin: '1111',  otp: '123456', description: 'Verve — failed (insufficient funds)',      type: 'failed'      },
   { number: '2223000000000023',    expiry: '12/34', cvv: '123', pin: 'NA',    otp: '—',      description: 'Mastercard — frictionless (2DS)',          type: 'frictionless'},
 ];
 
@@ -118,7 +116,6 @@ export const Environments: React.FC = () => (
 
       <Callout type="note">
         Use any valid future date for expiry and any 3-digit number for CVV unless specified otherwise.
-        PIN and OTP fields are only required for Verve cards.
       </Callout>
     </section>
 

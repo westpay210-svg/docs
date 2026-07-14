@@ -8,7 +8,7 @@ import { StepList } from '../components/docs/StepList';
 export const Authentication: React.FC = () => {
   const authSteps = [
     { title: 'Get your API keys', description: 'Log in to your Westrapay dashboard and navigate to API Keys.' },
-    { title: 'Choose the right key', description: 'Use your public key (x-public-key header) for Gateway Integration. Use your private key (x-private-key header) for Server-to-Server calls and transaction verification.' },
+    { title: 'Choose the right key', description: 'Use your public key as Authorization for Gateway Integration. Use your private key as Authorization for Server-to-Server calls and transaction verification.' },
     { title: 'Add the header', description: 'Pass the key in the appropriate HTTP header on every request to the API.' },
     { title: 'Verify before fulfilling', description: 'Always verify transaction status with your private key before fulfilling orders or disbursing value.' },
   ];

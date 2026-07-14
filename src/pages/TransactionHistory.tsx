@@ -28,7 +28,7 @@ export const TransactionHistory: React.FC = () => {
     { name: 'transactionFee', type: 'decimal', description: 'Processing/Transaction fee deducted' },
     { name: 'settlementAmount', type: 'decimal', description: 'Net amount after fees' },
     { name: 'customerId', type: 'string', description: 'Unique customer identifier (e.g, email address)' },
-    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., USD/NGN).' },
+    { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., USD).' },
     { name: 'createdDate', type: 'string', description: 'Timestamp when the transaction was created.' },
     { name: 'status', type: 'integer', description: 'Refund status code (see Status Codes).' },
     { name: 'errorCode', type: 'string', description: 'Error code (0 = success)' }
