@@ -7,8 +7,8 @@ on:
 env:
   AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
   AWS_REGION: ${{ vars.AWS_REGION }}
-  ECR_REPOSITORY: web-documentation
-  IMAGE_URI: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/web-documentation
+  ECR_REPOSITORY: documentation
+  IMAGE_URI: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/documentation
 
 jobs:
   build-push-deploy:
@@ -48,34 +48,35 @@ jobs:
         run: |
           set -euo pipefail
           BR="${{ steps.branch.outputs.branch }}"
-
+          
           if [ "$BR" = "main" ]; then
-            echo "profile=prod"                                            >> "$GITHUB_OUTPUT"
-            echo "api_url=https://api.westrapay.com.com/"                      >> "$GITHUB_OUTPUT"
-            echo "container_name=web-documentation"                           >> "$GITHUB_OUTPUT"
+            echo "profile=prod"                                             >> "$GITHUB_OUTPUT"
+            echo "api_url=https://api.westrapay.com/"                     >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation"                        >> "$GITHUB_OUTPUT"
             echo "host_port=4004"                                          >> "$GITHUB_OUTPUT"
-            echo "secret_id=/web-documentation/prod/runtime-config"          >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/prod/runtime-config"       >> "$GITHUB_OUTPUT"
           elif [ "$BR" = "dev" ]; then
             echo "profile=dev"                                             >> "$GITHUB_OUTPUT"
-            echo "api_url=https://sandbox-api.westrapay.com.com/"              >> "$GITHUB_OUTPUT"
-            echo "container_name=web-documentation-dev"                      >> "$GITHUB_OUTPUT"
+            echo "api_url=https://sandbox-api.westrapay.com/"            >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation-dev"                   >> "$GITHUB_OUTPUT"
             echo "host_port=4004"                                          >> "$GITHUB_OUTPUT"
-            echo "secret_id=/web-documentation/dev/runtime-config"           >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/dev/runtime-config"        >> "$GITHUB_OUTPUT"
           else
             echo "profile=dev"                                             >> "$GITHUB_OUTPUT"
-            echo "api_url=https://sandbox-api.westrapay.com.com/"              >> "$GITHUB_OUTPUT"
-            echo "container_name=web-documentation-$BR"                      >> "$GITHUB_OUTPUT"
+            echo "api_url=https://sandbox-api.westrapay.com/"            >> "$GITHUB_OUTPUT"
+            echo "container_name=web-documentation-$BR"                   >> "$GITHUB_OUTPUT"
             echo "host_port=4400"                                          >> "$GITHUB_OUTPUT"
-            echo "secret_id=/web-documentation/dev/runtime-config"           >> "$GITHUB_OUTPUT"
+            echo "secret_id=/web-documentation/dev/runtime-config"        >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Build Next.js
+      - name: Build CRA
         env:
-          NEXT_PUBLIC_API_URL: ${{ steps.cfg.outputs.api_url }}
-          NEXT_PUBLIC_APP_VERSION: ${{ github.run_number }}
+          REACT_APP_API_URL: ${{ steps.cfg.outputs.api_url }}
+          REACT_APP_VERSION: ${{ github.run_number }}
           GENERATE_SOURCEMAP: "false"
+          CI: "false"
         run: |
-          echo "Building with API: $NEXT_PUBLIC_API_URL"
+          echo "Building with API: $REACT_APP_API_URL"
           npm run build
 
       - name: Configure AWS credentials (OIDC)
@@ -102,23 +103,23 @@ jobs:
             ${{ env.IMAGE_URI }}:${{ steps.branch.outputs.branch }}-${{ steps.branch.outputs.short_sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          # No build-args needed: NEXT_PUBLIC_* vars are baked in during the
-          # "Build Next.js" step above and shipped via .next/standalone in context.
+          # No build-args needed: REACT_APP_* vars are baked into the static
+          # bundle during the "Build CRA" step above and copied into the image.
 
       - name: Deploy via SSM (targets Project=westrapay, Env=<profile>)
         shell: bash
         run: |
           set -euo pipefail
-
+          
           BR="${{ steps.branch.outputs.branch }}"
           PROFILE="${{ steps.cfg.outputs.profile }}"
           CONTAINER="${{ steps.cfg.outputs.container_name }}"
           HOST_PORT="${{ steps.cfg.outputs.host_port }}"
           IMAGE="${IMAGE_URI}:${BR}"
-
+          
           echo "Deploying branch=$BR -> profile=$PROFILE"
           echo "Image: $IMAGE  Container: $CONTAINER"
-
+          
           COMMAND_ID=$(
             aws ssm send-command \
               --region "${AWS_REGION}" \
@@ -130,16 +131,16 @@ jobs:
                 \"aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\",
                 \"docker pull ${IMAGE}\",
                 \"docker rm -f ${CONTAINER} || true\",
-                \"docker run --name ${CONTAINER} -p ${HOST_PORT}:3000 --restart unless-stopped -d -e TZ=Africa/Lagos -e AWS_REGION=${AWS_REGION} -e SECRET_ID=${{ steps.cfg.outputs.secret_id }} ${IMAGE}\",
+                \"docker run --name ${CONTAINER} -p ${HOST_PORT}:3000 --restart unless-stopped -d -e TZ=Africa/Lagos ${IMAGE}\",
                 \"docker image prune -f || true\"
               ]" \
               --query "Command.CommandId" \
               --output text
           )
-
+          
           echo "SSM Command ID: $COMMAND_ID"
           sleep 8
-
+          
           aws ssm list-command-invocations \
             --region "${AWS_REGION}" \
             --command-id "$COMMAND_ID" \
