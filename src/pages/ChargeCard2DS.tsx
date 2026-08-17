@@ -66,12 +66,14 @@ export const ChargeCard2DS: React.FC = () => {
         "firstName": "John",
         "lastName": "Doe",
         "phoneNumber": "+2347064332071",
+        "dateOfBirth":"1990-01-01",
         "address": {
             "city": "Rome",
             "postcodeZip": "00184",
             "country": "IT",
             "street": "Via Cavour 21",
-            "stateProvinceCode":"DE"
+            "stateProvinceCode":"DE",
+            "stateProvince": "Delaware"
         }
     }
 }`;
