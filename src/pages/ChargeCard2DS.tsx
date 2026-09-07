@@ -20,7 +20,13 @@ export const ChargeCard2DS: React.FC = () => {
     { name: 'webhookURL', type: 'string', required: true, description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.' },
     { name: 'browserDetails', type: 'object', required: true, description: 'Detailed information about the payer\'s browser. When provided, increase the transaction success rate.' },
     { name: 'customer', type: 'object', required: true, description: 'Detailed information on the customer making the payment. When provided, it increases the transaction success rate' },
-    { name: 'Terminal ID (TID)', type: 'string', required: true, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' }
+    { name: 'Terminal ID (TID)', type: 'string', required: true, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' },
+    {
+      name: 'deviceId',
+      type: 'string',
+      required: false,
+      description: 'A unique identifier for the device initiating the transaction. (e.g mobile device ID or browser fingerprint). Used for fraud scoring and 3DS device binding.'
+    }
   ];
 
   const responseFields = [
@@ -49,6 +55,7 @@ export const ChargeCard2DS: React.FC = () => {
     "cvv": "123",
     "expiryYear": 25,
     "expiryMonth": 12,
+    "deviceId": "device12345",
     "browserDetails": {
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
         "acceptHeader": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
