@@ -4,6 +4,7 @@ import { Shield, Lock, Globe, AlertTriangle, Server, Check, ArrowRight } from 'l
 import { Environments } from './Environments';
 import { ChargeCard3DS } from './ChargeCard3DS';
 import { ChargeCard2DS } from './ChargeCard2DS';
+import { WalletCharge } from './WalletCharge';
 import { AuthorizeCardTransaction } from './AuthorizeCardTransaction';
 import { VerifyTransactionStatus } from './VerifyTransactionStatus';
 import { Refund } from './Refund';
@@ -196,6 +197,7 @@ export const ServerToServer: React.FC = () => {
       <Route path="environments" element={<Environments />} />
       <Route path="charge-card-3ds" element={<ChargeCard3DS />} />
       <Route path="charge-card-2ds" element={<ChargeCard2DS />} />
+      <Route path="wallet-charge" element={<WalletCharge />} />
       <Route path="authorize-card-transaction" element={<AuthorizeCardTransaction />} />
       <Route path="verify-transaction-status" element={<VerifyTransactionStatus />} />
       <Route path="refund" element={<Refund />} />
