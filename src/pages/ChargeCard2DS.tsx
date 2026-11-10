@@ -49,7 +49,7 @@ export const ChargeCard2DS: React.FC = () => {
     "reference": "000045mG7mTL022NzzQ1",
     "callbackUrl": "https://example.com/",
     "webhookUrl": "https://example.com/",
-    "sourceUrl": "https//sourceexample.com",
+    "sourceUrl": "https://sourceexample.com",
     "cardNumber": "5555555555554444",
     "tid": "TT9GMG",
     "cvv": "123",

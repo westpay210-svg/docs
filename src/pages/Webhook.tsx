@@ -29,11 +29,11 @@ export const Webhook: React.FC = () => {
     },
     {
       event: 'initiate.authentication',
-      description: 'This returns which payer authetication. mechanism recommends you use for a transaction. (3DS authetication version 1 or 2).',
+      description: 'This returns which payer authentication mechanism recommends you use for a transaction. (3DS authentication version 1 or 2).',
     },
     {
       event: 'authenticate.payer',
-      description: 'This notification is sent after the Autheticate Payer process is completed.',
+      description: 'This notification is sent after the Authenticate Payer process is completed.',
     },
     {
       event: 'authorization',
@@ -53,7 +53,7 @@ export const Webhook: React.FC = () => {
     },
     {
       event: 'void',
-      description: 'This notification is sent on completeion of a Void transaction operatin.',
+      description: 'This notification is sent on completion of a Void transaction operation.',
     },
     {
       event: 'verify',

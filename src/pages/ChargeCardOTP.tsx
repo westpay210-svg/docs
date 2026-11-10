@@ -83,8 +83,8 @@ export const ChargeCardOTP: React.FC = () => {
   "currency": "USD",
   "reference": "{{Randomstring}}",
   "callbackUrl": "https://merchant.com/callback",
-  "webhookURL": "httpss://merchantwebhookurl.com", //If passed, and if webhook notification is enabled for merchant
-  "sourceUrl": "https//sourceexample.com",
+  "webhookURL": "https://merchantwebhookurl.com", //If passed, and if webhook notification is enabled for merchant
+  "sourceUrl": "https://sourceexample.com",
   "cardPin": 1111,
   "deviceId": "device12345"
 }`;
