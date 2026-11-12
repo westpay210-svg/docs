@@ -17,10 +17,10 @@ export const ChargeCard2DS: React.FC = () => {
     { name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.' },
     { name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.' },
     { name: 'sourceUrl', type: 'string', required: false, description: 'The originating URL.' },
-    { name: 'webhookURL', type: 'string', required: true, description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.' },
+    { name: 'webhookUrl', type: 'string', required: true, description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.' },
     { name: 'browserDetails', type: 'object', required: true, description: 'Detailed information about the payer\'s browser. When provided, increase the transaction success rate.' },
-    { name: 'customer', type: 'object', required: true, description: 'Detailed information on the customer making the payment. When provided, it increases the transaction success rate' },
-    { name: 'Terminal ID (TID)', type: 'string', required: true, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' },
+    { name: 'customer', type: 'object', required: true, description: 'Detailed information on the customer making the payment. Providing complete details also increases the transaction success rate.' },
+    { name: 'tid', type: 'string', required: true, description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)' },
     {
       name: 'deviceId',
       type: 'string',
@@ -33,13 +33,17 @@ export const ChargeCard2DS: React.FC = () => {
     { name: 'status', type: 'int', description: 'HTTP status code.' },
     { name: 'message', type: 'string', description: 'Transaction response message.' },
     { name: 'data', type: 'object', description: 'The transaction response data.' },
-    { name: 'status', type: 'object', description: 'The authorization status.' },
-    { name: 'authorizationType', type: 'string', description: 'Indicates the type of authentication required.' },
-    { name: 'acsUrl', type: 'string', description: 'The URL to which the customer must be redirected to complete 3DS authentication.' },
+    { name: 'data.status', type: 'int', description: 'The authorization status.' },
+    { name: 'authorizationType', type: 'string', description: 'Indicates the type of authentication used (2DS).' },
+    { name: 'callbackUrl', type: 'string', description: 'The merchant callback URL for this transaction.' },
+    { name: 'ref', type: 'string', description: 'Processor-assigned reference for the transaction.' },
+    { name: 'grossAmount', type: 'decimal', description: 'The gross amount charged.' },
     { name: 'reference', type: 'string', description: 'A unique reference for the transaction, used to track the payment process.' },
-    { name: 'version', type: 'string', description: 'Version of 3D Secure being used.' },
-    { name: 'errors', type: 'array', description: 'A list of errors, if any.' },
-    { name: 'paymentRequestor', type: 'string', description: 'The entity or system initiating the payment request, such as a the merchant.' }
+    { name: 'errorMessage', type: 'string', description: 'Human-readable result message (e.g. "Approved").' },
+    { name: 'errorCode', type: 'string', description: 'Processor result code (e.g. "00" for approved).' },
+    { name: 'paymentRequestor', type: 'string', description: 'The entity or system initiating the payment request, such as a the merchant.' },
+    { name: 'version', type: 'string', description: 'The authentication version used (2DS).' },
+    { name: 'errors', type: 'array', description: 'A list of errors, if any.' }
   ];
 
   const requestBodyJson = `{
@@ -52,9 +56,9 @@ export const ChargeCard2DS: React.FC = () => {
     "sourceUrl": "https://sourceexample.com",
     "cardNumber": "5555555555554444",
     "tid": "TT9GMG",
-    "cvv": "123",
-    "expiryYear": 25,
-    "expiryMonth": 12,
+    "cvv": "111",
+    "expiryYear": "30",
+    "expiryMonth": "09",
     "deviceId": "device12345",
     "browserDetails": {
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",

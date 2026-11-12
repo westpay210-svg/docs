@@ -62,7 +62,7 @@ export const VerifyTransactionStatus: React.FC = () => {
 
   const error403Json = `{
   "status": "error",
-  "message": "Access denied. Your IP address is not whitelisted."
+  "message": "Access denied. You do not have permission to perform this action."
 }`;
 
   const error404Json = `{

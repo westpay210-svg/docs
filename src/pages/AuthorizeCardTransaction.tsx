@@ -35,7 +35,7 @@ export const AuthorizeCardTransaction: React.FC = () => {
   ];
 
   const requestBodyJson = `{
-    "transactionReference": "fK3AcK_Y7Hg1B_r9mfM7",// Use the reference from the Charge a Card response
+    "transactionReference": "fK3AcK_Y7Hg1B_r9mfM7",
     "otp": "123456",
     "authorizationType": "OTP"
 }`;
@@ -99,6 +99,7 @@ export const AuthorizeCardTransaction: React.FC = () => {
       <div className="mb-8">
         <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
         <CodeBlock code={requestBodyJson} language="json" />
+        <p className="mt-3 text-[13px] text-slate-600">Use the <code>transactionReference</code> from the Charge a Card response.</p>
       </div>
 
       <div className="mb-8">
@@ -120,11 +121,14 @@ export const AuthorizeCardTransaction: React.FC = () => {
             <span className="text-[13px] text-slate-500">— Transaction successfully authorized</span>
           </div>
           <div className="flex items-center gap-3 px-4 py-3 border border-slate-200 rounded bg-white">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-[11px] font-bold">✕</span>
-            <span className="text-[13px] font-medium text-red-700">FAILED</span>
-            <span className="text-[13px] text-slate-500">— Authorization failed or declined</span>
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-[11px] font-bold">4</span>
+            <span className="text-[13px] font-medium text-red-700">DECLINED</span>
+            <span className="text-[13px] text-slate-500">— Transaction rejected by the payment processor or issuing bank</span>
           </div>
         </div>
+        <p className="mt-3 text-[13px] text-slate-500">
+          See the <Link to="/server-to-server/status-code" className="text-kiwi-700 hover:underline">Status Codes</Link> page for the full list of transaction status codes.
+        </p>
       </div>
 
       <div className="mb-8">

@@ -21,8 +21,8 @@ export const TransactionHistory: React.FC = () => {
   ];
 
   const responseFields = [
-    { name: 'transactionReference', type: 'string', description: 'Unique reference for the refund transaction.' },
-    { name: 'reference', type: 'decimal', description: 'Merchant\'s original order reference.' },
+    { name: 'transactionReference', type: 'string', description: 'Unique reference for the transaction.' },
+    { name: 'reference', type: 'string', description: 'Merchant\'s original order reference.' },
     { name: 'grossAmount', type: 'decimal', description: 'Original transaction amount.' },
     { name: 'requestedAmount', type: 'decimal', description: 'Amount requested by the merchant' },
     { name: 'transactionFee', type: 'decimal', description: 'Processing/Transaction fee deducted' },
@@ -30,7 +30,7 @@ export const TransactionHistory: React.FC = () => {
     { name: 'customerId', type: 'string', description: 'Unique customer identifier (e.g, email address)' },
     { name: 'currencyCode', type: 'string', description: 'Currency code (e.g., USD).' },
     { name: 'createdDate', type: 'string', description: 'Timestamp when the transaction was created.' },
-    { name: 'status', type: 'integer', description: 'Refund status code (see Status Codes).' },
+    { name: 'status', type: 'integer', description: 'Transaction status code (see Status Codes).' },
     { name: 'errorCode', type: 'string', description: 'Error code (0 = success)' }
   ];
 

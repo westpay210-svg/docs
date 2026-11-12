@@ -25,7 +25,7 @@ export const ChargeCard3DS: React.FC = () => {
         {name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for 3DS route.'},
         {name: 'sourceUrl', type: 'string', required: false, description: 'The originating URL.'},
         {
-            name: 'webhookURL',
+            name: 'webhookUrl',
             type: 'string',
             required: true,
             description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.'
@@ -40,10 +40,10 @@ export const ChargeCard3DS: React.FC = () => {
             name: 'customer',
             type: 'object',
             required: true,
-            description: 'Detailed information on the customer making the payment. When provided, it increases the transaction success rate'
+            description: 'Detailed information on the customer making the payment. Providing complete details also increases the transaction success rate.'
         },
         {
-            name: 'Terminal ID (TID)',
+            name: 'tid',
             type: 'string',
             required: true,
             description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)'
@@ -104,9 +104,9 @@ export const ChargeCard3DS: React.FC = () => {
     "sourceUrl": "https://sourceexample.com",
     "cardNumber": "5555555555554444",
     "tid": "TT9GMG",
-    "cvv": "123",
-    "expiryYear": 25,
-    "expiryMonth": 12,
+    "cvv": "111",
+    "expiryYear": "30",
+    "expiryMonth": "09",
     "deviceId": "device12345",
     "browserDetails": {
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",

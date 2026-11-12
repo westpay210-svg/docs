@@ -22,15 +22,15 @@ export const ChargeCardOTP: React.FC = () => {
         {name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction.'},
         {name: 'callbackUrl', type: 'string', required: true, description: 'Callback URL for notifications.'},
         {
-            name: 'webhookURL',
+            name: 'webhookUrl',
             type: 'string',
             required: true,
             description: 'Custom webhook URL for notifications. The webhookUrl must start with http or https to ensure it is a valid URL.'
         },
         {name: 'sourceUrl', type: 'string', required: false, description: 'The originating URL.'},
-        {name: 'cardPin', type: 'int', required: true, description: 'The card\'s PIN for additional authentication.'},
+        {name: 'cardPin', type: 'string', required: true, description: 'The card\'s PIN for additional authentication.'},
         {
-            name: 'Terminal ID (TID)',
+            name: 'tid',
             type: 'string',
             required: false,
             description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)'
@@ -75,17 +75,17 @@ export const ChargeCardOTP: React.FC = () => {
     const requestBodyJson = `{
   "cardNumber": "5060990580000217499",
   "tid": "TT9GMG",
-  "expiryYear": 50,
-  "expiryMonth": 5,
-  "cvv": "123",
-  "amount": 10000,// The amount is formatted in Cent (e.g., 10000 represents 100.00 in the base currency).
+  "expiryYear": "50",
+  "expiryMonth": "03",
+  "cvv": "111",
+  "amount": 10000,
   "email": "example@gmail.com",
   "currency": "USD",
-  "reference": "{{Randomstring}}",
+  "reference": "000045mG7mTL022NzzQ1",
   "callbackUrl": "https://merchant.com/callback",
-  "webhookURL": "https://merchantwebhookurl.com", //If passed, and if webhook notification is enabled for merchant
+  "webhookUrl": "https://merchantwebhookurl.com",
   "sourceUrl": "https://sourceexample.com",
-  "cardPin": 1111,
+  "cardPin": "1111",
   "deviceId": "device12345"
 }`;
 
@@ -152,6 +152,10 @@ export const ChargeCardOTP: React.FC = () => {
             <div className="mb-8">
                 <h2 className="text-base font-semibold text-slate-900 mb-4">Request Body</h2>
                 <CodeBlock code={requestBodyJson} language="json"/>
+                <ul className="mt-3 space-y-1 text-[13px] text-slate-600">
+                    <li>• <code>amount</code> is formatted in cents (e.g., 10000 represents 100.00 in the base currency).</li>
+                    <li>• <code>webhookUrl</code>, if passed, is used only if webhook notifications are enabled for the merchant.</li>
+                </ul>
             </div>
 
             <div className="mb-8">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import { Shield, Lock, Globe, AlertTriangle, Server, Check, ArrowRight } from 'lucide-react';
+import { Shield, Lock, Globe, AlertTriangle, Server, Check, ArrowRight, RotateCcw, History, Webhook } from 'lucide-react';
 import { Environments } from './Environments';
 import { ChargeCard3DS } from './ChargeCard3DS';
 import { ChargeCard2DS } from './ChargeCard2DS';
@@ -13,8 +13,11 @@ import { TransactionHistory } from './TransactionHistory';
 
 const ServerToServerHome: React.FC = () => {
   const features = [
-    { icon: Shield, text: '3D Secure (3DS) transactions for authentication and authorization' },
+    { icon: Shield, text: '3D Secure (3DS) and 2D Secure (2DS) card transactions for authentication and authorization' },
     { icon: Check, text: 'Transaction status verification to track payments' },
+    { icon: RotateCcw, text: 'Refunds for previously settled transactions' },
+    { icon: History, text: 'Transaction history lookups for reconciliation' },
+    { icon: Webhook, text: 'Webhook notifications for asynchronous transaction updates' },
     { icon: Lock, text: 'Industry-standard security protocols for safe transaction processing' },
   ];
 
@@ -75,12 +78,6 @@ const ServerToServerHome: React.FC = () => {
                   <Check className="h-3 w-3 text-red-400" />
                 </div>
                 <span className="text-sm text-slate-600">All requests must be initiated from the server to protect the merchant's private key.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-red-500/20 flex-shrink-0 mt-0.5">
-                  <Check className="h-3 w-3 text-red-400" />
-                </div>
-                <span className="text-sm text-slate-600">Requests must originate from whitelisted IP addresses associated with the private key.</span>
               </li>
             </ul>
           </div>

@@ -23,7 +23,7 @@ export const Refund: React.FC = () => {
   ];
 
   const responseFields = [
-    { name: 'transactionReference', type: 'string', description: 'Unique reference for the refund transaction.' },
+    { name: 'transactionReference', type: 'string', description: 'Unique reference of the original transaction that was refunded. The ID of the refund itself is returned as refundHistory[].refundId.' },
     { name: 'reference', type: 'string', description: 'Merchant\'s original order reference.' },
     { name: 'refundedAmount', type: 'decimal', description: 'Refunded transaction amount.' },
     { name: 'transactionAmount', type: 'decimal', description: 'Original transaction amount.' },
