@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
       { id: 'environments', title: 'Environments', href: '/server-to-server/environments' },
       { id: 'charge-card-3ds', title: 'Charge Card (3DS)', href: '/server-to-server/charge-card-3ds' },
       { id: 'charge-card-2ds', title: 'Charge Card (2DS)', href: '/server-to-server/charge-card-2ds' },
-      { id: 'wallet-charge', title: 'ApplePay / OPay / PalmPay', href: '/server-to-server/wallet-charge' },
+      { id: 'wallet-charge', title: 'APMs', href: '/server-to-server/wallet-charge' },
       { id: 'authorize-card-transaction', title: 'Authorize Transaction', href: '/server-to-server/authorize-card-transaction' },
       { id: 'verify-transaction-status', title: 'Verify Status', href: '/server-to-server/verify-transaction-status' },
       { id: 'refund', title: 'Refund', href: '/server-to-server/refund' },

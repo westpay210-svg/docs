@@ -118,8 +118,7 @@ export const ChargeCard3DS: React.FC = () => {
         "screenWidth": 1920,
         "timeZone": -60,
         "javaScriptEnabled": true,
-        "ipAddress": "192.168.1.1",
-        "cardTrustLevel": "FTD"
+        "ipAddress": "192.168.1.1"
     },
     "customer": {
         "firstName": "Jane",

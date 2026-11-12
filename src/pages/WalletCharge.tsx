@@ -10,16 +10,15 @@ export const WalletCharge: React.FC = () => {
     const requestParameters = [
         {name: 'amount', type: 'int', required: true, description: 'The transaction amount. (in cents format e.g "1000" is 10 USD)'},
         {name: 'email', type: 'string', required: true, description: 'The email address of the customer/cardholder.'},
-        {name: 'currency', type: 'string', required: false, description: 'The transaction currency. Supported values: NGN, GHS, ZAR, USD. Defaults to your integration\'s primary currency.'},
+        {name: 'currency', type: 'string', required: true, description: 'The transaction currency. Supported values: NGN, GHS, ZAR, USD. Defaults to your integration\'s primary currency.'},
         {name: 'reference', type: 'string', required: true, description: 'A unique reference for the transaction. Only alphanumeric characters, \'.\', \'-\', and \'=\' are allowed.'},
         {name: 'callbackUrl', type: 'string', required: true, description: 'A fully qualified URL to override the callback URL set on your dashboard for this transaction. Must start with http or https.'},
         {name: 'webhookUrl', type: 'string', required: false, description: 'Custom webhook URL for notifications. Must start with http or https to be valid.'},
         {name: 'bearer', type: 'int', required: false, description: 'Who bears the transaction fee (1 = merchant, 2 = customer).'},
-        {name: 'processor', type: 'string', required: true, description: 'The wallet processor to route this transaction to. One of: APPLEPAY, OPAY, PALMPAY.'},
-        {name: 'cardTrustLevel', type: 'string', required: false, description: 'Trust level for transaction processing. Defaults to TRUSTED.'},
+        {name: 'processor', type: 'string', required: true, description: 'The wallet processor to route this transaction to. One of: APPLEPAY, OPAY, PALMPAY, GOOGLEPAY.'},
         {name: 'browserDetails', type: 'object', required: false, description: 'Detailed information about the payer\'s browser. When provided, increases the transaction success rate.'},
         {name: 'customer', type: 'object', required: false, description: 'Detailed information on the customer making the payment. Used by the ApplePay processor; ignored by OPay and PalmPay.'},
-        {name: 'tid', type: 'string', required: false, description: 'Terminal ID (TID). Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID).'},
+        {name: 'tid', type: 'string', required: true, description: 'Terminal ID (TID). Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID).'},
         {name: 'sourceUrl', type: 'string', required: false, description: 'The originating URL.'}
     ];
 
@@ -29,7 +28,7 @@ export const WalletCharge: React.FC = () => {
         {name: 'lastName', type: 'string', required: false, description: 'The payer\'s last name.'},
         {name: 'phoneNumber', type: 'string', required: false, description: 'The payer\'s phone number.'},
         {name: 'dateOfBirth', type: 'string', required: false, description: 'The payer\'s date of birth, in yyyy-mm-dd format.'},
-        {name: 'address', type: 'object', required: false, description: 'Billing address (city, company, country, postcodeZip, stateProvince, stateProvinceCode, street).'}
+        {name: 'address', type: 'object', required: false, description: 'Billing address (city, country, postcodeZip, stateProvince, stateProvinceCode, street).'}
     ];
 
     const responseFields = [
@@ -60,7 +59,6 @@ export const WalletCharge: React.FC = () => {
     "webhookUrl": "https://example.com/",
     "bearer": 1,
     "processor": "APPLEPAY",
-    "cardTrustLevel": "TRUSTED",
     "browserDetails": {
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
         "acceptHeader": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -122,8 +120,8 @@ export const WalletCharge: React.FC = () => {
         <div className="max-w-4xl">
             <PageHeader
                 label="Server to Server"
-                title="ApplePay / OPay / PalmPay"
-                description="Initialize a server-to-server wallet transaction for ApplePay, OPay, or PalmPay, selected via the processor field. Google Pay is not currently supported."
+                title="APMs"
+                description="Initialize a server-to-server Alternative Payment Method (APM) transaction for ApplePay, OPay, PalmPay, or Google Pay, selected via the processor field."
             />
 
             <div className="mb-8">
@@ -165,7 +163,7 @@ export const WalletCharge: React.FC = () => {
             </div>
 
             <div className="mb-8">
-                <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response &mdash; processor: OPAY / PALMPAY</h2>
+                <h2 className="text-base font-semibold text-slate-900 mb-4">Success Response &mdash; processor: OPAY / PALMPAY / GOOGLEPAY</h2>
                 <CodeBlock code={opayPalmpaySuccessResponseJson} language="json"/>
             </div>
 

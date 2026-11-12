@@ -32,7 +32,7 @@ export const ChargeCardOTP: React.FC = () => {
         {
             name: 'tid',
             type: 'string',
-            required: false,
+            required: true,
             description: 'Uniquely identifies a specific payment terminal, virtual endpoint, or logical channel under a merchant account (MID)'
         },
         {
